@@ -1,0 +1,22 @@
+body {
+    font: 18px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+  }
+  
+  ol, ul {
+    padding-left: 30px;
+  }
+  
+  .timer {
+    background: white;
+    border: 1px solid #999;
+    /* float: left; */
+    font-size: 24px;
+    font-weight: bold;
+    padding: 2;
+    text-align: center;
+  }
+  
+  .timerLabel {
+    margin-right: 10px;
+  }
