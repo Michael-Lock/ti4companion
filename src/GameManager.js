@@ -11,6 +11,7 @@ class GameManager extends React.Component {
         super(props);
         this.state = {
             gameMode: MODE_PLAYER_SELECT,
+            // gameMode: MODE_STRATEGY,
         };
     }
 
