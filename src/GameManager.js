@@ -10,9 +10,17 @@ class GameManager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            playerDetails: null,
             gameMode: MODE_PLAYER_SELECT,
-            // gameMode: MODE_STRATEGY,
         };
+    }
+
+    handleGameStart(playerDetails) {
+        this.setState ({
+            playerDetails: playerDetails,
+            gameMode: MODE_STRATEGY,
+        });
+        console.log(playerDetails);
     }
 
     renderGameComponent() {
@@ -31,7 +39,7 @@ class GameManager extends React.Component {
     renderPlayerSelect() {
         return (
             <div>
-                <PlayerSelect/>
+                <PlayerSelect onStartGame={playerDetails => this.handleGameStart(playerDetails)}/>
             </div>
         );
     }

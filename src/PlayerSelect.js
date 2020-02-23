@@ -107,6 +107,14 @@ class PlayerSelect extends React.Component {
         console.log("New Colour is " + playerDetails[playerNumber].colour + " for index " + playerNumber);
     }
 
+    handleStartGame() {
+        if (this.props.onStartGame) {
+            let finalPlayerDetails = this.state.playerDetails.slice(0, this.state.selectedNumberOfPlayers)
+
+            return () => this.props.onStartGame(finalPlayerDetails)
+        }
+    }
+
     render() {
         const playerNumberSelections = this.determineSelection();
 
@@ -119,7 +127,7 @@ class PlayerSelect extends React.Component {
                         onClick={playerNumber => this.playerNumberButtonHandleClick(playerNumber)}
                     />
                 </div>
-                <div>
+                <form>
                     <PlayerDetailForm 
                         numberOfPlayers={this.state.selectedNumberOfPlayers} 
                         playerDetails={this.state.playerDetails}
@@ -127,12 +135,13 @@ class PlayerSelect extends React.Component {
                         onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
                         onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
                     />
-                </div>
+                    <button type="button" onClick={this.handleStartGame()}>
+                        Start Game
+                    </button>
+                </form>
             </div>
         )
     }
-
-
 }
 
 
@@ -193,9 +202,9 @@ class PlayerDetailForm extends React.Component {
 
     render() {
         return (
-            <form>
+            <div>
                 {this.renderPlayerDetailEntries()}
-            </form>
+            </div>
         );
     }
 }
