@@ -1,6 +1,7 @@
 import React from 'react';
 import TimerBlock from './TimerBlock';
 import PlayerSelect from './PlayerSelect';
+import StrategySelect from './StrategySelect';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -21,6 +22,21 @@ class GameManager extends React.Component {
             gameMode: MODE_STRATEGY,
         });
         console.log(playerDetails);
+    }
+
+    handlePlayerStrategyChange(e, playerNumber) {
+        let playerDetails = this.state.playerDetails.slice();
+        playerDetails[playerNumber].strategy = e.target.value;
+        this.setState ({
+            playerDetails: playerDetails,
+        });
+        console.log("New Strategy is " + playerDetails[playerNumber].strategy + " for index " + playerNumber);
+    }
+
+    handleRoundStart() {
+        this.setState ({
+            gameMode: MODE_STATUS_BOARD,
+        });
     }
 
     renderGameComponent() {
@@ -48,8 +64,13 @@ class GameManager extends React.Component {
         return (
             <div>
                 <h1>Strategy Phase</h1>
-                <TimerBlock id="totalTimer" label="Total Time" baseSeconds={5500} currentSeconds={0} isCounting={true}/>
-                <TimerBlock id="turnTimer" label="Turn Time" baseSeconds={0} currentSeconds={0} isCounting={false}/>
+                <StrategySelect 
+                    playerDetails={this.state.playerDetails} 
+                    onStartRound={() => this.handleRoundStart()}
+                    onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
+                />
+                {/* <TimerBlock id="totalTimer" label="Total Time" baseSeconds={5500} currentSeconds={0} isCounting={true}/>
+                <TimerBlock id="turnTimer" label="Turn Time" baseSeconds={0} currentSeconds={0} isCounting={false}/> */}
             </div>
         );
     }
