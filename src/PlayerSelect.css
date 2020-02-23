@@ -1,0 +1,21 @@
+.playerNumButton {
+    background-image: url("./assets/multiple-users-silhouette-grey.svg");
+    background-size: 90%, 75%;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: transparent;
+    color: grey;
+    /* border: 1px solid #999; */
+    border: none;
+    /* float: left; */
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 60px;
+    text-align: center;
+    height: 100px;
+    width: 75px;
+  }
+
+.selectedPlayerNumButton {
+    background-image: url("./assets/multiple-users-silhouette.svg");
+}
