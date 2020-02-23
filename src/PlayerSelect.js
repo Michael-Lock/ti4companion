@@ -1,31 +1,69 @@
 import React from 'react';
-import TimerBlock from './TimerBlock';
 import './PlayerSelect.css';
-import playerIcon from './assets/multiple-users-silhouette.svg';
 
-const PLAYER_NUMBER_BUTTON_ARRAY_OFFSET = 3; //player 3 is array index 0
+const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
+
+const COLOURS = [
+    {description: null, colour: null},
+    {description: "Red", colour: "red"},
+    {description: "Blue", colour: "blue"},
+    {description: "Green", colour: "green"},
+    {description: "Yellow", colour: "yellow"},
+    {description: "Purple", colour: "purple"},
+    {description: "Black", colour: "black"},
+]
 
 class PlayerSelect extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedNumberOfPlayers: null,
+            //TODO dynamically populate player number as index
+            playerDetails: [
+                this.createPlayer(0),
+                this.createPlayer(1),
+                this.createPlayer(2),
+                this.createPlayer(3),
+                this.createPlayer(4),
+                this.createPlayer(5),
+            ]
         };
     }
 
+    createPlayer(playerNumber) {
+        var playerDetail = {
+            playerName: "Player " + (playerNumber + 1),
+            playerNumber: playerNumber,
+            faction: "",
+        }
+        return playerDetail;
+    }
+
     playerNumberButtonHandleClick(playerNumber) {
+        //if the existing option is selected, deselect it
+        let deselected = this.state.selectedNumberOfPlayers === playerNumber
+
         this.setState({
-            selectedNumberOfPlayers: this.state.selectedNumberOfPlayers === playerNumber ? null : playerNumber, //select new or deselect if existing
+            selectedNumberOfPlayers: deselected ? null : playerNumber,
         });
     }
 
     determineSelection() {
         let playerNumberSelections = Array(4).fill(false);
         if (this.state.selectedNumberOfPlayers !== null) {
-            playerNumberSelections[this.state.selectedNumberOfPlayers - PLAYER_NUMBER_BUTTON_ARRAY_OFFSET] = true;
+            playerNumberSelections[this.state.selectedNumberOfPlayers - PLAYER_NUMBER_INDEX_OFFSET] = true;
         }
 
         return playerNumberSelections;
+    }
+
+    handlePlayerNameChange(e, playerNumber) {
+        let playerDetails = this.state.playerDetails.slice();
+        playerDetails[playerNumber].playerName = e.target.value;
+        this.setState ({
+            playerDetails: playerDetails,
+        });
+        console.log("New Name is " + playerDetails[playerNumber].playerName + " for index " + playerNumber);
     }
 
     render() {
@@ -41,7 +79,11 @@ class PlayerSelect extends React.Component {
                     />
                 </div>
                 <div>
-                    <PlayerDetailEntry/>
+                    <PlayerDetailForm 
+                        numberOfPlayers={this.state.selectedNumberOfPlayers} 
+                        playerDetails={this.state.playerDetails}
+                        onPlayerNameChange={(e, playerNumber) => this.handlePlayerNameChange(e, playerNumber)}
+                    />
                 </div>
             </div>
         )
@@ -52,12 +94,8 @@ class PlayerSelect extends React.Component {
 
 
 class PlayerNumberSelect extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderPlayerNumberButton(playerNumber) {
-        const isSelected = this.props.playerNumberSelections[playerNumber - PLAYER_NUMBER_BUTTON_ARRAY_OFFSET];
+        const isSelected = this.props.playerNumberSelections[playerNumber - PLAYER_NUMBER_INDEX_OFFSET];
 
         return (<PlayerNumberButton
             value={playerNumber}
@@ -92,21 +130,110 @@ function PlayerNumberButton(props) {
 }
 
 
-class PlayerDetailEntry extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            playerNumber: props.playerNumber,
-            playerName: props.name,
-            faction: props.faction,
-            colour: props.colour,
+class PlayerDetailForm extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    // }
+
+    renderPlayerDetailEntries() {
+        let playerDetailEntries = Array(this.props.numberOfPlayers);
+        for (let i = 0; i < this.props.numberOfPlayers; i++) {
+            playerDetailEntries[i] = <PlayerDetailEntry 
+                key={i}
+                playerDetail={this.props.playerDetails[i]}
+                onPlayerNameChange={e => this.props.onPlayerNameChange(e, i)}
+            />;
         }
+
+        return (<div>
+            {playerDetailEntries}
+        </div>);
+    }
+
+    render() {
+        return (
+            <form>
+                {this.renderPlayerDetailEntries()}
+            </form>
+        );
+    }
+}
+
+
+class PlayerDetailEntry extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         playerNumber: props.playerNumber,
+    //         playerName: props.name,
+    //         faction: props.faction,
+    //         colour: props.colour,
+    //         factionList: null,
+    //     }
+    // }
+
+    //TODO: could have a list of unselected factions passed down to prevent duplicates
+    //TODO: work out a better way of recording all the faction details (enum equivalent?)
+    getFactionList() {
+        let factions = [
+            "",
+            "Arborec",
+            "Barony of Letnev",
+            "Clan of Saar",
+            "Embers of Muaat",
+            "Emirates of Hacan",
+            "Federation of Sol",
+            "Ghosts of Creuss",
+            "L1Z1X Mindnet",
+            "Mentak Coalition",
+            "Naalu Collective",
+            "Nekro Virus",
+            "Sardakk N’orr",
+            "Universities of Jol-Nar",
+            "Winnu",
+            "Xxcha Kingdom",
+            "Yin Brotherhood",
+            "Yssaril Tribes"
+        ]
+
+        let factionElements = Array(factions.length).fill(null);
+        for (let i = 0; i < factions.length; i++) {
+            factionElements[i] = 
+                <option key={i} value={factions[i]}>
+                    {factions[i]}
+                </option>
+        }
+
+        //TODO: consider a datalist instead. Allows type-ahead but clearing is clunky
+        return <select id="factions" required defaultValue={this.props.playerDetail.faction}>
+            {factionElements}
+        </select>;
+    }
+
+    getColourList() {
+        let colourElements = Array(COLOURS.length).fill(null);
+        for (let i = 0; i < COLOURS.length; i++) {
+            colourElements[i] = 
+                <option key={i} value={COLOURS[i].description}>
+                    {COLOURS[i].description}
+                </option>
+        }
+
+        return <select id="colours" required defaultValue={this.props.playerDetail.colour}>
+            {colourElements}
+        </select>;
     }
 
     render() {
         return (
             <div>
-                <input type={"text"}></input>
+                <input 
+                    type="text"
+                    defaultValue={this.props.playerDetail.playerName} 
+                    onChange={this.props.onPlayerNameChange}
+                />
+                {this.getFactionList()}
+                {this.getColourList()}
             </div>
         );
     }

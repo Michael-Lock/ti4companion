@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import App from './App';
-import TimerBlock from './TimerBlock';
 import GameManager from './GameManager';
 import * as serviceWorker from './serviceWorker';
 
