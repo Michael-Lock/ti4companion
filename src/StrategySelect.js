@@ -5,34 +5,15 @@ const STRATEGIES = [
     {name: "", number: null, colour: null},
     {name: "Leadership", number: 1, colour: "red"},
     {name: "Diplomacy", number: 2, colour: "orange"},
+    {name: "Politics", number: 3, colour: "yellow"},
+    {name: "Construction", number: 4, colour: "dark-green"},
+    {name: "Trade", number: 5, colour: "light-green"},
+    {name: "Warfare", number: 6, colour: "cyan"},
+    {name: "Technology", number: 7, colour: "dark-blue"},
+    {name: "Imperial", number: 8, colour: "purple"},
 ];
 
 class StrategySelect extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         selectedNumberOfPlayers: null,
-    //         //TODO dynamically populate player number as index
-    //         playerDetails: [
-    //             this.createPlayer(0),
-    //             this.createPlayer(1),
-    //             this.createPlayer(2),
-    //             this.createPlayer(3),
-    //             this.createPlayer(4),
-    //             this.createPlayer(5),
-    //         ]
-    //     };
-    // }
-
-    handlePlayerStrategyChange(e, playerNumber) {
-        let playerDetails = this.props.playerDetails.slice();
-        playerDetails[playerNumber].strategy = e.target.value;
-        // this.setState ({
-        //     playerDetails: playerDetails,
-        // });
-        console.log("New Strategy is " + playerDetails[playerNumber].strategy + " for index " + playerNumber);
-    }
-    
     handleStartRound() {
         if (this.props.onStartRound) {
             return () => this.props.onStartRound()
@@ -48,7 +29,6 @@ class StrategySelect extends React.Component {
                 <form>
                     <PlayerStrategyForm
                         playerDetails={this.props.playerDetails}
-                        // onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
                         onPlayerStrategyChange={(e, playerNumber) => this.props.onPlayerStrategyChange(e, playerNumber)}
                     />
                     <button type="button" onClick={this.handleStartRound()}>
