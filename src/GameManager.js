@@ -1,5 +1,4 @@
 import React from 'react';
-import TimerBlock from './TimerBlock';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 
