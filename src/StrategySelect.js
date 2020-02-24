@@ -87,13 +87,10 @@ class PlayerStrategyForm extends React.Component {
 
 class PlayerStrategyEntry extends React.Component {
     getStrategyList() {
-        let strategyElements = Array(STRATEGIES.length).fill(null);
-        for (let i = 0; i < STRATEGIES.length; i++) {
-            strategyElements[i] = 
-                <option key={i} value={STRATEGIES[i].name}>
-                    {STRATEGIES[i].name}
-                </option>
-        }
+        let strategyElements = STRATEGIES.map((strategy) => 
+            <option key={strategy.name} value={strategy.name}>
+                {strategy.name}
+            </option>);
 
         return <select 
             id="strategies" 
