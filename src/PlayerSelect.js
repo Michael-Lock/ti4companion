@@ -214,13 +214,10 @@ class PlayerDetailEntry extends React.Component {
     //TODO: could have a list of unselected factions passed down to prevent duplicates
     //TODO: work out a better way of recording all the faction details (enum equivalent?)
     getFactionList() {
-        let factionElements = Array(FACTIONS.length).fill(null);
-        for (let i = 0; i < FACTIONS.length; i++) {
-            factionElements[i] = 
-                <option key={i} value={FACTIONS[i]}>
-                    {FACTIONS[i]}
-                </option>
-        }
+        let factionElements = FACTIONS.map((faction) => 
+            <option key={faction} value={faction}>
+                {faction}
+            </option>);
 
         //TODO: consider a datalist instead. Allows type-ahead but clearing is clunky
         return <select 
@@ -234,13 +231,10 @@ class PlayerDetailEntry extends React.Component {
     }
 
     getColourList() {
-        let colourElements = Array(COLOURS.length).fill(null);
-        for (let i = 0; i < COLOURS.length; i++) {
-            colourElements[i] = 
-                <option key={i} value={COLOURS[i].description}>
-                    {COLOURS[i].description}
-                </option>
-        }
+        let colourElements = COLOURS.map((colour) => 
+        <option key={colour.description} value={colour.description}>
+            {colour.description}
+        </option>);
 
         return <select 
             id="colours" 
