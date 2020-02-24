@@ -1,6 +1,7 @@
 import React from 'react';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
+import StatusBoard from './StatusBoard';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -12,6 +13,7 @@ class GameManager extends React.Component {
         this.state = {
             playerDetails: null,
             gameMode: MODE_PLAYER_SELECT,
+            roundNumber: 0,
         };
     }
 
@@ -35,6 +37,7 @@ class GameManager extends React.Component {
     handleRoundStart() {
         this.setState ({
             gameMode: MODE_STATUS_BOARD,
+            roundNumber: this.state.roundNumber + 1,
         });
     }
 
@@ -78,6 +81,7 @@ class GameManager extends React.Component {
         return (
             <div>
                 <h1>Status Board</h1>
+                <StatusBoard roundNumber = {this.state.roundNumber}/>
             </div>
         );
     }

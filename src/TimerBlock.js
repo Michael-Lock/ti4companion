@@ -79,10 +79,10 @@ class TimerBlock extends React.Component {
         const time = parseTime(this.state.currentSeconds);
 
         return (
-            <div className="Timer">
+            <span className="Timer">
                 <label className="timerLabel">{this.state.label}</label>
                 <Timer time={time} onClick={() => this.handleClick()} />
-            </div>
+            </span>
         );
     }
 }
