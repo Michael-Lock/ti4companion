@@ -86,18 +86,23 @@ class PlayerStrategyEntry extends React.Component {
     render() {
         return (
             <div>
-                {/* <input 
+                <input 
+                    key="playerName"
                     type="text"
                     defaultValue={this.props.playerDetail.playerName} 
-                    onChange={this.props.onPlayerNameChange}
-                /> */}
+                    disabled
+                />
+                <input 
+                    key="playerFaction"
+                    type="text"
+                    defaultValue={this.props.playerDetail.faction} 
+                    disabled
+                />
                 {this.getStrategyList()}
             </div>
         );
     }
 }
-
-
 
 
 export default StrategySelect;
