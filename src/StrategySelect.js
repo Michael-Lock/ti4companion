@@ -43,13 +43,23 @@ class StrategySelect extends React.Component {
 
 class PlayerStrategyForm extends React.Component {
     renderPlayerStrategyEntries() {
-        let playerStrategyEntries = this.props.playerDetails.map(playerDetail => 
-            <PlayerStrategyEntry
-                key={playerDetail.playerNumber}
-                playerDetail={playerDetail}
-                onStrategyChange={e => this.props.onPlayerStrategyChange(e, playerDetail.playerNumber)}
-            />);
+        const players = this.props.playerDetails.slice();
+        var speakerIndex = 0;
+        for (let i = 0; i < players.length; i++) {
+            speakerIndex = players[i].isSpeaker ? i : speakerIndex;
+        }
 
+        let playerStrategyEntries = Array(players.length).fill(null);
+        for (let i = 0; i < players.length; i++) {
+            let destinationIndex = (((i - speakerIndex) % players.length) + players.length) % players.length;
+            playerStrategyEntries[destinationIndex] =
+                <PlayerStrategyEntry
+                    key={players[i].playerNumber}
+                    playerDetail={players[i]}
+                    onStrategyChange={e => this.props.onPlayerStrategyChange(e, players[i].playerNumber)}
+                />
+        }
+            
         return (<div>
             {playerStrategyEntries}
         </div>);

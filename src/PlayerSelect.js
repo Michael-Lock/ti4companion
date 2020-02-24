@@ -58,6 +58,7 @@ class PlayerSelect extends React.Component {
             playerNumber: playerNumber,
             faction: null,
             colour: null,
+            isSpeaker: playerNumber === 0 ? true : false,
         }
         return playerDetail;
     }
