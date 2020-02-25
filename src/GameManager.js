@@ -2,6 +2,7 @@ import React from 'react';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
+import TimerBlock from './TimerBlock';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -13,7 +14,7 @@ class GameManager extends React.Component {
         this.state = {
             playerDetails: null,
             gameMode: MODE_PLAYER_SELECT,
-            roundNumber: 0,
+            roundNumber: 1,
             totalGameTimer: {
                 baseSeconds: 0,
                 isCounting: true,
@@ -45,7 +46,6 @@ class GameManager extends React.Component {
     handleRoundStart() {
         this.setState ({
             gameMode: MODE_STATUS_BOARD,
-            roundNumber: this.state.roundNumber + 1,
         });
     }
 
@@ -89,6 +89,21 @@ class GameManager extends React.Component {
         })
     }
 
+    handleEndRound() {
+        let playerDetails = this.state.playerDetails.slice().map(
+            player => ({
+                ...player, 
+                strategy: null,
+            })
+        );
+
+        this.setState ({
+            gameMode: MODE_STRATEGY,
+            roundNumber: this.state.roundNumber + 1,
+            playerDetails: playerDetails,
+        });
+    }
+
     renderGameComponent() {
         switch (this.state.gameMode) {
             case MODE_PLAYER_SELECT: 
@@ -113,14 +128,13 @@ class GameManager extends React.Component {
     renderStrategy() {
         return (
             <div>
+                {this.renderGameHeader(false)}
                 <h1>Strategy Phase</h1>
                 <StrategySelect 
                     playerDetails={this.state.playerDetails} 
                     onStartRound={() => this.handleRoundStart()}
                     onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
                 />
-                {/* <TimerBlock id="totalTimer" label="Total Time" baseSeconds={5500} currentSeconds={0} isCounting={true}/>
-                <TimerBlock id="turnTimer" label="Turn Time" baseSeconds={0} currentSeconds={0} isCounting={false}/> */}
             </div>
         );
     }
@@ -128,6 +142,7 @@ class GameManager extends React.Component {
     renderStatusBoard() {
         return (
             <div>
+                {this.renderGameHeader(true)}
                 <h1>Status Board</h1>
                 <StatusBoard 
                     roundNumber = {this.state.roundNumber}
@@ -135,9 +150,21 @@ class GameManager extends React.Component {
                     currentTurnTimer = {this.state.currentTurnTimer}
                     onTurnTimerClick = {(time) => this.handleTurnTimerClicked(time)}
                     onGameTimerClick = {(time) => this.handleGameTimerClicked(time)}
+                    onEndRound = {() => this.handleEndRound()}
                 />
             </div>
         );
+    }
+
+    renderGameHeader(showTurnTimer) {
+        return <GameHeader
+            roundNumber = {this.state.roundNumber}
+            totalGameTimer = {this.state.totalGameTimer}
+            showTurnTimer = {showTurnTimer}
+            currentTurnTimer = {this.state.currentTurnTimer}
+            onTurnTimerClick = {(time) => this.handleTurnTimerClicked(time)}
+            onGameTimerClick = {(time) => this.handleGameTimerClicked(time)}
+        />
     }
 
     render() {
@@ -147,6 +174,33 @@ class GameManager extends React.Component {
             </div>
         );
     }
+}
+
+
+function GameHeader(props) {
+    let turnTimer = props.showTurnTimer ? 
+        <TimerBlock
+            id="turnTimer"
+            label="Turn Time"
+            baseSeconds={props.currentTurnTimer.baseSeconds}
+            isCounting={props.currentTurnTimer.isCounting}
+            onClick={(time) => props.onTurnTimerClick(time)}
+        /> :
+        null;
+
+    return (
+        <div>
+            <label className="timerLabel">{"Round: " + props.roundNumber}</label>
+            {turnTimer}
+            <TimerBlock
+                id="turnTimer"
+                label="Total Game Time"
+                baseSeconds={props.totalGameTimer.baseSeconds}
+                isCounting={props.totalGameTimer.isCounting}
+                onClick={(time) => props.onGameTimerClick(time)}
+            />
+        </div>
+    );
 }
 
 export default GameManager;
