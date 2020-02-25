@@ -14,6 +14,14 @@ class GameManager extends React.Component {
             playerDetails: null,
             gameMode: MODE_PLAYER_SELECT,
             roundNumber: 0,
+            totalGameTimer: {
+                baseSeconds: 0,
+                isCounting: true,
+            },
+            currentTurnTimer: {
+                baseSeconds: 0,
+                isCounting: false,
+            },
         };
     }
 
@@ -39,6 +47,46 @@ class GameManager extends React.Component {
             gameMode: MODE_STATUS_BOARD,
             roundNumber: this.state.roundNumber + 1,
         });
+    }
+
+    handleTurnTimerClicked(time) {
+        var timer;
+        if (this.state.currentTurnTimer.isCounting) {
+            timer = {
+                baseSeconds: time,
+                isCounting: false,
+            }
+        }
+        else {
+            timer = {
+                ...this.state.currentTurnTimer,
+                isCounting: true,
+            }
+        }
+
+        this.setState({
+            currentTurnTimer: timer
+        })
+    }
+
+    handleGameTimerClicked(time) {
+        var timer;
+        if (this.state.totalGameTimer.isCounting) {
+            timer = {
+                baseSeconds: time,
+                isCounting: false,
+            }
+        }
+        else {
+            timer = {
+                ...this.state.totalGameTimer,
+                isCounting: true,
+            }
+        }
+
+        this.setState({
+            totalGameTimer: timer
+        })
     }
 
     renderGameComponent() {
@@ -81,7 +129,13 @@ class GameManager extends React.Component {
         return (
             <div>
                 <h1>Status Board</h1>
-                <StatusBoard roundNumber = {this.state.roundNumber}/>
+                <StatusBoard 
+                    roundNumber = {this.state.roundNumber}
+                    totalGameTimer = {this.state.totalGameTimer}
+                    currentTurnTimer = {this.state.currentTurnTimer}
+                    onTurnTimerClick = {(time) => this.handleTurnTimerClicked(time)}
+                    onGameTimerClick = {(time) => this.handleGameTimerClicked(time)}
+                />
             </div>
         );
     }
