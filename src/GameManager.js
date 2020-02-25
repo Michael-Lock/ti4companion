@@ -17,15 +17,20 @@ class GameManager extends React.Component {
             roundNumber: 1,
             totalGameTimer: {
                 baseSeconds: 0,
-                isCounting: true,
+                currentSeconds: 0,
+                countStartTime: Date.now(),
+                isCounting: false,
             },
             currentTurnTimer: {
                 baseSeconds: 0,
+                currentSeconds: 0,
+                countStartTime: Date.now(),
                 isCounting: false,
             },
         };
     }
 
+    //#region Event Handlers
     handleGameStart(playerDetails) {
         this.setState ({
             playerDetails: playerDetails,
@@ -50,43 +55,53 @@ class GameManager extends React.Component {
     }
 
     handleTurnTimerClicked(time) {
-        var timer;
+        let timer = {...this.state.currentTurnTimer};
         if (this.state.currentTurnTimer.isCounting) {
-            timer = {
-                baseSeconds: time,
-                isCounting: false,
-            }
+            //currently counting, so stop it
+            timer.baseSeconds = timer.currentSeconds;
+            timer.isCounting = false;
+
+            this.setState({
+                currentTurnTimer: timer
+            })
+            
+            clearInterval(this.state.currentTurnTimer.interval);
         }
         else {
-            timer = {
-                ...this.state.currentTurnTimer,
-                isCounting: true,
-            }
-        }
+            //not counting, start it
+            timer.isCounting = true;
+            timer.countStartTime = Date.now();
+            timer.interval = setInterval(() => {this.recalculateTurnTime()}, 1000);
 
-        this.setState({
-            currentTurnTimer: timer
-        })
+            this.setState({
+                currentTurnTimer: timer
+            })
+        }
     }
 
-    handleGameTimerClicked(time) {
-        var timer;
+    handleGameTimerClicked() {
+        let timer = {...this.state.totalGameTimer};
         if (this.state.totalGameTimer.isCounting) {
-            timer = {
-                baseSeconds: time,
-                isCounting: false,
-            }
+            //currently counting, so stop it
+            timer.baseSeconds = timer.currentSeconds;
+            timer.isCounting = false;
+
+            this.setState({
+                totalGameTimer: timer
+            })
+            
+            clearInterval(this.state.totalGameTimer.interval);
         }
         else {
-            timer = {
-                ...this.state.totalGameTimer,
-                isCounting: true,
-            }
-        }
+            //not counting, start it
+            timer.isCounting = true;
+            timer.countStartTime = Date.now();
+            timer.interval = setInterval(() => {this.recalculateGameTime()}, 1000);
 
-        this.setState({
-            totalGameTimer: timer
-        })
+            this.setState({
+                totalGameTimer: timer
+            })
+        }
     }
 
     handleEndRound() {
@@ -103,7 +118,29 @@ class GameManager extends React.Component {
             playerDetails: playerDetails,
         });
     }
+    //#endregion
 
+    //#region Commands
+    recalculateGameTime() {
+        let timer = {...this.state.totalGameTimer};
+        timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
+        
+        this.setState({
+            totalGameTimer: timer,
+        });
+    }
+
+    recalculateTurnTime() {
+        let timer = {...this.state.currentTurnTimer};
+        timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
+        
+        this.setState({
+            currentTurnTimer: timer,
+        });
+    }
+    //#endregion
+
+    //#region Rendering methods
     renderGameComponent() {
         switch (this.state.gameMode) {
             case MODE_PLAYER_SELECT: 
@@ -148,8 +185,8 @@ class GameManager extends React.Component {
                     roundNumber = {this.state.roundNumber}
                     totalGameTimer = {this.state.totalGameTimer}
                     currentTurnTimer = {this.state.currentTurnTimer}
-                    onTurnTimerClick = {(time) => this.handleTurnTimerClicked(time)}
-                    onGameTimerClick = {(time) => this.handleGameTimerClicked(time)}
+                    onTurnTimerClick = {() => this.handleTurnTimerClicked()}
+                    onGameTimerClick = {() => this.handleGameTimerClicked()}
                     onEndRound = {() => this.handleEndRound()}
                 />
             </div>
@@ -162,10 +199,11 @@ class GameManager extends React.Component {
             totalGameTimer = {this.state.totalGameTimer}
             showTurnTimer = {showTurnTimer}
             currentTurnTimer = {this.state.currentTurnTimer}
-            onTurnTimerClick = {(time) => this.handleTurnTimerClicked(time)}
-            onGameTimerClick = {(time) => this.handleGameTimerClicked(time)}
+            onTurnTimerClick = {() => this.handleTurnTimerClicked()}
+            onGameTimerClick = {() => this.handleGameTimerClicked()}
         />
     }
+    //#endregion
 
     render() {
         return (
@@ -182,9 +220,8 @@ function GameHeader(props) {
         <TimerBlock
             id="turnTimer"
             label="Turn Time"
-            baseSeconds={props.currentTurnTimer.baseSeconds}
-            isCounting={props.currentTurnTimer.isCounting}
-            onClick={(time) => props.onTurnTimerClick(time)}
+            currentSeconds={props.currentTurnTimer.currentSeconds}
+            onClick={() => props.onTurnTimerClick()}
         /> :
         null;
 
@@ -195,9 +232,8 @@ function GameHeader(props) {
             <TimerBlock
                 id="turnTimer"
                 label="Total Game Time"
-                baseSeconds={props.totalGameTimer.baseSeconds}
-                isCounting={props.totalGameTimer.isCounting}
-                onClick={(time) => props.onGameTimerClick(time)}
+                currentSeconds={props.totalGameTimer.currentSeconds}
+                onClick={() => props.onGameTimerClick()}
             />
         </div>
     );
