@@ -5,12 +5,20 @@
   border: 1px solid black;
 }
 
+.button {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  height: 35px;
+  width: 35px;
+}
+
 .victoryPointButton {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  height: 30px;
-  width: 35px;
+  height: 35px;
+  width: 45px;
 }
 
 .currentPlayerBlock {
@@ -30,4 +38,18 @@
     background-color: rgb(0, 255, 0);
     color: black;
     border: 1px solid black;
+}
+
+.strategyCardButton {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  height: 60px;
+  width: 35px;
+}
+
+.playerCardDivider {
+  width: 80%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

@@ -42,7 +42,7 @@ class GameManager extends React.Component {
 
     handlePlayerStrategyChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].strategy = e.target.value;
+        playerDetails[playerNumber].strategy = JSON.parse(e.target.value);
         this.setState ({
             playerDetails: playerDetails,
         });

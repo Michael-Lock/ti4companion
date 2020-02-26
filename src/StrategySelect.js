@@ -6,10 +6,10 @@ const STRATEGIES = [
     {name: "Leadership", number: 1, colour: "red"},
     {name: "Diplomacy", number: 2, colour: "orange"},
     {name: "Politics", number: 3, colour: "yellow"},
-    {name: "Construction", number: 4, colour: "dark-green"},
-    {name: "Trade", number: 5, colour: "light-green"},
+    {name: "Construction", number: 4, colour: "#307843"},
+    {name: "Trade", number: 5, colour: "#58e87e"},
     {name: "Warfare", number: 6, colour: "cyan"},
-    {name: "Technology", number: 7, colour: "dark-blue"},
+    {name: "Technology", number: 7, colour: "#084bc9"},
     {name: "Imperial", number: 8, colour: "purple"},
 ];
 
@@ -81,14 +81,16 @@ class PlayerStrategyForm extends React.Component {
 class PlayerStrategyEntry extends React.Component {
     getStrategyList() {
         let strategyElements = STRATEGIES.map((strategy) => 
-            <option key={strategy.name} value={strategy.name}>
+            <option key={strategy.name} value={JSON.stringify(strategy)}>
                 {strategy.name}
             </option>);
+
+        let playerStrategy = this.props.playerDetail.strategy ? this.props.playerDetail.strategy.description : null;
 
         return <select 
             id="strategies" 
             required 
-            defaultValue={this.props.playerDetail.strategy} 
+            defaultValue={playerStrategy} 
             onChange={this.props.onStrategyChange}
         >
             {strategyElements}

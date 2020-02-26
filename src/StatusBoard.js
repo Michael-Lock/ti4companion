@@ -31,21 +31,33 @@ class StatusBoard extends React.Component {
 
 class PlayerCard extends React.Component {
     render() {
+        let playerColour = this.props.player.colour ? this.props.player.colour.colour : null;
+        let playerStrategy = this.props.player.strategy;
+        let playerStrategyButton = playerStrategy ? 
+            <button 
+                className="strategyCardButton" 
+                type="button"
+                style={{backgroundColor: playerStrategy.colour,}}
+            >
+                {playerStrategy.number}
+            </button> : 
+            null;
+
         return (
             <span className="playerCardColumn">
                 <div type="button" className={`currentPlayerBlock${this.props.player.isActivePlayer ? " activePlayerBlock" : ""}`}>
                     {this.props.player.isActivePlayer ? "Current Player" : ""}
                 </div>
                 <div className="playerCard">
-                    <div style={{
-                        backgroundColor: this.props.player.colour,
-                    }}>
+                    <div style={{backgroundColor: playerColour,}}>
                         <div>{this.props.player.playerName}</div>
                         <div>{this.props.player.faction}</div>
                     </div>
                     <button className= "victoryPointButton" type="button">
                         {this.props.player.victoryPoints}
                     </button>
+                    <hr className="playerCardDivider"/>
+                    {playerStrategyButton}
                 </div>
             </span>
         )

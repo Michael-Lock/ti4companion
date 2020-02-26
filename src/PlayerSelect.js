@@ -100,7 +100,7 @@ class PlayerSelect extends React.Component {
     
     handlePlayerColourChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].colour = e.target.value;
+        playerDetails[playerNumber].colour = JSON.parse(e.target.value);
         this.setState ({
             playerDetails: playerDetails,
         });
@@ -231,14 +231,16 @@ class PlayerDetailEntry extends React.Component {
 
     getColourList() {
         let colourElements = COLOURS.map((colour) => 
-        <option key={colour.description} value={colour.colour}>
+        <option key={colour.description} value={JSON.stringify(colour)}>
             {colour.description}
         </option>);
+
+        let playerColour = this.props.playerDetail.colour ? this.props.playerDetail.colour.colour : null;
 
         return <select 
             id="colours" 
             required 
-            defaultValue={this.props.playerDetail.colour} 
+            defaultValue={playerColour} 
             onChange={this.props.onColourChange}
         >
             {colourElements}
