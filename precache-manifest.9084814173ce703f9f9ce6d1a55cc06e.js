@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "116dd2cd7d484d870bfae41367194b55",
+    "revision": "0af9c144590af246a883abb97d41e2e1",
     "url": "/ti4companion/index.html"
   },
   {
