@@ -257,6 +257,7 @@ class GameManager extends React.Component {
                 <StatusBoard 
                     roundNumber = {this.state.roundNumber}
                     isGameActive = {this.state.totalGameTimer.isCounting}
+                    players = {this.state.playerDetails}
                     onEndTurn = {() => this.handleEndTurn()}
                     onToggleTimers = {() => this.handleToggleTimers()}
                     onEndRound = {() => this.handleEndRound()}

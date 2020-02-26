@@ -1,0 +1,33 @@
+.playerCard {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.victoryPointButton {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  height: 30px;
+  width: 35px;
+}
+
+.currentPlayerBlock {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 1px 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: 30px;
+    width: 100%
+}
+
+.activePlayerBlock {
+    background-color: rgb(0, 255, 0);
+    color: black;
+    border: 1px solid black;
+}

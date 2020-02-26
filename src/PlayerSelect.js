@@ -58,6 +58,7 @@ class PlayerSelect extends React.Component {
             playerNumber: playerNumber,
             faction: null,
             colour: null,
+            victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
         }
         return playerDetail;
@@ -230,7 +231,7 @@ class PlayerDetailEntry extends React.Component {
 
     getColourList() {
         let colourElements = COLOURS.map((colour) => 
-        <option key={colour.description} value={colour.description}>
+        <option key={colour.description} value={colour.colour}>
             {colour.description}
         </option>);
 
