@@ -31,6 +31,9 @@ class StrategySelect extends React.Component {
                         playerDetails={this.props.playerDetails}
                         onPlayerStrategyChange={(e, playerNumber) => this.props.onPlayerStrategyChange(e, playerNumber)}
                     />
+                    <button type="button" onClick={() => this.props.onToggleTimers()}>
+                        {this.props.isGameActive ? "Pause Game" : "Resume Game"}
+                    </button>
                     <button type="button" onClick={this.handleStartRound()}>
                         Start Round
                     </button>

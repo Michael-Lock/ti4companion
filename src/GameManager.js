@@ -31,12 +31,13 @@ class GameManager extends React.Component {
     }
 
     //#region Event Handlers
-    handleGameStart(playerDetails) {
+    handleStartGame(playerDetails) {
         this.setState ({
             playerDetails: playerDetails,
             gameMode: MODE_STRATEGY,
         });
-        console.log(playerDetails);
+        
+        this.startGameTimer();
     }
 
     handlePlayerStrategyChange(e, playerNumber) {
@@ -45,62 +46,34 @@ class GameManager extends React.Component {
         this.setState ({
             playerDetails: playerDetails,
         });
-        console.log("New Strategy is " + playerDetails[playerNumber].strategy + " for index " + playerNumber);
     }
 
-    handleRoundStart() {
+    handleStartRound() {
         this.setState ({
             gameMode: MODE_STATUS_BOARD,
         });
+
+        this.startGameTimer();
+        this.startTurnTimers();
     }
 
-    handleTurnTimerClicked(time) {
-        let timer = {...this.state.currentTurnTimer};
+    handleTurnTimerClicked() {
         if (this.state.currentTurnTimer.isCounting) {
-            //currently counting, so stop it
-            timer.baseSeconds = timer.currentSeconds;
-            timer.isCounting = false;
-
-            this.setState({
-                currentTurnTimer: timer
-            })
-            
-            clearInterval(this.state.currentTurnTimer.interval);
+            this.stopTurnTimers();
         }
         else {
-            //not counting, start it
-            timer.isCounting = true;
-            timer.countStartTime = Date.now();
-            timer.interval = setInterval(() => {this.recalculateTurnTime()}, 1000);
-
-            this.setState({
-                currentTurnTimer: timer
-            })
+            this.startTurnTimers();
+            this.startGameTimer(); //if turn timers are running, the game timer should be as well
         }
     }
 
     handleGameTimerClicked() {
-        let timer = {...this.state.totalGameTimer};
         if (this.state.totalGameTimer.isCounting) {
-            //currently counting, so stop it
-            timer.baseSeconds = timer.currentSeconds;
-            timer.isCounting = false;
-
-            this.setState({
-                totalGameTimer: timer
-            })
-            
-            clearInterval(this.state.totalGameTimer.interval);
+            this.stopGameTimer();
+            this.stopTurnTimers(); //if the game timer is stopped, all timers should be stopped
         }
         else {
-            //not counting, start it
-            timer.isCounting = true;
-            timer.countStartTime = Date.now();
-            timer.interval = setInterval(() => {this.recalculateGameTime()}, 1000);
-
-            this.setState({
-                totalGameTimer: timer
-            })
+            this.startGameTimer();
         }
     }
 
@@ -117,6 +90,24 @@ class GameManager extends React.Component {
             roundNumber: this.state.roundNumber + 1,
             playerDetails: playerDetails,
         });
+
+        this.stopTurnTimers(true); //turns aren't occurring between rounds
+        this.startGameTimer(); //activity means the game timer should almost certainly be on
+    }
+
+    handleToggleTimers() {
+        if (this.state.totalGameTimer.isCounting) {
+            this.stopGameTimer();
+            this.stopTurnTimers();
+        }
+        else {
+            this.startGameTimer();
+            this.state.gameMode === MODE_STATUS_BOARD && this.startTurnTimers();
+        }
+    }
+
+    handleEndTurn() {
+        this.restartTurnTimers();
     }
     //#endregion
 
@@ -138,6 +129,86 @@ class GameManager extends React.Component {
             currentTurnTimer: timer,
         });
     }
+
+    startTurnTimers() {
+        if (this.state.currentTurnTimer.isCounting) {
+            return; //do nothing if already counting
+        }
+        //TODO: Needs to start the active player turn timer as well
+        let timer = {...this.state.currentTurnTimer};
+        timer.isCounting = true;
+        timer.countStartTime = Date.now();
+        timer.interval = setInterval(() => {this.recalculateTurnTime()}, 1000);
+
+        this.setState({
+            currentTurnTimer: timer
+        })
+    }
+    
+    stopTurnTimers(resetCurrentTurn) {
+        if (!this.state.currentTurnTimer.isCounting) {
+            return; //do nothing if already stopped
+        }
+        //TODO: Needs to stop the active player turn timer as well
+        let timer = {...this.state.currentTurnTimer};
+        timer.isCounting = false;
+        if (resetCurrentTurn) {
+            timer.baseSeconds = 0;
+            timer.currentSeconds = 0;
+        }
+        else {
+            timer.baseSeconds = timer.currentSeconds;
+        }
+
+        this.setState({
+            currentTurnTimer: timer
+        })
+        
+        clearInterval(this.state.currentTurnTimer.interval);
+    }
+
+    restartTurnTimers() {
+        //TODO needs to stop the ending player's turn timer and start the next one as well
+        let timer = {
+            baseSeconds: 0,
+            currentSeconds: 0,
+            countStartTime: Date.now(),
+            isCounting: true,
+        };
+
+        this.setState({
+            currentTurnTimer: timer
+        })
+    }
+
+    startGameTimer() {
+        if (this.state.totalGameTimer.isCounting) {
+            return; //do nothing if already counting
+        }
+        let timer = {...this.state.totalGameTimer};
+        timer.isCounting = true;
+        timer.countStartTime = Date.now();
+        timer.interval = setInterval(() => {this.recalculateGameTime()}, 1000);
+
+        this.setState({
+            totalGameTimer: timer
+        })
+    }
+    
+    stopGameTimer() {
+        if (!this.state.totalGameTimer.isCounting) {
+            return; //do nothing if already stopped
+        }
+        let timer = {...this.state.totalGameTimer};
+        timer.baseSeconds = timer.currentSeconds;
+        timer.isCounting = false;
+
+        this.setState({
+            totalGameTimer: timer
+        })
+        
+        clearInterval(this.state.totalGameTimer.interval);
+    }
     //#endregion
 
     //#region Rendering methods
@@ -157,7 +228,7 @@ class GameManager extends React.Component {
     renderPlayerSelect() {
         return (
             <div>
-                <PlayerSelect onStartGame={playerDetails => this.handleGameStart(playerDetails)}/>
+                <PlayerSelect onStartGame={playerDetails => this.handleStartGame(playerDetails)}/>
             </div>
         );
     }
@@ -169,7 +240,9 @@ class GameManager extends React.Component {
                 <h1>Strategy Phase</h1>
                 <StrategySelect 
                     playerDetails={this.state.playerDetails} 
-                    onStartRound={() => this.handleRoundStart()}
+                    isGameActive = {this.state.totalGameTimer.isCounting}
+                    onToggleTimers = {() => this.handleToggleTimers()}
+                    onStartRound={() => this.handleStartRound()}
                     onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
                 />
             </div>
@@ -183,10 +256,9 @@ class GameManager extends React.Component {
                 <h1>Status Board</h1>
                 <StatusBoard 
                     roundNumber = {this.state.roundNumber}
-                    totalGameTimer = {this.state.totalGameTimer}
-                    currentTurnTimer = {this.state.currentTurnTimer}
-                    onTurnTimerClick = {() => this.handleTurnTimerClicked()}
-                    onGameTimerClick = {() => this.handleGameTimerClicked()}
+                    isGameActive = {this.state.totalGameTimer.isCounting}
+                    onEndTurn = {() => this.handleEndTurn()}
+                    onToggleTimers = {() => this.handleToggleTimers()}
                     onEndRound = {() => this.handleEndRound()}
                 />
             </div>

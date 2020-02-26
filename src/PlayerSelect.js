@@ -87,7 +87,6 @@ class PlayerSelect extends React.Component {
         this.setState ({
             playerDetails: playerDetails,
         });
-        console.log("New Name is " + playerDetails[playerNumber].playerName + " for index " + playerNumber);
     }
 
     handlePlayerFactionChange(e, playerNumber) {
@@ -96,7 +95,6 @@ class PlayerSelect extends React.Component {
         this.setState ({
             playerDetails: playerDetails,
         });
-        console.log("New Faction is " + playerDetails[playerNumber].faction + " for index " + playerNumber);
     }
     
     handlePlayerColourChange(e, playerNumber) {
@@ -105,7 +103,6 @@ class PlayerSelect extends React.Component {
         this.setState ({
             playerDetails: playerDetails,
         });
-        console.log("New Colour is " + playerDetails[playerNumber].colour + " for index " + playerNumber);
     }
 
     handleStartGame() {
