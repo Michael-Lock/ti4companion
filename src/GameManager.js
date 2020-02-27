@@ -30,6 +30,16 @@ class GameManager extends React.Component {
         };
     }
 
+    //#region Lifecycle
+    componentDidMount() {
+        this.heartbeat = setInterval(() => this.recalculateTimers(), 500);   
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.heartbeat);
+    }
+    //#endregion
+
     //#region Event Handlers
     handleStartGame(playerDetails) {
         this.setState ({
@@ -112,6 +122,15 @@ class GameManager extends React.Component {
     //#endregion
 
     //#region Commands
+    recalculateTimers() {
+        if (this.state.totalGameTimer && this.state.totalGameTimer.isCounting) {
+            this.recalculateGameTime();
+        }
+        if (this.state.currentTurnTimer && this.state.currentTurnTimer.isCounting) {
+            this.recalculateTurnTime();
+        }
+    }
+
     recalculateGameTime() {
         let timer = {...this.state.totalGameTimer};
         timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
@@ -138,7 +157,6 @@ class GameManager extends React.Component {
         let timer = {...this.state.currentTurnTimer};
         timer.isCounting = true;
         timer.countStartTime = Date.now();
-        timer.interval = setInterval(() => {this.recalculateTurnTime()}, 1000);
 
         this.setState({
             currentTurnTimer: timer
@@ -163,8 +181,6 @@ class GameManager extends React.Component {
         this.setState({
             currentTurnTimer: timer
         })
-        
-        clearInterval(this.state.currentTurnTimer.interval);
     }
 
     restartTurnTimers() {
@@ -188,7 +204,6 @@ class GameManager extends React.Component {
         let timer = {...this.state.totalGameTimer};
         timer.isCounting = true;
         timer.countStartTime = Date.now();
-        timer.interval = setInterval(() => {this.recalculateGameTime()}, 1000);
 
         this.setState({
             totalGameTimer: timer
@@ -206,8 +221,6 @@ class GameManager extends React.Component {
         this.setState({
             totalGameTimer: timer
         })
-        
-        clearInterval(this.state.totalGameTimer.interval);
     }
     //#endregion
 
