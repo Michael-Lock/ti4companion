@@ -5,7 +5,10 @@ import TimerBlock from './TimerBlock';
 
 class StatusBoard extends React.Component {
     render() {
-        let playerCards = this.props.players.map((player) => <PlayerCard player={player}/>);
+        let playerCards = this.props.players.map(
+            (player) => 
+            <PlayerCard player={player} onEndTurn={() => this.props.onEndTurn()}/>
+        );
 
         return (
             <div>
@@ -46,7 +49,11 @@ class PlayerCard extends React.Component {
 
         return (
             <div className="playerCardColumn">
-                <div type="button" className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}>
+                <div 
+                    type="button" 
+                    className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}
+                    onClick={this.props.onEndTurn}
+                >
                     {player.isActivePlayer ? "Current Player" : ""}
                 </div>
                 <div className="playerCard">
