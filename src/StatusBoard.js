@@ -1,6 +1,6 @@
 import React from 'react';
 import './StatusBoard.css';
-// import TimerBlock from './TimerBlock';
+import TimerBlock from './TimerBlock';
 
 
 class StatusBoard extends React.Component {
@@ -31,8 +31,9 @@ class StatusBoard extends React.Component {
 
 class PlayerCard extends React.Component {
     render() {
-        let playerColour = this.props.player.colour ? this.props.player.colour.colour : null;
-        let playerStrategy = this.props.player.strategy;
+        const player = this.props.player;
+        let playerColour = player.colour ? player.colour.colour : null;
+        let playerStrategy = player.strategy;
         let playerStrategyButton = playerStrategy ? 
             <button 
                 className="strategyCardButton" 
@@ -44,22 +45,25 @@ class PlayerCard extends React.Component {
             null;
 
         return (
-            <span className="playerCardColumn">
-                <div type="button" className={`currentPlayerBlock${this.props.player.isActivePlayer ? " activePlayerBlock" : ""}`}>
-                    {this.props.player.isActivePlayer ? "Current Player" : ""}
+            <div className="playerCardColumn">
+                <div type="button" className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}>
+                    {player.isActivePlayer ? "Current Player" : ""}
                 </div>
                 <div className="playerCard">
                     <div style={{backgroundColor: playerColour,}}>
-                        <div>{this.props.player.playerName}</div>
-                        <div>{this.props.player.faction}</div>
+                        <div>{player.playerName}</div>
+                        <div>{player.faction}</div>
+                    </div>
+                    <div>
+                        <TimerBlock currentSeconds={player.timer.currentSeconds} disabled={true}/>
                     </div>
                     <button className= "victoryPointButton" type="button">
-                        {this.props.player.victoryPoints}
+                        {player.victoryPoints}
                     </button>
                     <hr className="playerCardDivider"/>
                     {playerStrategyButton}
                 </div>
-            </span>
+            </div>
         )
     }
 }

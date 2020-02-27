@@ -60,6 +60,13 @@ class PlayerSelect extends React.Component {
             colour: null,
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
+            isActivePlayer: playerNumber === 0 ? true : false,
+            timer: {
+                baseSeconds: 0,
+                currentSeconds: 0,
+                countStartTime: Date.now(),
+                isCounting: false,
+            },
         }
         return playerDetail;
     }
