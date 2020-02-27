@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "636155d525ad854b0e96ac0852b11ad9",
+    "revision": "109c0f3cbcd6ea1d8921c3fa3c25f3ef",
     "url": "/ti4companion/index.html"
   },
   {
-    "revision": "a73659e2f13afe32bde4",
+    "revision": "1b419de5c9986a484a27",
     "url": "/ti4companion/static/css/main.f8c282b8.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ti4companion/static/js/2.5ae18220.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a73659e2f13afe32bde4",
-    "url": "/ti4companion/static/js/main.82c2c315.chunk.js"
+    "revision": "1b419de5c9986a484a27",
+    "url": "/ti4companion/static/js/main.cc167cf9.chunk.js"
   },
   {
     "revision": "3b6c9246c9cebda97847",
