@@ -8,6 +8,8 @@ const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
 const MODE_STATUS_BOARD = 3;
 
+const NUMBER_STRATEGIES = 8;
+
 class GameManager extends React.Component {
     constructor(props) {
         super(props);
@@ -52,7 +54,7 @@ class GameManager extends React.Component {
 
     handlePlayerStrategyChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].strategy = e.target.value;
+        playerDetails[playerNumber].strategy = JSON.parse(e.target.value);
         this.setState ({
             playerDetails: playerDetails,
         });
@@ -117,6 +119,7 @@ class GameManager extends React.Component {
     }
 
     handleEndTurn() {
+        this.startGameTimer();
         this.restartTurnTimers();
     }
     //#endregion
@@ -143,9 +146,21 @@ class GameManager extends React.Component {
     recalculateTurnTime() {
         let timer = {...this.state.currentTurnTimer};
         timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
+
+        let playerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < playerDetails.length; i++) {
+            if (playerDetails[i].isActivePlayer) {
+                let playerTimer = {
+                    ...playerDetails[i].timer,
+                };
+                playerTimer.currentSeconds = playerTimer.baseSeconds + Math.floor((Date.now() - playerTimer.countStartTime) / 1000);
+                playerDetails[i].timer = playerTimer;
+            }
+        }
         
         this.setState({
             currentTurnTimer: timer,
+            playerDetails: playerDetails,
         });
     }
 
@@ -153,13 +168,28 @@ class GameManager extends React.Component {
         if (this.state.currentTurnTimer.isCounting) {
             return; //do nothing if already counting
         }
-        //TODO: Needs to start the active player turn timer as well
         let timer = {...this.state.currentTurnTimer};
         timer.isCounting = true;
         timer.countStartTime = Date.now();
+        
+        let playerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < playerDetails.length; i++) {
+            if (playerDetails[i].isActivePlayer) {
+                let playerTimer = {
+                    ...playerDetails[i].timer,
+                    isCounting: true,
+                    countStartTime: Date.now(),
+                };
+
+                let player = {...playerDetails[i]};
+                player.timer = playerTimer;
+                playerDetails[i] = player;
+            }
+        }
 
         this.setState({
-            currentTurnTimer: timer
+            currentTurnTimer: timer,
+            playerDetails: playerDetails,
         })
     }
     
@@ -167,7 +197,6 @@ class GameManager extends React.Component {
         if (!this.state.currentTurnTimer.isCounting) {
             return; //do nothing if already stopped
         }
-        //TODO: Needs to stop the active player turn timer as well
         let timer = {...this.state.currentTurnTimer};
         timer.isCounting = false;
         if (resetCurrentTurn) {
@@ -178,8 +207,24 @@ class GameManager extends React.Component {
             timer.baseSeconds = timer.currentSeconds;
         }
 
+        let playerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < playerDetails.length; i++) {
+            if (playerDetails[i].isActivePlayer) {
+                let playerTimer = {
+                    ...playerDetails[i].timer,
+                    isCounting: false,
+                };
+                playerTimer.baseSeconds = playerTimer.currentSeconds;
+
+                let player = {...playerDetails[i]};
+                player.timer = playerTimer;
+                playerDetails[i] = player;
+            }
+        }
+
         this.setState({
-            currentTurnTimer: timer
+            currentTurnTimer: timer,
+            playerDetails: playerDetails,
         })
     }
 
@@ -192,8 +237,38 @@ class GameManager extends React.Component {
             isCounting: true,
         };
 
+        let nextPlayer = this.getNextPlayer(this.getActivePlayer());
+        let playerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < playerDetails.length; i++) {
+            if (playerDetails[i].isActivePlayer) {
+                let playerTimer = {
+                    ...playerDetails[i].timer,
+                    isCounting: false,
+                };
+                playerTimer.baseSeconds = playerTimer.currentSeconds;
+
+                let player = {...playerDetails[i]};
+                player.timer = playerTimer;
+                player.isActivePlayer = false;
+                playerDetails[i] = player;
+            }
+            else if (playerDetails[i].playerNumber === nextPlayer.playerNumber) {
+                let playerTimer = {
+                    ...playerDetails[i].timer,
+                    isCounting: true,
+                    countStartTime: Date.now(),
+                };
+
+                let player = {...playerDetails[i]};
+                player.timer = playerTimer;
+                player.isActivePlayer = true;
+                playerDetails[i] = player;
+            }
+        }
+
         this.setState({
-            currentTurnTimer: timer
+            currentTurnTimer: timer,
+            playerDetails: playerDetails,
         })
     }
 
@@ -221,6 +296,37 @@ class GameManager extends React.Component {
         this.setState({
             totalGameTimer: timer
         })
+    }
+
+    getActivePlayer() {
+        for (let i = 0; i < this.state.playerDetails.length; i++) {
+            if (this.state.playerDetails[i].isActivePlayer) {
+                return this.state.playerDetails[i];
+            }
+        } 
+        return null;
+    }
+
+    getNextPlayer(activePlayer) {
+        //TODO Factor in Naalu initiative (race or promissory)
+        let nextPlayer = activePlayer;
+        // determine the highest initiative number that could possibly be next. Offset by the number of strategies to allow it to loop back;
+        let highestInitiativeNumber = activePlayer.strategy.number + NUMBER_STRATEGIES -1;
+        for (let i = 0; i < this.state.playerDetails.length; i++) {
+            let player = this.state.playerDetails[i];
+            if (!player.isActivePlayer) {
+                // determine the player initiative number, offset by the number of strategies to allow it to loop back
+                let playerInitiativeNumber = 
+                    player.strategy.number < activePlayer.strategy.number ? 
+                    player.strategy.number + NUMBER_STRATEGIES : 
+                    player.strategy.number;
+                if (playerInitiativeNumber < highestInitiativeNumber) {
+                    highestInitiativeNumber = playerInitiativeNumber;
+                    nextPlayer = player;
+                }
+            }
+        } 
+        return nextPlayer;
     }
     //#endregion
 
@@ -270,6 +376,7 @@ class GameManager extends React.Component {
                 <StatusBoard 
                     roundNumber = {this.state.roundNumber}
                     isGameActive = {this.state.totalGameTimer.isCounting}
+                    players = {this.state.playerDetails}
                     onEndTurn = {() => this.handleEndTurn()}
                     onToggleTimers = {() => this.handleToggleTimers()}
                     onEndRound = {() => this.handleEndRound()}

@@ -58,7 +58,15 @@ class PlayerSelect extends React.Component {
             playerNumber: playerNumber,
             faction: null,
             colour: null,
+            victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
+            isActivePlayer: playerNumber === 0 ? true : false,
+            timer: {
+                baseSeconds: 0,
+                currentSeconds: 0,
+                countStartTime: Date.now(),
+                isCounting: false,
+            },
         }
         return playerDetail;
     }
@@ -99,7 +107,7 @@ class PlayerSelect extends React.Component {
     
     handlePlayerColourChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].colour = e.target.value;
+        playerDetails[playerNumber].colour = JSON.parse(e.target.value);
         this.setState ({
             playerDetails: playerDetails,
         });
@@ -230,14 +238,16 @@ class PlayerDetailEntry extends React.Component {
 
     getColourList() {
         let colourElements = COLOURS.map((colour) => 
-        <option key={colour.description} value={colour.description}>
+        <option key={colour.description} value={JSON.stringify(colour)}>
             {colour.description}
         </option>);
+
+        let playerColour = this.props.playerDetail.colour ? this.props.playerDetail.colour.colour : null;
 
         return <select 
             id="colours" 
             required 
-            defaultValue={this.props.playerDetail.colour} 
+            defaultValue={playerColour} 
             onChange={this.props.onColourChange}
         >
             {colourElements}

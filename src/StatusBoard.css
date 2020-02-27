@@ -1,0 +1,47 @@
+.playerCard {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.victoryPointButton {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  height: 35px;
+  width: 45px;
+}
+
+.currentPlayerBlock {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 1px 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: 30px;
+    width: 100%
+}
+
+.activePlayerBlock {
+    background-color: rgb(0, 255, 0);
+    color: black;
+    border: 1px solid black;
+}
+
+.strategyCardButton {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  height: 60px;
+  width: 35px;
+}
+
+.playerCardDivider {
+  width: 80%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
