@@ -7,7 +7,7 @@ class StatusBoard extends React.Component {
     render() {
         let playerCards = this.props.players.map(
             (player) => 
-            <PlayerCard player={player} onEndTurn={() => this.props.onEndTurn()}/>
+            <PlayerCard key={player.playerNumber} player={player} onEndTurn={() => this.props.onEndTurn()}/>
         );
 
         return (

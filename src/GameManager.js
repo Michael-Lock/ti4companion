@@ -3,12 +3,17 @@ import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
 import TimerBlock from './TimerBlock';
+import './GameManager.css';
+
+import objectives from './data/objectives.json';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
 const MODE_STATUS_BOARD = 3;
 
 const NUMBER_STRATEGIES = 8;
+const NUMBER_OBJECTIVES_STAGE_ONE = 5;
+const NUMBER_OBJECTIVES_STAGE_TWO = 5;
 
 class GameManager extends React.Component {
     constructor(props) {
@@ -29,12 +34,13 @@ class GameManager extends React.Component {
                 countStartTime: Date.now(),
                 isCounting: false,
             },
+            publicObjectives: this.fillPublicObjectives(),
         };
     }
 
     //#region Lifecycle
     componentDidMount() {
-        this.heartbeat = setInterval(() => this.recalculateTimers(), 500);   
+        this.heartbeat = setInterval(() => this.recalculateTimers(), 500);
     }
 
     componentWillUnmount() {
@@ -122,9 +128,51 @@ class GameManager extends React.Component {
         this.startGameTimer();
         this.restartTurnTimers();
     }
+
+    handleObjectiveCardClicked(index) {
+        let objective = this.state.publicObjectives[index];
+        if (!objective.isRevealed && objective.order === this.nextUnrevealedObjective()) {
+            let newPublicObjectives = this.state.publicObjectives.slice();
+            let newObjective = {
+                ...objective,
+                isRevealed: true,
+            };
+            newPublicObjectives[index] = newObjective;
+            this.setState ({
+                publicObjectives: newPublicObjectives,
+            });
+        }
+    }
     //#endregion
 
     //#region Commands
+    fillPublicObjectives() {
+        let numberObjectives = NUMBER_OBJECTIVES_STAGE_ONE + NUMBER_OBJECTIVES_STAGE_TWO;
+        let objectives = Array(numberObjectives);
+        for (let i = 0; i < numberObjectives; i++) {
+            objectives[i] = {
+                id: null,
+                order: i, 
+                stage: i < NUMBER_OBJECTIVES_STAGE_ONE ? 1 : 2,
+                name: null,
+                longDescription: null,
+                shortDescription: null,
+                isRevealed: false,
+            }
+        }
+        return objectives;
+    }
+
+    nextUnrevealedObjective() {
+        for (let i = 0; i < this.state.publicObjectives.length; i++) {
+            if (!this.state.publicObjectives[i].isRevealed) {
+                return this.state.publicObjectives[i].order;
+            }
+        }
+
+        return null;
+    }
+
     recalculateTimers() {
         if (this.state.totalGameTimer && this.state.totalGameTimer.isCounting) {
             this.recalculateGameTime();
@@ -372,6 +420,7 @@ class GameManager extends React.Component {
         return (
             <div>
                 {this.renderGameHeader(true)}
+                {this.renderObjectivePanel()}
                 <h1>Status Board</h1>
                 <StatusBoard 
                     roundNumber = {this.state.roundNumber}
@@ -393,6 +442,14 @@ class GameManager extends React.Component {
             currentTurnTimer = {this.state.currentTurnTimer}
             onTurnTimerClick = {() => this.handleTurnTimerClicked()}
             onGameTimerClick = {() => this.handleGameTimerClicked()}
+        />
+    }
+
+
+    renderObjectivePanel() {
+        return <ObjectivePanel
+            objectives = {this.state.publicObjectives}
+            onObjectiveCardClick = {(index) => this.handleObjectiveCardClicked(index)}
         />
     }
     //#endregion
@@ -427,6 +484,43 @@ function GameHeader(props) {
                 currentSeconds={props.totalGameTimer.currentSeconds}
                 onClick={() => props.onGameTimerClick()}
             />
+        </div>
+    );
+}
+
+
+function ObjectivePanel(props) {
+    let objectiveBlocks = Array(props.objectives.length);
+    for (let i = 0; i < props.objectives.length; i++) {
+        const objective = props.objectives[i];
+        objectiveBlocks[i] = <ObjectiveCard 
+            key={objective.order} 
+            name={objective.name}
+            stage={objective.stage}
+            shortDescription={objective.shortDescription}
+            isRevealed={objective.isRevealed}
+            onObjectiveCardClick={() => props.onObjectiveCardClick(i)}
+        />
+    }
+
+    return (
+        <div>
+            {objectiveBlocks}
+        </div>
+    );
+}
+
+
+function ObjectiveCard(props) {
+    return (
+        <div>
+            <button
+                type="button"
+                className={`objectiveCard stage${props.stage}`}
+                onClick={props.onObjectiveCardClick}
+            >
+                {props.stage}
+            </button>
         </div>
     );
 }
