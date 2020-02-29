@@ -8,6 +8,10 @@
     margin-bottom: 2px;
 }
 
+.revealed {
+    font-size: 12px;
+}
+
 .stage1 {
     background-color: orange;
 }
@@ -15,3 +19,21 @@
 .stage2 {
     background-color: blue;
 }
+
+.Modal {
+    position: absolute;
+    top: 20vmin;
+    left: 20vmax;
+    right: 20vmax;
+    bottom: 20vmin;
+    background-color: papayawhip;
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }

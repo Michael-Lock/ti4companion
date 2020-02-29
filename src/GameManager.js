@@ -1,11 +1,12 @@
 import React from 'react';
+import ReactModal from 'react-modal';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
 import TimerBlock from './TimerBlock';
 import './GameManager.css';
 
-import objectives from './data/objectives.json';
+import objective_store from './data/objectives.json';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -15,12 +16,16 @@ const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
 
+ReactModal.setAppElement('#root');
+
 class GameManager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playerDetails: null,
             gameMode: MODE_PLAYER_SELECT,
+            showObjectiveSelectModal: false,
+            selectedObjective: null,
+            playerDetails: null,
             roundNumber: 1,
             totalGameTimer: {
                 baseSeconds: 0,
@@ -50,24 +55,24 @@ class GameManager extends React.Component {
 
     //#region Event Handlers
     handleStartGame(playerDetails) {
-        this.setState ({
+        this.setState({
             playerDetails: playerDetails,
             gameMode: MODE_STRATEGY,
         });
-        
+
         this.startGameTimer();
     }
 
     handlePlayerStrategyChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
         playerDetails[playerNumber].strategy = JSON.parse(e.target.value);
-        this.setState ({
+        this.setState({
             playerDetails: playerDetails,
         });
     }
 
     handleStartRound() {
-        this.setState ({
+        this.setState({
             gameMode: MODE_STATUS_BOARD,
         });
 
@@ -98,12 +103,12 @@ class GameManager extends React.Component {
     handleEndRound() {
         let playerDetails = this.state.playerDetails.slice().map(
             player => ({
-                ...player, 
+                ...player,
                 strategy: null,
             })
         );
 
-        this.setState ({
+        this.setState({
             gameMode: MODE_STRATEGY,
             roundNumber: this.state.roundNumber + 1,
             playerDetails: playerDetails,
@@ -132,14 +137,26 @@ class GameManager extends React.Component {
     handleObjectiveCardClicked(index) {
         let objective = this.state.publicObjectives[index];
         if (!objective.isRevealed && objective.order === this.nextUnrevealedObjective()) {
+            this.setState({ 
+                showObjectiveSelectModal: true,
+                selectedObjective: objective,
+            });
+        }
+    }
+
+
+    handleCloseObjectiveSelectModal(newObjective) {
+        if(newObjective && this.state.selectedObjective) {
+            newObjective.isRevealed = true;
+            newObjective.order = this.state.selectedObjective.order;
+
             let newPublicObjectives = this.state.publicObjectives.slice();
-            let newObjective = {
-                ...objective,
-                isRevealed: true,
-            };
-            newPublicObjectives[index] = newObjective;
-            this.setState ({
+            newPublicObjectives[this.state.selectedObjective.order] = newObjective;
+            
+            this.setState({
                 publicObjectives: newPublicObjectives,
+                showObjectiveSelectModal: false,
+                selectedObjective: null,
             });
         }
     }
@@ -152,7 +169,7 @@ class GameManager extends React.Component {
         for (let i = 0; i < numberObjectives; i++) {
             objectives[i] = {
                 id: null,
-                order: i, 
+                order: i,
                 stage: i < NUMBER_OBJECTIVES_STAGE_ONE ? 1 : 2,
                 name: null,
                 longDescription: null,
@@ -183,16 +200,16 @@ class GameManager extends React.Component {
     }
 
     recalculateGameTime() {
-        let timer = {...this.state.totalGameTimer};
+        let timer = { ...this.state.totalGameTimer };
         timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
-        
+
         this.setState({
             totalGameTimer: timer,
         });
     }
 
     recalculateTurnTime() {
-        let timer = {...this.state.currentTurnTimer};
+        let timer = { ...this.state.currentTurnTimer };
         timer.currentSeconds = timer.baseSeconds + Math.floor((Date.now() - timer.countStartTime) / 1000);
 
         let playerDetails = this.state.playerDetails.slice();
@@ -205,7 +222,7 @@ class GameManager extends React.Component {
                 playerDetails[i].timer = playerTimer;
             }
         }
-        
+
         this.setState({
             currentTurnTimer: timer,
             playerDetails: playerDetails,
@@ -216,10 +233,10 @@ class GameManager extends React.Component {
         if (this.state.currentTurnTimer.isCounting) {
             return; //do nothing if already counting
         }
-        let timer = {...this.state.currentTurnTimer};
+        let timer = { ...this.state.currentTurnTimer };
         timer.isCounting = true;
         timer.countStartTime = Date.now();
-        
+
         let playerDetails = this.state.playerDetails.slice();
         for (let i = 0; i < playerDetails.length; i++) {
             if (playerDetails[i].isActivePlayer) {
@@ -229,7 +246,7 @@ class GameManager extends React.Component {
                     countStartTime: Date.now(),
                 };
 
-                let player = {...playerDetails[i]};
+                let player = { ...playerDetails[i] };
                 player.timer = playerTimer;
                 playerDetails[i] = player;
             }
@@ -240,12 +257,12 @@ class GameManager extends React.Component {
             playerDetails: playerDetails,
         })
     }
-    
+
     stopTurnTimers(resetCurrentTurn) {
         if (!this.state.currentTurnTimer.isCounting) {
             return; //do nothing if already stopped
         }
-        let timer = {...this.state.currentTurnTimer};
+        let timer = { ...this.state.currentTurnTimer };
         timer.isCounting = false;
         if (resetCurrentTurn) {
             timer.baseSeconds = 0;
@@ -264,7 +281,7 @@ class GameManager extends React.Component {
                 };
                 playerTimer.baseSeconds = playerTimer.currentSeconds;
 
-                let player = {...playerDetails[i]};
+                let player = { ...playerDetails[i] };
                 player.timer = playerTimer;
                 playerDetails[i] = player;
             }
@@ -295,7 +312,7 @@ class GameManager extends React.Component {
                 };
                 playerTimer.baseSeconds = playerTimer.currentSeconds;
 
-                let player = {...playerDetails[i]};
+                let player = { ...playerDetails[i] };
                 player.timer = playerTimer;
                 player.isActivePlayer = false;
                 playerDetails[i] = player;
@@ -307,7 +324,7 @@ class GameManager extends React.Component {
                     countStartTime: Date.now(),
                 };
 
-                let player = {...playerDetails[i]};
+                let player = { ...playerDetails[i] };
                 player.timer = playerTimer;
                 player.isActivePlayer = true;
                 playerDetails[i] = player;
@@ -324,7 +341,7 @@ class GameManager extends React.Component {
         if (this.state.totalGameTimer.isCounting) {
             return; //do nothing if already counting
         }
-        let timer = {...this.state.totalGameTimer};
+        let timer = { ...this.state.totalGameTimer };
         timer.isCounting = true;
         timer.countStartTime = Date.now();
 
@@ -332,12 +349,12 @@ class GameManager extends React.Component {
             totalGameTimer: timer
         })
     }
-    
+
     stopGameTimer() {
         if (!this.state.totalGameTimer.isCounting) {
             return; //do nothing if already stopped
         }
-        let timer = {...this.state.totalGameTimer};
+        let timer = { ...this.state.totalGameTimer };
         timer.baseSeconds = timer.currentSeconds;
         timer.isCounting = false;
 
@@ -351,7 +368,7 @@ class GameManager extends React.Component {
             if (this.state.playerDetails[i].isActivePlayer) {
                 return this.state.playerDetails[i];
             }
-        } 
+        }
         return null;
     }
 
@@ -359,21 +376,21 @@ class GameManager extends React.Component {
         //TODO Factor in Naalu initiative (race or promissory)
         let nextPlayer = activePlayer;
         // determine the highest initiative number that could possibly be next. Offset by the number of strategies to allow it to loop back;
-        let highestInitiativeNumber = activePlayer.strategy.number + NUMBER_STRATEGIES -1;
+        let highestInitiativeNumber = activePlayer.strategy.number + NUMBER_STRATEGIES - 1;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
             if (!player.isActivePlayer) {
                 // determine the player initiative number, offset by the number of strategies to allow it to loop back
-                let playerInitiativeNumber = 
-                    player.strategy.number < activePlayer.strategy.number ? 
-                    player.strategy.number + NUMBER_STRATEGIES : 
-                    player.strategy.number;
+                let playerInitiativeNumber =
+                    player.strategy.number < activePlayer.strategy.number ?
+                        player.strategy.number + NUMBER_STRATEGIES :
+                        player.strategy.number;
                 if (playerInitiativeNumber < highestInitiativeNumber) {
                     highestInitiativeNumber = playerInitiativeNumber;
                     nextPlayer = player;
                 }
             }
-        } 
+        }
         return nextPlayer;
     }
     //#endregion
@@ -381,7 +398,7 @@ class GameManager extends React.Component {
     //#region Rendering methods
     renderGameComponent() {
         switch (this.state.gameMode) {
-            case MODE_PLAYER_SELECT: 
+            case MODE_PLAYER_SELECT:
                 return this.renderPlayerSelect();
             case MODE_STRATEGY:
                 return this.renderStrategy();
@@ -395,7 +412,7 @@ class GameManager extends React.Component {
     renderPlayerSelect() {
         return (
             <div>
-                <PlayerSelect onStartGame={playerDetails => this.handleStartGame(playerDetails)}/>
+                <PlayerSelect onStartGame={playerDetails => this.handleStartGame(playerDetails)} />
             </div>
         );
     }
@@ -405,10 +422,10 @@ class GameManager extends React.Component {
             <div>
                 {this.renderGameHeader(false)}
                 <h1>Strategy Phase</h1>
-                <StrategySelect 
-                    playerDetails={this.state.playerDetails} 
-                    isGameActive = {this.state.totalGameTimer.isCounting}
-                    onToggleTimers = {() => this.handleToggleTimers()}
+                <StrategySelect
+                    playerDetails={this.state.playerDetails}
+                    isGameActive={this.state.totalGameTimer.isCounting}
+                    onToggleTimers={() => this.handleToggleTimers()}
                     onStartRound={() => this.handleStartRound()}
                     onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
                 />
@@ -422,13 +439,13 @@ class GameManager extends React.Component {
                 {this.renderGameHeader(true)}
                 {this.renderObjectivePanel()}
                 <h1>Status Board</h1>
-                <StatusBoard 
-                    roundNumber = {this.state.roundNumber}
-                    isGameActive = {this.state.totalGameTimer.isCounting}
-                    players = {this.state.playerDetails}
-                    onEndTurn = {() => this.handleEndTurn()}
-                    onToggleTimers = {() => this.handleToggleTimers()}
-                    onEndRound = {() => this.handleEndRound()}
+                <StatusBoard
+                    roundNumber={this.state.roundNumber}
+                    isGameActive={this.state.totalGameTimer.isCounting}
+                    players={this.state.playerDetails}
+                    onEndTurn={() => this.handleEndTurn()}
+                    onToggleTimers={() => this.handleToggleTimers()}
+                    onEndRound={() => this.handleEndRound()}
                 />
             </div>
         );
@@ -436,20 +453,20 @@ class GameManager extends React.Component {
 
     renderGameHeader(showTurnTimer) {
         return <GameHeader
-            roundNumber = {this.state.roundNumber}
-            totalGameTimer = {this.state.totalGameTimer}
-            showTurnTimer = {showTurnTimer}
-            currentTurnTimer = {this.state.currentTurnTimer}
-            onTurnTimerClick = {() => this.handleTurnTimerClicked()}
-            onGameTimerClick = {() => this.handleGameTimerClicked()}
+            roundNumber={this.state.roundNumber}
+            totalGameTimer={this.state.totalGameTimer}
+            showTurnTimer={showTurnTimer}
+            currentTurnTimer={this.state.currentTurnTimer}
+            onTurnTimerClick={() => this.handleTurnTimerClicked()}
+            onGameTimerClick={() => this.handleGameTimerClicked()}
         />
     }
 
 
     renderObjectivePanel() {
         return <ObjectivePanel
-            objectives = {this.state.publicObjectives}
-            onObjectiveCardClick = {(index) => this.handleObjectiveCardClicked(index)}
+            objectives={this.state.publicObjectives}
+            onObjectiveCardClick={(index) => this.handleObjectiveCardClicked(index)}
         />
     }
     //#endregion
@@ -458,6 +475,14 @@ class GameManager extends React.Component {
         return (
             <div>
                 {this.renderGameComponent()}
+                <ObjectiveSelectModal
+                    showModal={this.state.showObjectiveSelectModal}
+                    objectives={this.state.publicObjectives}
+                    onCloseModal={(objective) => this.handleCloseObjectiveSelectModal(objective)}
+                >
+                    <p>Modal text!</p>
+                    <button onClick={(objective) => this.handleCloseObjectiveSelectModal(objective)}>Close Modal</button>
+                </ObjectiveSelectModal>
             </div>
         );
     }
@@ -465,7 +490,7 @@ class GameManager extends React.Component {
 
 
 function GameHeader(props) {
-    let turnTimer = props.showTurnTimer ? 
+    let turnTimer = props.showTurnTimer ?
         <TimerBlock
             id="turnTimer"
             label="Turn Time"
@@ -493,8 +518,8 @@ function ObjectivePanel(props) {
     let objectiveBlocks = Array(props.objectives.length);
     for (let i = 0; i < props.objectives.length; i++) {
         const objective = props.objectives[i];
-        objectiveBlocks[i] = <ObjectiveCard 
-            key={objective.order} 
+        objectiveBlocks[i] = <ObjectiveCard
+            key={objective.order}
             name={objective.name}
             stage={objective.stage}
             shortDescription={objective.shortDescription}
@@ -512,17 +537,109 @@ function ObjectivePanel(props) {
 
 
 function ObjectiveCard(props) {
+    let cardDisplay = props.isRevealed ? props.shortDescription : props.stage;
+
     return (
         <div>
             <button
                 type="button"
-                className={`objectiveCard stage${props.stage}`}
+                className={`objectiveCard stage${props.stage} ${props.isRevealed ? "revealed" : ""}`}
                 onClick={props.onObjectiveCardClick}
             >
-                {props.stage}
+                {cardDisplay}
             </button>
         </div>
     );
 }
+
+
+
+class ObjectiveSelectModal extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            selectedObjective: null,
+        };
+    }
+
+    onObjectiveChange(e) {
+        let newObjective = JSON.parse(e.target.value);
+        this.setState({
+            selectedObjective: newObjective,
+        });
+    }
+
+    getObjectiveSelect() {
+        let selectedObjectives = this.props.objectives.map((objective) => objective.isRevealed ? objective : null);
+        selectedObjectives = selectedObjectives.filter((objective) => objective !== null);
+
+        // let availableObjectives = objective_store.filter((objective) => objective.stage === this.props.stage);
+        // availableObjectives = availableObjectives.filter(
+        //     (objective) => !selectedObjectives.some(
+        //         function(selectedObjective) {
+        //             return objective.id === selectedObjective.id; 
+        //         }
+        //     )
+        // );
+
+        //TODO filter out based on current stage
+        let availableObjectives = objective_store.filter(
+            (objective) => !selectedObjectives.some(
+                function(selectedObjective) {
+                    return objective.id === selectedObjective.id; 
+                }
+            )
+        );
+        
+        let objectiveElements = Array(1);
+        objectiveElements[0] = <option 
+            key="unselected"
+            className="nullOption"
+            value={null} 
+            hidden={this.state.selectedObjective !== null}
+        >
+            {"Select..."}
+        </option>;
+
+        objectiveElements = objectiveElements.concat(availableObjectives.map((objective) =>
+            <option key={objective.id} value={JSON.stringify(objective)}>
+                {objective.name}
+            </option>));
+
+        return <select
+            id="objectives"
+            required
+            onChange={(e) => this.onObjectiveChange(e)}
+        >
+            {objectiveElements}
+        </select>;
+    }
+
+    render() {
+        if (!this.props.showModal ) {
+            return null;
+        }
+
+        return (
+            <div>
+                <ReactModal
+                    isOpen={this.props.showModal}
+                    contentLabel="Select Public Objective"
+                    onRequestClose={() => this.props.onCloseModal(this.state.selectedObjective)}
+                    className="Modal"
+                    overlayClassName="Overlay"
+                >
+                    <p>Select Public Objective</p>
+                    {this.getObjectiveSelect()}
+
+                    <button onClick={() => this.props.onCloseModal(this.state.selectedObjective)}>Cancel</button>
+                </ReactModal>
+            </div>
+        );
+    }
+}
+
+
 
 export default GameManager;
