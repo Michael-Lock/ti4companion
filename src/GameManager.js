@@ -19,6 +19,9 @@ const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
 
+const LEFT_CLICK = 1; //native event constant for a left click
+const RIGHT_CLICK = 3; //native event constant for the opening of the context menu (i.e. right click)
+
 
 class GameManager extends React.Component {
     constructor(props) {
@@ -134,6 +137,31 @@ class GameManager extends React.Component {
         else {
             this.startGameTimer();
             this.state.gameMode === MODE_STATUS_BOARD && this.startTurnTimers();
+        }
+    }
+
+    handleVictoryPointClick(e, playerString) {
+        console.log(playerString);
+        let player = JSON.parse(playerString);
+        let newPlayerDetails = this.state.playerDetails.slice();
+        let newVictoryPoints = player.victoryPoints;
+
+        if (e.nativeEvent.which === LEFT_CLICK) {
+            newVictoryPoints = player.victoryPoints + 1;
+        }
+        else if (e.nativeEvent.which === RIGHT_CLICK) {
+            // e.preventDefault();
+            newVictoryPoints = player.victoryPoints - 1;
+        }
+        
+        console.log(newVictoryPoints);
+        if (newVictoryPoints >= 0 && newVictoryPoints <= (this.state.maxVictoryPoints ? this.state.maxVictoryPoints : 10)) {
+            let newPlayer = {...player};
+            newPlayer.victoryPoints = newVictoryPoints;
+            newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+            this.setState({
+                playerDetails: newPlayerDetails,
+            });
         }
     }
 
@@ -470,6 +498,7 @@ class GameManager extends React.Component {
                             players={this.state.playerDetails}
                             onEndTurn={() => this.handleEndTurn()}
                             onToggleTimers={() => this.handleToggleTimers()}
+                            onVictoryPointsClick={(e, playerNumber) => this.handleVictoryPointClick(e, playerNumber)}
                             onEndRound={() => this.handleEndRound()}
                         />
                     </Col>
