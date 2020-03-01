@@ -15,6 +15,7 @@ class StatusBoard extends React.Component {
                     player={player} 
                     onEndTurn={() => this.props.onEndTurn()}
                     onVictoryPointsClick={e => this.props.onVictoryPointsClick(e, JSON.stringify(player))}
+                    onStrategyCardClick={() => this.props.onStrategyCardClick(JSON.stringify(player))}
                 />
             </Col>
         );
@@ -55,7 +56,8 @@ function PlayerCard(props) {
         <button 
             className="strategyCardButton" 
             type="button"
-            style={{backgroundColor: playerStrategy.colour,}}
+            style={{backgroundColor: playerStrategy.isUsed ? "grey" : playerStrategy.colour,}}
+            onClick={props.onStrategyCardClick}
         >
             {playerStrategy.number}
         </button> : 

@@ -76,9 +76,33 @@ class GameManager extends React.Component {
 
     handlePlayerStrategyChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].strategy = JSON.parse(e.target.value);
+        let newStrategy = JSON.parse(e.target.value);
+        newStrategy.isUsed = false;
+        playerDetails[playerNumber].strategy = newStrategy
+
         this.setState({
             playerDetails: playerDetails,
+        });
+    }
+
+    //TODO Review the function name as it's likely to become confusing once strategy cards area added to the strategy select view
+    handleStrategyCardClicked(playerString) {
+        let player = JSON.parse(playerString);
+        if (player.isPassed) {
+            return; //can't toggle strategy card if already passed
+        }
+
+        let newStrategy = {...player.strategy};
+        newStrategy.isUsed = !newStrategy.isUsed;
+        
+        let newPlayer = {...player};
+        newPlayer.strategy = newStrategy;
+
+        let newPlayerDetails = this.state.playerDetails.slice();
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+
+        this.setState({
+            playerDetails: newPlayerDetails,
         });
     }
 
@@ -495,7 +519,8 @@ class GameManager extends React.Component {
                             players={this.state.playerDetails}
                             onEndTurn={() => this.handleEndTurn()}
                             onToggleTimers={() => this.handleToggleTimers()}
-                            onVictoryPointsClick={(e, playerNumber) => this.handleVictoryPointClick(e, playerNumber)}
+                            onVictoryPointsClick={(e, playerString) => this.handleVictoryPointClick(e, playerString)}
+                            onStrategyCardClick={(playerString) => this.handleStrategyCardClicked(playerString)}
                             onEndRound={() => this.handleEndRound()}
                         />
                     </Col>
