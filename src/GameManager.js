@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
@@ -17,7 +16,6 @@ const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
 
-ReactModal.setAppElement('#root');
 
 class GameManager extends React.Component {
     constructor(props) {
