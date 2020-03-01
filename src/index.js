@@ -3,14 +3,9 @@ import ReactDOM from 'react-dom';
 import GameManager from './GameManager';
 import * as serviceWorker from './serviceWorker';
 
-// import './index.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.scss';
 
-// ReactDOM.render(
-//     <TimerBlock label="Total Time" baseSeconds={5500} currentSeconds={0} isCounting={true}/>,
-//     document.getElementById("root")
-//   );
+document.oncontextmenu = (e) => e.preventDefault();
 
 ReactDOM.render(
     <GameManager/>,
