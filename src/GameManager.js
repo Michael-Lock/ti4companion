@@ -141,7 +141,6 @@ class GameManager extends React.Component {
     }
 
     handleVictoryPointClick(e, playerString) {
-        console.log(playerString);
         let player = JSON.parse(playerString);
         let newPlayerDetails = this.state.playerDetails.slice();
         let newVictoryPoints = player.victoryPoints;
@@ -150,11 +149,9 @@ class GameManager extends React.Component {
             newVictoryPoints = player.victoryPoints + 1;
         }
         else if (e.nativeEvent.which === RIGHT_CLICK) {
-            // e.preventDefault();
             newVictoryPoints = player.victoryPoints - 1;
         }
         
-        console.log(newVictoryPoints);
         if (newVictoryPoints >= 0 && newVictoryPoints <= (this.state.maxVictoryPoints ? this.state.maxVictoryPoints : 10)) {
             let newPlayer = {...player};
             newPlayer.victoryPoints = newVictoryPoints;
