@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 import objective_store from './data/objectives.json';
 
-export function ObjectiveSelectModal(props) {
+export default function ObjectiveSelectModal(props) {
     if (!props.showModal) {
         return null;
     }
