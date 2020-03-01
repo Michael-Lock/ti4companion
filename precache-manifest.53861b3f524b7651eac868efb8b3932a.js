@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "35a123820bb16178506e9b98cc71f14b",
+    "revision": "9a89c3dfc6067bb797f645517fb801dd",
     "url": "/ti4companion/index.html"
   },
   {
-    "revision": "aa92ce47ae47fc715d3d",
-    "url": "/ti4companion/static/css/main.88e446e7.chunk.css"
+    "revision": "ae17cfdf5327912393ca",
+    "url": "/ti4companion/static/css/main.34bdb0d7.chunk.css"
   },
   {
-    "revision": "4ada04537f3dd15a32bc",
-    "url": "/ti4companion/static/js/2.2c545367.chunk.js"
+    "revision": "e7540d8f218e96c01afc",
+    "url": "/ti4companion/static/js/2.1191fd1c.chunk.js"
   },
   {
-    "revision": "192201c36557064462a543b746126438",
-    "url": "/ti4companion/static/js/2.2c545367.chunk.js.LICENSE.txt"
+    "revision": "bfc08a62983de46a4daec9f8c3c657d8",
+    "url": "/ti4companion/static/js/2.1191fd1c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aa92ce47ae47fc715d3d",
-    "url": "/ti4companion/static/js/main.62691ef5.chunk.js"
+    "revision": "ae17cfdf5327912393ca",
+    "url": "/ti4companion/static/js/main.1b161dcb.chunk.js"
   },
   {
     "revision": "3b6c9246c9cebda97847",
