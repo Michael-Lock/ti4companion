@@ -6,7 +6,8 @@ import StatusBoard from './StatusBoard';
 import TimerBlock from './TimerBlock';
 import './GameManager.css';
 
-import objective_store from './data/objectives.json';
+import { ObjectiveSelectModal } from './ObjectiveSelectModal';
+import { ObjectivePanel } from './ObjectivePanel';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -22,9 +23,15 @@ class GameManager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            //View controls
             gameMode: MODE_PLAYER_SELECT,
             showObjectiveSelectModal: false,
+
+            //Temporary State
             selectedObjective: null,
+            selectedObjectiveSelection: null, //used for the objective select modal to record the current selection
+
+            //Game Details
             playerDetails: null,
             roundNumber: 1,
             totalGameTimer: {
@@ -144,9 +151,16 @@ class GameManager extends React.Component {
         }
     }
 
+    handleObjectiveChange(e) {
+        let newObjective = JSON.parse(e.target.value);
+        this.setState({
+            selectedObjectiveSelection: newObjective,
+        });
+    }
 
-    handleCloseObjectiveSelectModal(newObjective) {
-        if(newObjective && this.state.selectedObjective) {
+    handleCloseObjectiveSelectModal(isConfirmed) {
+        if(isConfirmed && this.state.selectedObjectiveSelection && this.state.selectedObjective) {
+            let newObjective = {...this.state.selectedObjectiveSelection};
             newObjective.isRevealed = true;
             newObjective.order = this.state.selectedObjective.order;
 
@@ -156,9 +170,14 @@ class GameManager extends React.Component {
             this.setState({
                 publicObjectives: newPublicObjectives,
                 showObjectiveSelectModal: false,
-                selectedObjective: null,
             });
         }
+
+        this.setState({
+            showObjectiveSelectModal: false,
+            selectedObjective: null,
+            selectedObjectiveSelection: null,
+        });
     }
     //#endregion
 
@@ -478,7 +497,11 @@ class GameManager extends React.Component {
                 <ObjectiveSelectModal
                     showModal={this.state.showObjectiveSelectModal}
                     objectives={this.state.publicObjectives}
-                    onCloseModal={(objective) => this.handleCloseObjectiveSelectModal(objective)}
+                    stage={this.state.selectedObjective ? this.state.selectedObjective.stage : null}
+                    selectedObjectiveSelection={this.state.selectedObjectiveSelection}
+                    onConfirmModal={() => this.handleCloseObjectiveSelectModal(true)}
+                    onCloseModal={() => this.handleCloseObjectiveSelectModal()}
+                    onObjectiveChange={e => this.handleObjectiveChange(e)}
                 >
                     <p>Modal text!</p>
                     <button onClick={(objective) => this.handleCloseObjectiveSelectModal(objective)}>Close Modal</button>
@@ -512,134 +535,5 @@ function GameHeader(props) {
         </div>
     );
 }
-
-
-function ObjectivePanel(props) {
-    let objectiveBlocks = Array(props.objectives.length);
-    for (let i = 0; i < props.objectives.length; i++) {
-        const objective = props.objectives[i];
-        objectiveBlocks[i] = <ObjectiveCard
-            key={objective.order}
-            name={objective.name}
-            stage={objective.stage}
-            shortDescription={objective.shortDescription}
-            isRevealed={objective.isRevealed}
-            onObjectiveCardClick={() => props.onObjectiveCardClick(i)}
-        />
-    }
-
-    return (
-        <div>
-            {objectiveBlocks}
-        </div>
-    );
-}
-
-
-function ObjectiveCard(props) {
-    let cardDisplay = props.isRevealed ? props.shortDescription : props.stage;
-
-    return (
-        <div>
-            <button
-                type="button"
-                className={`objectiveCard stage${props.stage} ${props.isRevealed ? "revealed" : ""}`}
-                onClick={props.onObjectiveCardClick}
-            >
-                {cardDisplay}
-            </button>
-        </div>
-    );
-}
-
-
-
-class ObjectiveSelectModal extends React.Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            selectedObjective: null,
-        };
-    }
-
-    onObjectiveChange(e) {
-        let newObjective = JSON.parse(e.target.value);
-        this.setState({
-            selectedObjective: newObjective,
-        });
-    }
-
-    getObjectiveSelect() {
-        let selectedObjectives = this.props.objectives.map((objective) => objective.isRevealed ? objective : null);
-        selectedObjectives = selectedObjectives.filter((objective) => objective !== null);
-
-        // let availableObjectives = objective_store.filter((objective) => objective.stage === this.props.stage);
-        // availableObjectives = availableObjectives.filter(
-        //     (objective) => !selectedObjectives.some(
-        //         function(selectedObjective) {
-        //             return objective.id === selectedObjective.id; 
-        //         }
-        //     )
-        // );
-
-        //TODO filter out based on current stage
-        let availableObjectives = objective_store.filter(
-            (objective) => !selectedObjectives.some(
-                function(selectedObjective) {
-                    return objective.id === selectedObjective.id; 
-                }
-            )
-        );
-        
-        let objectiveElements = Array(1);
-        objectiveElements[0] = <option 
-            key="unselected"
-            className="nullOption"
-            value={null} 
-            hidden={this.state.selectedObjective !== null}
-        >
-            {"Select..."}
-        </option>;
-
-        objectiveElements = objectiveElements.concat(availableObjectives.map((objective) =>
-            <option key={objective.id} value={JSON.stringify(objective)}>
-                {objective.name}
-            </option>));
-
-        return <select
-            id="objectives"
-            required
-            onChange={(e) => this.onObjectiveChange(e)}
-        >
-            {objectiveElements}
-        </select>;
-    }
-
-    render() {
-        if (!this.props.showModal ) {
-            return null;
-        }
-
-        return (
-            <div>
-                <ReactModal
-                    isOpen={this.props.showModal}
-                    contentLabel="Select Public Objective"
-                    onRequestClose={() => this.props.onCloseModal(this.state.selectedObjective)}
-                    className="Modal"
-                    overlayClassName="Overlay"
-                >
-                    <p>Select Public Objective</p>
-                    {this.getObjectiveSelect()}
-
-                    <button onClick={() => this.props.onCloseModal(this.state.selectedObjective)}>Cancel</button>
-                </ReactModal>
-            </div>
-        );
-    }
-}
-
-
 
 export default GameManager;

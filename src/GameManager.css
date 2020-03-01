@@ -2,22 +2,25 @@
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    border: 1px solid black;
-    height: 90px;
-    width: 75px;
+    border-width: 7px;
+    height: 8vh;
+    width: 85px;
     margin-bottom: 2px;
+}
+
+.stage1 {
+    background-color: rgb(245, 197, 108);
+    border-color: orange;
+}
+
+.stage2 {
+    border-color: blue;
+    background-color: rgb(2, 126, 241);
 }
 
 .revealed {
     font-size: 12px;
-}
-
-.stage1 {
-    background-color: orange;
-}
-
-.stage2 {
-    background-color: blue;
+    background-color: papayawhip;
 }
 
 .Modal {
