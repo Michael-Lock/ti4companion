@@ -1,0 +1,42 @@
+.objectiveCard {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border-width: 7px;
+    height: 8vh;
+    width: 85px;
+    margin-bottom: 2px;
+}
+
+.stage1 {
+    background-color: rgb(245, 197, 108);
+    border-color: orange;
+}
+
+.stage2 {
+    border-color: blue;
+    background-color: rgb(2, 126, 241);
+}
+
+.revealed {
+    font-size: 12px;
+    background-color: papayawhip;
+}
+
+.Modal {
+    position: absolute;
+    top: 20vmin;
+    left: 20vmax;
+    right: 20vmax;
+    bottom: 20vmin;
+    background-color: papayawhip;
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
