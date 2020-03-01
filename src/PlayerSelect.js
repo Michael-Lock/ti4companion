@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+
 import './PlayerSelect.css';
 
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
@@ -141,9 +143,9 @@ class PlayerSelect extends React.Component {
                         onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
                         onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
                     />
-                    <button type="button" onClick={this.handleStartGame()}>
+                    <Button type="button" onClick={this.handleStartGame()}>
                         Start Game
-                    </button>
+                    </Button>
                 </form>
             </div>
         )

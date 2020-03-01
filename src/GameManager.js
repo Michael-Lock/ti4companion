@@ -1,13 +1,15 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
 import TimerBlock from './TimerBlock';
-import './GameManager.css';
+import ObjectiveSelectModal from './ObjectiveSelectModal';
+import ObjectivePanel from './ObjectivePanel';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
-import { ObjectiveSelectModal } from './ObjectiveSelectModal';
-import { ObjectivePanel } from './ObjectivePanel';
+import './GameManager.css';
+import { Col } from 'react-bootstrap';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -17,7 +19,6 @@ const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
 
-ReactModal.setAppElement('#root');
 
 class GameManager extends React.Component {
     constructor(props) {
@@ -438,35 +439,42 @@ class GameManager extends React.Component {
 
     renderStrategy() {
         return (
-            <div>
-                {this.renderGameHeader(false)}
-                <h1>Strategy Phase</h1>
-                <StrategySelect
-                    playerDetails={this.state.playerDetails}
-                    isGameActive={this.state.totalGameTimer.isCounting}
-                    onToggleTimers={() => this.handleToggleTimers()}
-                    onStartRound={() => this.handleStartRound()}
-                    onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
-                />
-            </div>
+            <Container fluid={true}>
+                <Row>{this.renderGameHeader(false)}</Row>
+                <Row>
+                    {this.renderObjectivePanel()}
+                    <Col>
+                        <StrategySelect
+                            playerDetails={this.state.playerDetails}
+                            isGameActive={this.state.totalGameTimer.isCounting}
+                            onToggleTimers={() => this.handleToggleTimers()}
+                            onStartRound={() => this.handleStartRound()}
+                            onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
+                            />
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 
     renderStatusBoard() {
         return (
-            <div>
-                {this.renderGameHeader(true)}
-                {this.renderObjectivePanel()}
-                <h1>Status Board</h1>
-                <StatusBoard
-                    roundNumber={this.state.roundNumber}
-                    isGameActive={this.state.totalGameTimer.isCounting}
-                    players={this.state.playerDetails}
-                    onEndTurn={() => this.handleEndTurn()}
-                    onToggleTimers={() => this.handleToggleTimers()}
-                    onEndRound={() => this.handleEndRound()}
-                />
-            </div>
+            <Container fluid={true}>
+                <Row>{this.renderGameHeader(true)}</Row>
+                <Row>
+                    {this.renderObjectivePanel()}
+                    <Col>
+                        <StatusBoard
+                            roundNumber={this.state.roundNumber}
+                            isGameActive={this.state.totalGameTimer.isCounting}
+                            players={this.state.playerDetails}
+                            onEndTurn={() => this.handleEndTurn()}
+                            onToggleTimers={() => this.handleToggleTimers()}
+                            onEndRound={() => this.handleEndRound()}
+                        />
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 
@@ -484,6 +492,7 @@ class GameManager extends React.Component {
 
     renderObjectivePanel() {
         return <ObjectivePanel
+            className="objectivePanel"
             objectives={this.state.publicObjectives}
             onObjectiveCardClick={(index) => this.handleObjectiveCardClicked(index)}
         />
@@ -502,10 +511,7 @@ class GameManager extends React.Component {
                     onConfirmModal={() => this.handleCloseObjectiveSelectModal(true)}
                     onCloseModal={() => this.handleCloseObjectiveSelectModal()}
                     onObjectiveChange={e => this.handleObjectiveChange(e)}
-                >
-                    <p>Modal text!</p>
-                    <button onClick={(objective) => this.handleCloseObjectiveSelectModal(objective)}>Close Modal</button>
-                </ObjectiveSelectModal>
+                />
             </div>
         );
     }

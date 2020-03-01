@@ -1,32 +1,42 @@
 import React from 'react';
-import './StatusBoard.css';
 import TimerBlock from './TimerBlock';
+import Button from 'react-bootstrap/Button'
+import {Row, Col} from 'react-bootstrap'
 
+import './StatusBoard.css';
 
 class StatusBoard extends React.Component {
     render() {
         let playerCards = this.props.players.map(
             (player) => 
-            <PlayerCard key={player.playerNumber} player={player} onEndTurn={() => this.props.onEndTurn()}/>
+            <Col key={player.playerNumber}>
+                <PlayerCard key={player.playerNumber} player={player} onEndTurn={() => this.props.onEndTurn()}/>
+            </Col>
         );
 
         return (
-            <div>
-                <span>
+            <Row className="d-flex flex-column">
+                <Row>
                     {playerCards}
-                </span>
-                <span>
-                    <button type="button" onClick={() => this.props.onEndTurn()}>
-                        End Turn
-                    </button>
-                    <button type="button" onClick={() => this.props.onToggleTimers()}>
-                        {this.props.isGameActive ? "Pause Game" : "Resume Game"}
-                    </button>
-                    <button type="button" onClick={() => this.props.onEndRound()}>
-                        End Round
-                    </button>
-                </span>
-            </div>
+                </Row>
+                <Row className="d-flex align-items-end">
+                    <Col s={{ span: 3, offset: 1}}>
+                        <Button variant="success" type="button" onClick={() => this.props.onEndTurn()}>
+                            End Turn
+                        </Button>
+                    </Col>
+                    <Col s={{ span: 3, offset: 1}}>
+                        <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
+                            {this.props.isGameActive ? "Pause Game" : "Resume Game"}
+                        </Button>
+                    </Col>
+                    <Col s={{ span: 3, offset: 1}}>
+                        <Button type="button" onClick={() => this.props.onEndRound()}>
+                            End Round
+                        </Button>
+                    </Col>
+                </Row>
+            </Row>
         )
     }
 }
@@ -50,7 +60,6 @@ class PlayerCard extends React.Component {
         return (
             <div className="playerCardColumn">
                 <div 
-                    type="button" 
                     className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}
                     onClick={this.props.onEndTurn}
                 >

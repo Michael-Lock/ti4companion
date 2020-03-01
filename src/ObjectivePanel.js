@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ObjectivePanel(props) {
+export default function ObjectivePanel(props) {
     let objectiveBlocks = Array(props.objectives.length);
 
     for (let i = 0; i < props.objectives.length; i++) {

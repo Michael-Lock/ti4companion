@@ -1,3 +1,7 @@
+.statusBoard {
+    min-height: 5px;
+}
+
 .objectiveCard {
     font-size: 24px;
     font-weight: bold;
@@ -22,21 +26,3 @@
     font-size: 12px;
     background-color: papayawhip;
 }
-
-.Modal {
-    position: absolute;
-    top: 20vmin;
-    left: 20vmax;
-    right: 20vmax;
-    bottom: 20vmin;
-    background-color: papayawhip;
-  }
-
-  .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-  }

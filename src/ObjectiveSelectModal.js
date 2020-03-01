@@ -1,8 +1,10 @@
 import React from 'react';
-import ReactModal from 'react-modal';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 import objective_store from './data/objectives.json';
 
-export function ObjectiveSelectModal(props) {
+export default function ObjectiveSelectModal(props) {
     if (!props.showModal) {
         return null;
     }
@@ -34,28 +36,29 @@ export function ObjectiveSelectModal(props) {
     </select>;
 
     return (
-        <div>
-            <ReactModal 
-                isOpen={props.showModal} 
-                contentLabel="Select Public Objective" 
-                onRequestClose={props.onCloseModal} 
-                className="Modal" 
-                overlayClassName="Overlay"
-            >
-                <div>
-                    <p>Select Public Objective</p>
+        <Modal show={props.showModal} onHide={props.onCloseModal} centered>
+            <Modal.Header>
+                <Modal.Title>Select Public Objective</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="d-flex flex-column">
                     {objectiveSelect}
                 </div>
-                <div>
+                <div className="d-flex flex-column">
+                    <br/>
                     <p className="objectiveLongDescription">
                         {props.selectedObjectiveSelection ? props.selectedObjectiveSelection.longDescription : ""}
                     </p>
                 </div>
-                <div>
-                    <button onClick={props.onConfirmModal} disabled={!props.selectedObjectiveSelection}>Confirm</button>
-                    <button onClick={props.onCloseModal}>Cancel</button>
-                </div>
-            </ReactModal>
-        </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={props.onCloseModal}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={props.onConfirmModal} disabled={!props.selectedObjectiveSelection}>
+                    Confirm
+                </Button>
+            </Modal.Footer>
+        </Modal>
     );
 }

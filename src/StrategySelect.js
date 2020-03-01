@@ -1,5 +1,6 @@
 import React from 'react';
-// import './PlayerSelect.css';
+import Button from 'react-bootstrap/Button';
+import {Row, Col} from 'react-bootstrap';
 
 const STRATEGIES = [
     {name: "", number: null, colour: null},
@@ -23,21 +24,27 @@ class StrategySelect extends React.Component {
     render() {
         return (
             <div>
-                <div>
-
-                </div>
-                <form>
+                <Row>
+                    {/*TODO: add strategy cards */}
+                </Row>
+                <Row>
                     <PlayerStrategyForm
                         playerDetails={this.props.playerDetails}
                         onPlayerStrategyChange={(e, playerNumber) => this.props.onPlayerStrategyChange(e, playerNumber)}
                     />
-                    <button type="button" onClick={() => this.props.onToggleTimers()}>
-                        {this.props.isGameActive ? "Pause Game" : "Resume Game"}
-                    </button>
-                    <button type="button" onClick={this.handleStartRound()}>
-                        Start Round
-                    </button>
-                </form>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
+                            {this.props.isGameActive ? "Pause Game" : "Resume Game"}
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button type="button" onClick={this.handleStartRound()}>
+                            Start Round
+                        </Button>
+                    </Col>
+                </Row>
             </div>
         )
     }
