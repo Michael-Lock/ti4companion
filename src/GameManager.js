@@ -502,10 +502,7 @@ class GameManager extends React.Component {
                     onConfirmModal={() => this.handleCloseObjectiveSelectModal(true)}
                     onCloseModal={() => this.handleCloseObjectiveSelectModal()}
                     onObjectiveChange={e => this.handleObjectiveChange(e)}
-                >
-                    <p>Modal text!</p>
-                    <button onClick={(objective) => this.handleCloseObjectiveSelectModal(objective)}>Close Modal</button>
-                </ObjectiveSelectModal>
+                />
             </div>
         );
     }

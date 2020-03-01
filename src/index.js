@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import GameManager from './GameManager';
 import * as serviceWorker from './serviceWorker';
 
+// import './index.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import './custom.scss';
 
 // ReactDOM.render(
 //     <TimerBlock label="Total Time" baseSeconds={5500} currentSeconds={0} isCounting={true}/>,

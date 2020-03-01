@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
+import Button from 'react-bootstrap/Button'
+
 import objective_store from './data/objectives.json';
 
 export function ObjectiveSelectModal(props) {
@@ -52,8 +54,8 @@ export function ObjectiveSelectModal(props) {
                     </p>
                 </div>
                 <div>
-                    <button onClick={props.onConfirmModal} disabled={!props.selectedObjectiveSelection}>Confirm</button>
-                    <button onClick={props.onCloseModal}>Cancel</button>
+                    <Button onClick={props.onConfirmModal} disabled={!props.selectedObjectiveSelection}>Confirm</Button>
+                    <Button variant="Secondary" onClick={props.onCloseModal}>Cancel</Button>
                 </div>
             </ReactModal>
         </div>
