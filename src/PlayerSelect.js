@@ -40,17 +40,15 @@ const COLOURS = [
 class PlayerSelect extends React.Component {
     constructor(props) {
         super(props);
+
+        let playerDetails = Array(MAX_PLAYER_NUMBER);
+        for (let i = 0; i < MAX_PLAYER_NUMBER; i++) {
+            playerDetails[i] = this.createPlayer(i);
+        }
+
         this.state = {
             selectedNumberOfPlayers: null,
-            //TODO dynamically populate player number as index
-            playerDetails: [
-                this.createPlayer(0),
-                this.createPlayer(1),
-                this.createPlayer(2),
-                this.createPlayer(3),
-                this.createPlayer(4),
-                this.createPlayer(5),
-            ]
+            playerDetails: playerDetails,
         };
     }
 
@@ -63,12 +61,7 @@ class PlayerSelect extends React.Component {
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
             isActivePlayer: playerNumber === 0 ? true : false,
-            timer: {
-                baseSeconds: 0,
-                currentSeconds: 0,
-                countStartTime: Date.now(),
-                isCounting: false,
-            },
+            isPassed: false,
         }
         return playerDetail;
     }

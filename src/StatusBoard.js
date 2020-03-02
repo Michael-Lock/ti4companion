@@ -2,6 +2,7 @@ import React from 'react';
 import TimerBlock from './TimerBlock';
 import Button from 'react-bootstrap/Button'
 import {Row, Col} from 'react-bootstrap'
+import Card from 'react-bootstrap/Card'
 
 import './StatusBoard.css';
 
@@ -12,10 +13,12 @@ class StatusBoard extends React.Component {
             <Col key={player.playerNumber}>
                 <PlayerCard 
                     key={player.playerNumber} 
-                    player={player} 
+                    player={player}
+                    playerTimer={this.props.playerTimers[player.playerNumber]}
                     onEndTurn={() => this.props.onEndTurn()}
                     onVictoryPointsClick={e => this.props.onVictoryPointsClick(e, JSON.stringify(player))}
                     onStrategyCardClick={() => this.props.onStrategyCardClick(JSON.stringify(player))}
+                    onPassButtonClick={() => this.props.onPassButtonClick(JSON.stringify(player))}
                 />
             </Col>
         );
@@ -26,17 +29,17 @@ class StatusBoard extends React.Component {
                     {playerCards}
                 </Row>
                 <Row className="d-flex align-items-end">
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button variant="success" type="button" onClick={() => this.props.onEndTurn()}>
                             End Turn
                         </Button>
                     </Col>
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
                             {this.props.isGameActive ? "Pause Game" : "Resume Game"}
                         </Button>
                     </Col>
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button type="button" onClick={() => this.props.onEndRound()}>
                             End Round
                         </Button>
@@ -64,33 +67,57 @@ function PlayerCard(props) {
         null;
 
     return (
-        <div className="playerCardColumn">
-            <div 
-                className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}
+        <Card className="border-0">
+            <h6 
+                className={`rounded currentPlayerBlock ${player.isActivePlayer ? "activePlayerBlock" : ""}`}
                 onClick={props.onEndTurn}
             >
                 {player.isActivePlayer ? "Current Player" : ""}
-            </div>
-            <div className="playerCard">
-                <div style={{backgroundColor: playerColour,}}>
-                    <div>{player.playerName}</div>
-                    <div>{player.faction}</div>
-                </div>
-                <div>
-                    <TimerBlock currentSeconds={player.timer.currentSeconds} disabled={true}/>
-                </div>
-                <button 
-                    className="victoryPointButton" 
-                    type="button" 
-                    onClick={props.onVictoryPointsClick}
-                    onContextMenu={props.onVictoryPointsClick}
-                >
-                    {player.victoryPoints}
-                </button>
-                <hr className="playerCardDivider"/>
-                {playerStrategyButton}
-            </div>
-        </div>
+            </h6>
+            <Card className="playerCard">
+                <Row noGutters style={{ backgroundColor: playerColour, }}>
+                    <Col xs={2}>
+                        {/* TODO: Add faction icon */}
+                    </Col>
+                    <Col>
+                        <div>{player.playerName}</div>
+                        <div>{player.faction}</div>
+                    </Col>
+                    <Col xs={2}>
+                        <button 
+                            className={`rounded passButton ${player.isPassed ? "passButtonPassed" : ""}`}
+                            onClick={props.onPassButtonClick}
+                        />
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <TimerBlock currentSeconds={props.playerTimer.currentSeconds} disabled={true} />
+                </Row>
+                <Row noGutters>
+                    <Col>
+                        <button
+                            className="victoryPointButton"
+                            type="button"
+                            onClick={props.onVictoryPointsClick}
+                            onContextMenu={props.onVictoryPointsClick}
+                        >
+                            {player.victoryPoints}
+                        </button>
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <hr className="playerCardDivider" />
+                </Row>
+                <Row noGutters>
+                    <Col>
+                        {playerStrategyButton}
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <hr className="playerCardDivider" />
+                </Row>
+            </Card>
+        </Card>
     )
 }
 
