@@ -4,29 +4,10 @@ import Button from 'react-bootstrap/Button';
 import './PlayerSelect.css';
 
 import faction_store from './data/factions.json';
+import tech_store from './data/technologies.json';
 
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
 const MAX_PLAYER_NUMBER = 6;
-
-// const FACTIONS = [
-//     {fullName: "Arborec", shortName: "Arborec"},
-//     {fullName: "Barony of Letnev", shortName: "Letnev"},
-//     {fullName: "Clan of Saar", shortName: "Saar"},
-//     {fullName: "Embers of Muaat", shortName: "Muaat"},
-//     {fullName: "Emirates of Hacan", shortName: "Hacan"},
-//     {fullName: "Federation of Sol", shortName: "Sol"},
-//     {fullName: "Ghosts of Creuss", shortName: "Creuss"},
-//     {fullName: "L1Z1X Mindnet", shortName: "L1Z1X"},
-//     {fullName: "Mentak Coalition", shortName: "Mentak"},
-//     {fullName: "Naalu Collective", shortName: "Naalu"},
-//     {fullName: "Nekro Virus", shortName: "Nekro"},
-//     {fullName: "Sardakk N’orr", shortName: "N'orr"},
-//     {fullName: "Universities of Jol-Nar", shortName: "Jol-Nar"},
-//     {fullName: "Winnu", shortName: "Winnu"},
-//     {fullName: "Xxcha Kingdom", shortName: "Xxcha"},
-//     {fullName: "Yin Brotherhood", shortName: "Yin"},
-//     {fullName: "Yssaril Tribes", shortName: "Yssaril"},    
-// ]
 
 const COLOURS = [
     {description: null, colour: null},
@@ -110,11 +91,44 @@ class PlayerSelect extends React.Component {
     }
 
     handleStartGame() {
-        if (this.props.onStartGame) {
-            let finalPlayerDetails = this.state.playerDetails.slice(0, this.state.selectedNumberOfPlayers)
+        let finalPlayerDetails = this.state.playerDetails.slice(0, this.state.selectedNumberOfPlayers)
+        finalPlayerDetails = this.initialiseTechnologies(finalPlayerDetails);
 
-            return () => this.props.onStartGame(finalPlayerDetails)
-        }
+        return this.props.onStartGame(finalPlayerDetails);
+    }
+
+    initialiseTechnologies(finalPlayerDetails) {
+        let playerDetails = finalPlayerDetails.map((player) => {
+            let newPlayer = {...player};
+            let techSets = [];
+            techSets.push(this.createPlayerTechnologies(tech_store.Biotic));
+            techSets.push(this.createPlayerTechnologies(tech_store.Warfare));
+            techSets.push(this.createPlayerTechnologies(tech_store.Propulsion));
+            techSets.push(this.createPlayerTechnologies(tech_store.Cybernetic));
+            techSets.push(this.createPlayerTechnologies(tech_store[newPlayer.faction.shortName]));
+            techSets.push(this.createPlayerTechnologies(tech_store.Ship));
+            techSets.push(this.createPlayerTechnologies(tech_store.Unit));
+            techSets.push(this.createPlayerTechnologies(tech_store.Warsun));
+            newPlayer.techs = techSets;
+            return newPlayer;
+        });
+
+        return playerDetails;
+    }
+
+    createPlayerTechnologies(techSet) {
+        let playerTechs = techSet.map((tech) => {
+            return {
+                tech: tech,
+                isResearched: false,
+            };
+        });
+
+        return playerTechs;
+    }
+
+    getFactionTechSet(setName) {
+        return ;
     }
 
     render() {
@@ -137,7 +151,7 @@ class PlayerSelect extends React.Component {
                         onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
                         onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
                     />
-                    <Button type="button" onClick={this.handleStartGame()}>
+                    <Button type="button" onClick={() => this.handleStartGame()}>
                         Start Game
                     </Button>
                 </form>
