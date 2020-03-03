@@ -176,7 +176,6 @@ class GameManager extends React.Component {
                 ...player,
                 strategy: null,
                 isPassed: false,
-                // isActivePlayer: false,
             })
         );
 
@@ -454,7 +453,7 @@ class GameManager extends React.Component {
         let highestInitiativeNumber = activePlayer.strategy.number + NUMBER_STRATEGIES - 1;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
-            if (!player.isActivePlayer) {
+            if (!player.isActivePlayer && !player.isPassed) {
                 // determine the player initiative number, offset by the number of strategies to allow it to loop back
                 let playerInitiativeNumber =
                     player.strategy.number < activePlayer.strategy.number ?

@@ -81,7 +81,7 @@ function PlayerCard(props) {
                     </Col>
                     <Col>
                         <div>{player.playerName}</div>
-                        <div>{player.faction}</div>
+                        <div>{player.faction && player.faction.shortName}</div>
                     </Col>
                     <Col xs={2}>
                         <button 

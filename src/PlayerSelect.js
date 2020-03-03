@@ -3,29 +3,30 @@ import Button from 'react-bootstrap/Button';
 
 import './PlayerSelect.css';
 
+import faction_store from './data/factions.json';
+
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
 const MAX_PLAYER_NUMBER = 6;
 
-const FACTIONS = [
-    "",
-    "Arborec",
-    "Barony of Letnev",
-    "Clan of Saar",
-    "Embers of Muaat",
-    "Emirates of Hacan",
-    "Federation of Sol",
-    "Ghosts of Creuss",
-    "L1Z1X Mindnet",
-    "Mentak Coalition",
-    "Naalu Collective",
-    "Nekro Virus",
-    "Sardakk N’orr",
-    "Universities of Jol-Nar",
-    "Winnu",
-    "Xxcha Kingdom",
-    "Yin Brotherhood",
-    "Yssaril Tribes"
-]
+// const FACTIONS = [
+//     {fullName: "Arborec", shortName: "Arborec"},
+//     {fullName: "Barony of Letnev", shortName: "Letnev"},
+//     {fullName: "Clan of Saar", shortName: "Saar"},
+//     {fullName: "Embers of Muaat", shortName: "Muaat"},
+//     {fullName: "Emirates of Hacan", shortName: "Hacan"},
+//     {fullName: "Federation of Sol", shortName: "Sol"},
+//     {fullName: "Ghosts of Creuss", shortName: "Creuss"},
+//     {fullName: "L1Z1X Mindnet", shortName: "L1Z1X"},
+//     {fullName: "Mentak Coalition", shortName: "Mentak"},
+//     {fullName: "Naalu Collective", shortName: "Naalu"},
+//     {fullName: "Nekro Virus", shortName: "Nekro"},
+//     {fullName: "Sardakk N’orr", shortName: "N'orr"},
+//     {fullName: "Universities of Jol-Nar", shortName: "Jol-Nar"},
+//     {fullName: "Winnu", shortName: "Winnu"},
+//     {fullName: "Xxcha Kingdom", shortName: "Xxcha"},
+//     {fullName: "Yin Brotherhood", shortName: "Yin"},
+//     {fullName: "Yssaril Tribes", shortName: "Yssaril"},    
+// ]
 
 const COLOURS = [
     {description: null, colour: null},
@@ -94,7 +95,7 @@ class PlayerSelect extends React.Component {
 
     handlePlayerFactionChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].faction = e.target.value;
+        playerDetails[playerNumber].faction = JSON.parse(e.target.value);
         this.setState ({
             playerDetails: playerDetails,
         });
@@ -215,10 +216,15 @@ class PlayerDetailEntry extends React.Component {
     //TODO: could have a list of unselected factions passed down to prevent duplicates
     //TODO: work out a better way of recording all the faction details (enum equivalent?)
     getFactionList() {
-        let factionElements = FACTIONS.map((faction) => 
-            <option key={faction} value={faction}>
-                {faction}
-            </option>);
+        let factionElements = Array(1);
+        factionElements[0] = <option key="unselected" className="nullOption" value={null} hidden>
+            {"Select..."}
+        </option>;
+        
+        factionElements = factionElements.concat(faction_store.map((faction) => 
+            <option key={faction.shortName} value={JSON.stringify(faction)}>
+                {faction.fullName}
+            </option>));
 
         //TODO: consider a datalist instead. Allows type-ahead but clearing is clunky
         return <select 
