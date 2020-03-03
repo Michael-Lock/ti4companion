@@ -29,6 +29,12 @@
     border: 1px solid black;
 }
 
+.passedPlayerBlock {
+  background-color: rgb(160, 160, 160);
+  color: black;
+  border: 1px solid black;
+}
+
 .strategyCardButton {
   font-weight: bold;
   text-align: center;
@@ -40,7 +46,7 @@
   width: 80%;
   margin-top: 2px;
   margin-bottom: 2px;
-  background-color: rgb(172, 170, 170);
+  background-color: rgb(170, 170, 170);
 }
 
 .passButton {
@@ -56,8 +62,4 @@
 
 .passButtonPassed {
   background-image: url("./assets/lock.png");
-}
-
-.passedPlayer {
-  background-color: grey;
 }

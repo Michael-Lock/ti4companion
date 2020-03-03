@@ -69,10 +69,10 @@ function PlayerCard(props) {
     return (
         <Card className="border-0">
             <h6 
-                className={`rounded currentPlayerBlock ${player.isActivePlayer ? "activePlayerBlock" : ""}`}
+                className={`rounded currentPlayerBlock ${player.isActivePlayer ? "activePlayerBlock" : player.isPassed ? "passedPlayerBlock" : ""}`}
                 onClick={props.onEndTurn}
             >
-                {player.isActivePlayer ? "Current Player" : ""}
+                {player.isActivePlayer ? "Current Player" : player.isPassed ? "Passed" : ""}
             </h6>
             <Card className="playerCard">
                 <Row noGutters style={{ backgroundColor: playerColour, }}>
@@ -85,8 +85,13 @@ function PlayerCard(props) {
                     </Col>
                     <Col xs={2}>
                         <button 
-                            className={`rounded passButton ${player.isPassed ? "passButtonPassed" : ""}`}
+                            className={
+                                `rounded passButton 
+                                ${!player.strategy.isUsed ? "invisible" : 
+                                player.isPassed ? "passButtonPassed" : ""}`
+                            }
                             onClick={props.onPassButtonClick}
+                            disabled={!player.strategy.isUsed}
                         />
                     </Col>
                 </Row>

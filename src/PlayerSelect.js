@@ -217,9 +217,7 @@ class PlayerDetailEntry extends React.Component {
     //TODO: work out a better way of recording all the faction details (enum equivalent?)
     getFactionList() {
         let factionElements = Array(1);
-        factionElements[0] = <option key="unselected" className="nullOption" value={null} hidden>
-            {"Select..."}
-        </option>;
+        factionElements[0] = <option key="unselected" value={null} hidden/>
         
         factionElements = factionElements.concat(faction_store.map((faction) => 
             <option key={faction.shortName} value={JSON.stringify(faction)}>

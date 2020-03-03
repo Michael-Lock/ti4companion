@@ -22,10 +22,7 @@ export default function ObjectiveSelectModal(props) {
     );
 
     let objectiveElements = Array(1);
-    objectiveElements[0] = 
-        <option key="unselected" className="nullOption" value={null} hidden>
-            {"Select..."}
-        </option>;
+    objectiveElements[0] = <option key="unselected" className="nullOption" value={null} hidden/>
     objectiveElements = objectiveElements.concat(availableObjectives.map(
         (objective) => <option key={objective.id} value={JSON.stringify(objective)}>
             {objective.name}
