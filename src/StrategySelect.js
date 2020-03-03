@@ -117,7 +117,7 @@ class PlayerStrategyEntry extends React.Component {
                 <input 
                     key="playerFaction"
                     type="text"
-                    defaultValue={this.props.playerDetail.faction} 
+                    defaultValue={this.props.playerDetail.faction && this.props.playerDetail.faction.fullName} 
                     disabled
                 />
                 {this.getStrategyList()}

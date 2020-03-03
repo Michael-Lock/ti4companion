@@ -2,6 +2,7 @@ import React from 'react';
 import TimerBlock from './TimerBlock';
 import Button from 'react-bootstrap/Button'
 import {Row, Col} from 'react-bootstrap'
+import Card from 'react-bootstrap/Card'
 
 import './StatusBoard.css';
 
@@ -10,7 +11,15 @@ class StatusBoard extends React.Component {
         let playerCards = this.props.players.map(
             (player) => 
             <Col key={player.playerNumber}>
-                <PlayerCard key={player.playerNumber} player={player} onEndTurn={() => this.props.onEndTurn()}/>
+                <PlayerCard 
+                    key={player.playerNumber} 
+                    player={player}
+                    playerTimer={this.props.playerTimers[player.playerNumber]}
+                    onEndTurn={() => this.props.onEndTurn()}
+                    onVictoryPointsClick={e => this.props.onVictoryPointsClick(e, JSON.stringify(player))}
+                    onStrategyCardClick={() => this.props.onStrategyCardClick(JSON.stringify(player))}
+                    onPassButtonClick={() => this.props.onPassButtonClick(JSON.stringify(player))}
+                />
             </Col>
         );
 
@@ -20,17 +29,17 @@ class StatusBoard extends React.Component {
                     {playerCards}
                 </Row>
                 <Row className="d-flex align-items-end">
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button variant="success" type="button" onClick={() => this.props.onEndTurn()}>
                             End Turn
                         </Button>
                     </Col>
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
                             {this.props.isGameActive ? "Pause Game" : "Resume Game"}
                         </Button>
                     </Col>
-                    <Col s={{ span: 3, offset: 1}}>
+                    <Col xs={{ span: 3, offset: 1}}>
                         <Button type="button" onClick={() => this.props.onEndRound()}>
                             End Round
                         </Button>
@@ -42,46 +51,79 @@ class StatusBoard extends React.Component {
 }
 
 
-class PlayerCard extends React.Component {
-    render() {
-        const player = this.props.player;
-        let playerColour = player.colour ? player.colour.colour : null;
-        let playerStrategy = player.strategy;
-        let playerStrategyButton = playerStrategy ? 
-            <button 
-                className="strategyCardButton" 
-                type="button"
-                style={{backgroundColor: playerStrategy.colour,}}
-            >
-                {playerStrategy.number}
-            </button> : 
-            null;
+function PlayerCard(props) {
+    const player = props.player;
+    let playerColour = player.colour ? player.colour.colour : null;
+    let playerStrategy = player.strategy;
+    let playerStrategyButton = playerStrategy ? 
+        <button 
+            className="strategyCardButton" 
+            type="button"
+            style={{backgroundColor: playerStrategy.isUsed ? "grey" : playerStrategy.colour,}}
+            onClick={props.onStrategyCardClick}
+        >
+            {playerStrategy.number}
+        </button> : 
+        null;
 
-        return (
-            <div className="playerCardColumn">
-                <div 
-                    className={`currentPlayerBlock${player.isActivePlayer ? " activePlayerBlock" : ""}`}
-                    onClick={this.props.onEndTurn}
-                >
-                    {player.isActivePlayer ? "Current Player" : ""}
-                </div>
-                <div className="playerCard">
-                    <div style={{backgroundColor: playerColour,}}>
+    return (
+        <Card className="border-0">
+            <h6 
+                className={`rounded currentPlayerBlock ${player.isActivePlayer ? "activePlayerBlock" : player.isPassed ? "passedPlayerBlock" : ""}`}
+                onClick={props.onEndTurn}
+            >
+                {player.isActivePlayer ? "Current Player" : player.isPassed ? "Passed" : ""}
+            </h6>
+            <Card className="playerCard">
+                <Row noGutters style={{ backgroundColor: playerColour, }}>
+                    <Col xs={2}>
+                        {/* TODO: Add faction icon */}
+                    </Col>
+                    <Col>
                         <div>{player.playerName}</div>
-                        <div>{player.faction}</div>
-                    </div>
-                    <div>
-                        <TimerBlock currentSeconds={player.timer.currentSeconds} disabled={true}/>
-                    </div>
-                    <button className= "victoryPointButton" type="button">
-                        {player.victoryPoints}
-                    </button>
-                    <hr className="playerCardDivider"/>
-                    {playerStrategyButton}
-                </div>
-            </div>
-        )
-    }
+                        <div>{player.faction && player.faction.shortName}</div>
+                    </Col>
+                    <Col xs={2}>
+                        <button 
+                            className={
+                                `rounded passButton 
+                                ${!player.strategy.isUsed ? "invisible" : 
+                                player.isPassed ? "passButtonPassed" : ""}`
+                            }
+                            onClick={props.onPassButtonClick}
+                            disabled={!player.strategy.isUsed}
+                        />
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <TimerBlock currentSeconds={props.playerTimer.currentSeconds} disabled={true} />
+                </Row>
+                <Row noGutters>
+                    <Col>
+                        <button
+                            className="victoryPointButton"
+                            type="button"
+                            onClick={props.onVictoryPointsClick}
+                            onContextMenu={props.onVictoryPointsClick}
+                        >
+                            {player.victoryPoints}
+                        </button>
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <hr className="playerCardDivider" />
+                </Row>
+                <Row noGutters>
+                    <Col>
+                        {playerStrategyButton}
+                    </Col>
+                </Row>
+                <Row noGutters className="flex-column">
+                    <hr className="playerCardDivider" />
+                </Row>
+            </Card>
+        </Card>
+    )
 }
 
 
