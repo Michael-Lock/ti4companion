@@ -9,7 +9,10 @@ import TechPanel from './TechPanel';
 
 class StatusBoard extends React.Component {
     render() {
-        let playerCards = this.props.players.map(
+        let players = this.props.players.slice();
+        players.sort((a, b) => a.strategy.number - b.strategy.number);
+
+        let playerCards = players.map(
             (player) => 
             <Col key={player.playerNumber}>
                 <PlayerCard 

@@ -135,9 +135,16 @@ class GameManager extends React.Component {
     }
 
     handleStartRound() {
+        let lowestInitiative = NUMBER_STRATEGIES;
+        for (let i = 0; i < this.state.playerDetails.length; i++) {
+            if (this.state.playerDetails[i].strategy.number <= lowestInitiative) {
+                lowestInitiative = this.state.playerDetails[i].strategy.number;
+            }
+        }
+
         let newPlayerDetails = this.state.playerDetails.map((player) => {
             let newPlayer = {...player};
-            newPlayer.isActivePlayer = newPlayer.isSpeaker;
+            newPlayer.isActivePlayer = newPlayer.strategy.number === lowestInitiative;
             return newPlayer;
         });
 
