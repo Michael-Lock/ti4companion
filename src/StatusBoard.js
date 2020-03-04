@@ -5,6 +5,7 @@ import {Row, Col} from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
 import './StatusBoard.css';
+import TechPanel from './TechPanel';
 
 class StatusBoard extends React.Component {
     render() {
@@ -19,6 +20,7 @@ class StatusBoard extends React.Component {
                     onVictoryPointsClick={e => this.props.onVictoryPointsClick(e, JSON.stringify(player))}
                     onStrategyCardClick={() => this.props.onStrategyCardClick(JSON.stringify(player))}
                     onPassButtonClick={() => this.props.onPassButtonClick(JSON.stringify(player))}
+                    onTechClick={(techDefinition) => this.props.onTechClick(techDefinition, player)}
                 />
             </Col>
         );
@@ -121,10 +123,10 @@ function PlayerCard(props) {
                 <Row noGutters className="flex-column">
                     <hr className="playerCardDivider" />
                 </Row>
+            <TechPanel techs={player.techs} onTechClick={(techDefinition) => props.onTechClick(techDefinition)}/>
             </Card>
         </Card>
     )
 }
-
 
 export default StatusBoard;

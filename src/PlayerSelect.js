@@ -117,18 +117,14 @@ class PlayerSelect extends React.Component {
     }
 
     createPlayerTechnologies(techSet) {
-        let playerTechs = techSet.map((tech) => {
+        let playerTechs = techSet.map((techDefinition) => {
             return {
-                tech: tech,
+                techDefinition: techDefinition,
                 isResearched: false,
             };
         });
 
         return playerTechs;
-    }
-
-    getFactionTechSet(setName) {
-        return ;
     }
 
     render() {
