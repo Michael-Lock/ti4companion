@@ -265,6 +265,29 @@ class GameManager extends React.Component {
             selectedObjectiveSelection: null,
         });
     }
+
+    handleTechClicked(techDefinition, player) {
+        let newPlayer = {...player};
+        let newTechSets = player.techs.slice();
+        for (let i = 0; i < newTechSets.length; i++) {
+            let newTechs = newTechSets[i].map(tech => {
+                if (tech.techDefinition === techDefinition) {
+                    let newTech = {...tech};
+                    newTech.isResearched = !newTech.isResearched;
+                    return newTech;
+                }
+                return tech;
+            })
+            newTechSets[i] = newTechs;
+        }
+        newPlayer.techs = newTechSets;
+
+        let newPlayerDetails = this.state.playerDetails.slice();
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+        this.setState({
+            playerDetails: newPlayerDetails,
+        });
+    }
     //#endregion
 
     //#region Commands
@@ -529,6 +552,7 @@ class GameManager extends React.Component {
                             onStrategyCardClick={(playerString) => this.handleStrategyCardClicked(playerString)}
                             onPassButtonClick={(playerString) => this.handlePassButtonClicked(playerString)}
                             onEndRound={() => this.handleEndRound()}
+                            onTechClick={(techDefinition, player) => this.handleTechClicked(techDefinition, player)}
                         />
                     </Col>
                 </Row>

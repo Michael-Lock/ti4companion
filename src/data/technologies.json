@@ -1,0 +1,699 @@
+{
+    "Biotic": [
+       {
+          "number": 1,
+          "name": "Neural Motivator",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "During the status phase, draw 2 action cards instead of 1."
+       },
+       {
+          "number": 2,
+          "name": "Dacxive Animators",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 1,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "After you win a ground combat, you may place 1 infantry from your reinforcements on that planet."
+       },
+       {
+          "number": 3,
+          "name": "Hyper Metabolism",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "During the status phase, gain 3 command tokens instead of 2."
+       },
+       {
+          "number": 4,
+          "name": "X-89 Bacterial Weapon",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 3,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "ACTION: Exhaust this card and choose 1 planet in a system that contains 1 or more of your ships that have BOMBARDMENT; destroy all infantry on that planet."
+       }
+    ],
+    "Warfare": [
+       {
+          "number": 1,
+          "name": "Plasma Scoring",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "When 1 or more of your units use?Bombardment?or?Space Cannon, 1 of those rolls may roll 1 additional die."
+       },
+       {
+          "number": 2,
+          "name": "Magen Defense Grid",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 1,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "You may exhaust this card at the start of a round of ground combat on a planet that contains 1 or more of your units that have?Planetary Shield; your opponent cannot make combat rolls this combat round."
+       },
+       {
+          "number": 3,
+          "name": "Duranium Armor",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 2,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "During each combat round, after you assign hits to your units, repair 1 of your damaged units that did not use?Sustain Damage?during this combat round."
+       },
+       {
+          "number": 4,
+          "name": "Assault Cannon",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 3,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "At the start of a space combat in a system that contains 3 or more of your non-fighter ships, your opponent must destroy 1 of his non-fighter ships."
+       }
+    ],
+    "Propulsion": [
+       {
+          "number": 1,
+          "name": "Antimass Deflectors",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "Your ships can move into and through asteroid fields. When other players’ units use SPACE CANNON against your units, apply -1 to the result of each die roll."
+       },
+       {
+          "number": 2,
+          "name": "Gravity Drive",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 1,
+          "yellowRequirement": 0,
+          "description": "After you activate a system, apply +1 to the move value of 1 of your ships during this tactical action."
+       },
+       {
+          "number": 3,
+          "name": "Fleet Logistics",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": "During each of your turns of the action phase, you may perform 2 actions instead of 1."
+       },
+       {
+          "number": 4,
+          "name": "Light/Wave Deflector",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 3,
+          "yellowRequirement": 0,
+          "description": "Your ships can move through systems that contain other player’s ships."
+       }
+    ],
+    "Cybernetic": [
+       {
+          "number": 1,
+          "name": "Sarween Tools",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "When 1 or more of your units use?Production, reduce the combined cost of the produced units by 1."
+       },
+       {
+          "number": 2,
+          "name": "Graviton Laser System",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": "You may exhaust this card before 1 or more of your units uses?Space Cannon; hits produced by those units must be assigned to non-fighter ships if able."
+       },
+       {
+          "number": 3,
+          "name": "Transit Diodes",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "You may exhaust this card at the start of your turn during the action phase; remove up to 4 of your ground forces from the game board and place them on 1 or more planets you control."
+       },
+       {
+          "number": 4,
+          "name": "Integrated Economy",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 3,
+          "description": "After you gain control of a planet, you may produce any number of units on that planet that have a combined cost equal to or less than that planet’s resource value."
+       }
+    ],
+    "Ship": [
+       {
+          "number": 1,
+          "name": "Carrier II",
+          "type": "Unit",
+          "text": "Ca",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": ""
+       },
+       {
+          "number": 2,
+          "name": "Cruiser II",
+          "type": "Unit",
+          "text": "Cr",
+          "greenRequirement": 1,
+          "redRequirement": 1,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": ""
+       },
+       {
+          "number": 3,
+          "name": "Destroyer II",
+          "type": "Unit",
+          "text": "De",
+          "greenRequirement": 0,
+          "redRequirement": 2,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": ""
+       },
+       {
+          "number": 4,
+          "name": "Dreadnought II",
+          "type": "Unit",
+          "text": "Dr",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 1,
+          "description": ""
+       }
+    ],
+    "Unit": [
+       {
+          "number": 1,
+          "name": "Fighter II",
+          "type": "Unit",
+          "text": "Fi",
+          "greenRequirement": 1,
+          "redRequirement": 0,
+          "blueRequirement": 1,
+          "yellowRequirement": 0,
+          "description": ""
+       },
+       {
+          "number": 2,
+          "name": "Infantry II",
+          "type": "Unit",
+          "text": "Inf",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": ""
+       },
+       {
+          "number": 3,
+          "name": "PDS II",
+          "type": "Unit",
+          "text": "PDS",
+          "greenRequirement": 0,
+          "redRequirement": 1,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": ""
+       },
+       {
+          "number": 4,
+          "name": "Space Dock II",
+          "type": "Unit",
+          "text": "SD",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": ""
+       }
+    ],
+    "Warsun": [
+       {
+          "number": 1,
+          "name": "War Sun",
+          "type": "Unit",
+          "text": "War Sun",
+          "greenRequirement": 0,
+          "redRequirement": 3,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": ""
+       }
+    ],
+    "Arborec": [
+       {
+          "number": 1,
+          "name": "Bioplasmosis",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "At the end of the status phase, you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems."
+       },
+       {
+          "number": 2,
+          "name": "Letani Warrior II",
+          "type": "Unit",
+          "text": "Inf",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": ""
+       }
+    ],
+    "Letnev": [
+       {
+          "number": 1,
+          "name": "L4 Disruptors",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": "During an invasion, units cannot use?Space Cannon?against your units."
+       },
+       {
+          "number": 2,
+          "name": "Non-Euclidean Shielding",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 2,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "When 1 of your units uses?Sustain Damage, cancel 2 hits instead of 1."
+       }
+    ],
+    "Hacan": [
+       {
+          "number": 1,
+          "name": "Production Biomes",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "ACTION:?Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods."
+       },
+       {
+          "number": 2,
+          "name": "Quantum Datahub Node",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 3,
+          "description": "At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods.? If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards."
+       }
+    ],
+    "Naalu": [
+       {
+          "number": 1,
+          "name": "Neuroglaive",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 3,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "After another player activates a system that contains 1 or more of your ships, that player removes 1 token from his fleet pool and returns it to his reinforcements."
+       },
+       {
+          "number": 2,
+          "name": "Hybrid Crystal Fighter II",
+          "type": "Unit",
+          "text": "Fi",
+          "greenRequirement": 1,
+          "redRequirement": 0,
+          "blueRequirement": 1,
+          "yellowRequirement": 0,
+          "description": ""
+       }
+    ],
+    "Xxcha": [
+       {
+          "number": 1,
+          "name": "Instinct Training",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 1,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card."
+       },
+       {
+          "number": 2,
+          "name": "Nullification Field",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn."
+       }
+    ],
+    "Yin": [
+       {
+          "number": 1,
+          "name": "Yin Spinner",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "After 1 or more of your units use?Production, place 1 infantry from your reinforcements on a planet you control in that system."
+       },
+       {
+          "number": 2,
+          "name": "Impulse Core",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "At the start of a space combat, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit against your opponent's ships; that hit must be assigned by your opponent to 1 of his non-fighters ships if able."
+       }
+    ],
+    "Yssaril": [
+       {
+          "number": 1,
+          "name": "Transparasteel Plating",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 1,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "During your turn of the action phase, players that have passed cannot play action cards."
+       },
+       {
+          "number": 2,
+          "name": "Mageon Implants",
+          "type": "Biotic",
+          "text": "",
+          "greenRequirement": 3,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "ACTION:?Exhaust this card to look at another player's hand of action cards.? Choose 1 of those cards and add it to your hand."
+       }
+    ],
+    "Muaat": [
+       {
+          "number": 1,
+          "name": "Magmus Reactor",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 2,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "Your ships can move into supernovas. After 1 or more of your units use?Production?in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good."
+       },
+       {
+          "number": 2,
+          "name": "Prototype War Sun II",
+          "type": "Unit",
+          "text": "War Sun",
+          "greenRequirement": 0,
+          "redRequirement": 3,
+          "blueRequirement": 0,
+          "yellowRequirement": 1,
+          "description": ""
+       }
+    ],
+    "Creuss": [
+       {
+          "number": 1,
+          "name": "Dimensional Splicer",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 1,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "At the start of space combat in a system that contains a wormhole and 1 or more of your ships, you may produce 1 hit and assign it to 1 of your opponent's ships."
+       },
+       {
+          "number": 2,
+          "name": "Wormhole Generator",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": "At the start of the?status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships."
+       }
+    ],
+    "Sardakk": [
+       {
+          "number": 1,
+          "name": "Valkyrie Particle Weave",
+          "type": "Warfare",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 2,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "After making combat rolls during a round of ground combat, if your opponent produced 1 or more hits, you produce 1 additional hit."
+       },
+       {
+          "number": 2,
+          "name": "Exotrireme II",
+          "type": "Unit",
+          "text": "Dr",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 1,
+          "description": ""
+       }
+    ],
+    "Saar": [
+       {
+          "number": 1,
+          "name": "Chaos Mapping",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 1,
+          "yellowRequirement": 0,
+          "description": "Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at least 1 of your units that has?Production."
+       },
+       {
+          "number": 2,
+          "name": "Floating Factory II",
+          "type": "Unit",
+          "text": "SD",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": ""
+       }
+    ],
+    "Jol-Nar": [
+       {
+          "number": 1,
+          "name": "Spacial Conduit Cylinder",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": "You may exhaust this card after you activate a system that contains 1 or more of your units; that system is adjacent to all other systems that contain 1 or more of your units during this activation."
+       },
+       {
+          "number": 2,
+          "name": "E-Res Siphons",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "After another player activates a system that contains 1 or more of your ships, gain 4 trade goods."
+       }
+    ],
+    "Winnu": [
+       {
+          "number": 1,
+          "name": "Lazax Gate Folding",
+          "type": "Propulsion",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": "During your tactical actions, if you do not control Mecatol Rex, treat its systems as if it has both an α and β wormhole. [Exhaust] ACTION: If you control Mecatol Rex, place 1 infantry from reinforcements on it."
+       },
+       {
+          "number": 2,
+          "name": "Hegemonic Trade Policy",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "Exhaust this card when 1 or more of your units use PRODUCTION; swap the resource and influence values of 1 planet you control until the end of your turn."
+       }
+    ],
+    "L1Z1X": [
+       {
+          "number": 1,
+          "name": "Super-Dreadnought II",
+          "type": "Unit",
+          "text": "Dr",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 1,
+          "description": ""
+       },
+       {
+          "number": 2,
+          "name": "Inheritance Systems",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites."
+       }
+    ],
+    "Mentak": [
+       {
+          "number": 1,
+          "name": "Salvage Operations",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 2,
+          "description": "After you win or lose a space combat, gain 1 trade good; if you won the combat, you may also produce 1 ship in that system of any ship type that was destroyed during the combat."
+       },
+       {
+          "number": 2,
+          "name": "Mirror Computing",
+          "type": "Cybernetic",
+          "text": "",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 3,
+          "description": "When you spend trade goods, each trade good is worth 2 resources or influence instead of 1."
+       }
+    ],
+    "Nekro": [
+       {
+          "number": 1,
+          "name": "Valefar Assimilator X",
+          "type": "Special",
+          "text": "X",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "When you would gain another players?technology?using 1 of your faction ability, you may place the \"X\" assimilator token on a faction technology owned by that player instead.? While that token is on a technology, this card gains that technology's text.? You cannot place an assimilator token on technology that already has an assimilator token."
+       },
+       {
+          "number": 2,
+          "name": "Valefar Assimilator Y",
+          "type": "Special",
+          "text": "Y",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": "When you would gain another players technology using 1 of your faction ability, you may place the \"Y\" assimilator token on a faction technology owned by that player instead.? While that token is on a technology, this card gains that technology's text.? You cannot place an assimilator token on technology that already has an assimilator token."
+       }
+    ],
+    "Sol": [
+       {
+          "number": 1,
+          "name": "Spec Ops II",
+          "type": "Unit",
+          "text": "Inf",
+          "greenRequirement": 2,
+          "redRequirement": 0,
+          "blueRequirement": 0,
+          "yellowRequirement": 0,
+          "description": ""
+       },
+       {
+          "number": 2,
+          "name": "Advanced Carrier II",
+          "type": "Unit",
+          "text": "Ca",
+          "greenRequirement": 0,
+          "redRequirement": 0,
+          "blueRequirement": 2,
+          "yellowRequirement": 0,
+          "description": ""
+       }
+    ]
+ }
