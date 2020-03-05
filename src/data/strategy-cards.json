@@ -1,0 +1,10 @@
+[
+    {"name": "Leadership", "number": 1, "colour": "red"},
+    {"name": "Diplomacy", "number": 2, "colour": "orange"},
+    {"name": "Politics", "number": 3, "colour": "yellow"},
+    {"name": "Construction", "number": 4, "colour": "#307843"},
+    {"name": "Trade", "number": 5, "colour": "#58e87e"},
+    {"name": "Warfare", "number": 6, "colour": "cyan"},
+    {"name": "Technology", "number": 7, "colour": "#084bc9"},
+    {"name": "Imperial", "number": 8, "colour": "purple"}
+]
