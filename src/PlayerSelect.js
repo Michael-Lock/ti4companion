@@ -31,7 +31,7 @@ class PlayerSelect extends React.Component {
             playerName: "Player " + (playerNumber + 1),
             playerNumber: playerNumber,
             faction: properties.testMode ? faction_store[playerNumber] : null,
-            colour: properties.testMode ? colour_store[playerNumber + 1] : null,
+            colour: properties.testMode ? colour_store[playerNumber] : null,
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
             isActivePlayer: playerNumber === 0 ? true : false,

@@ -7,10 +7,12 @@ import Card from 'react-bootstrap/Card'
 import './StatusBoard.css';
 import TechPanel from './TechPanel';
 
+const USED_STRATEGY_COLOUR = "grey";
+
 class StatusBoard extends React.Component {
     render() {
         let players = this.props.players.slice();
-        players.sort((a, b) => a.strategy.number - b.strategy.number);
+        players.sort((a, b) => a.strategy.strategyCard.number - b.strategy.strategyCard.number);
 
         let playerCards = players.map(
             (player) => 
@@ -64,10 +66,10 @@ function PlayerCard(props) {
         <button 
             className="strategyCardButton" 
             type="button"
-            style={{backgroundColor: playerStrategy.isUsed ? "grey" : playerStrategy.colour,}}
+            style={{backgroundColor: playerStrategy.isUsed ? USED_STRATEGY_COLOUR : playerStrategy.strategyCard.colour,}}
             onClick={props.onStrategyCardClick}
         >
-            {playerStrategy.number}
+            {playerStrategy.strategyCard.number}
         </button> : 
         null;
 

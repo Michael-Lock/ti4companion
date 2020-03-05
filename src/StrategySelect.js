@@ -92,12 +92,12 @@ class PlayerStrategyEntry extends React.Component {
                 {strategy.name}
             </option>);
 
-        let playerStrategy = this.props.playerDetail.strategy ? this.props.playerDetail.strategy.description : null;
+        let playerStrategy = this.props.playerDetail.strategy ? JSON.stringify(this.props.playerDetail.strategy.strategyCard) : undefined;
 
         return <select 
             id="strategies" 
             required 
-            defaultValue={playerStrategy} 
+            value={playerStrategy} 
             onChange={this.props.onStrategyChange}
         >
             {strategyElements}
