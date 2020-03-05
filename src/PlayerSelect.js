@@ -5,19 +5,11 @@ import './PlayerSelect.css';
 
 import faction_store from './data/factions.json';
 import tech_store from './data/technologies.json';
+import properties from './data/properties.json';
+import colour_store from './data/colours.json';
 
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
 const MAX_PLAYER_NUMBER = 6;
-
-const COLOURS = [
-    {description: null, colour: null},
-    {description: "Red", colour: "red"},
-    {description: "Blue", colour: "blue"},
-    {description: "Green", colour: "green"},
-    {description: "Yellow", colour: "yellow"},
-    {description: "Purple", colour: "purple"},
-    {description: "Black", colour: "black"},
-]
 
 class PlayerSelect extends React.Component {
     constructor(props) {
@@ -29,17 +21,17 @@ class PlayerSelect extends React.Component {
         }
 
         this.state = {
-            selectedNumberOfPlayers: null,
+            selectedNumberOfPlayers: MAX_PLAYER_NUMBER,
             playerDetails: playerDetails,
         };
     }
 
     createPlayer(playerNumber) {
-        var playerDetail = {
+        let playerDetail = {
             playerName: "Player " + (playerNumber + 1),
             playerNumber: playerNumber,
-            faction: null,
-            colour: null,
+            faction: properties.testMode ? faction_store[playerNumber] : null,
+            colour: properties.testMode ? colour_store[playerNumber] : null,
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
             isActivePlayer: playerNumber === 0 ? true : false,
@@ -49,11 +41,8 @@ class PlayerSelect extends React.Component {
     }
 
     playerNumberButtonHandleClick(playerNumber) {
-        //if the existing option is selected, deselect it
-        let deselected = this.state.selectedNumberOfPlayers === playerNumber
-
         this.setState({
-            selectedNumberOfPlayers: deselected ? null : playerNumber,
+            selectedNumberOfPlayers: playerNumber,
         });
     }
 
@@ -127,6 +116,31 @@ class PlayerSelect extends React.Component {
         return playerTechs;
     }
 
+    isGameReady() {
+        if (!this.state.selectedNumberOfPlayers) {
+            return true;
+        }
+        
+        let selectedFactions = [];
+        let selectedColours = [];
+        let selectedNames = [];
+        for (let i = 0; i < this.state.selectedNumberOfPlayers; i++) {
+            let player = this.state.playerDetails[i];
+            if (!player.faction || !player.colour || !player.playerName ||
+                    selectedColours.includes(player.colour.description) ||
+                    selectedFactions.includes(player.faction.shortName) || 
+                    selectedNames.includes(player.playerName)) {
+                return true;
+            }
+            selectedFactions[i] = player.faction.shortName;
+            selectedColours[i] = player.colour.description;
+            selectedNames[i] = player.playerName;
+        }
+
+
+        return false;
+    }
+
     render() {
         const playerNumberSelections = this.determineSelection();
 
@@ -147,7 +161,7 @@ class PlayerSelect extends React.Component {
                         onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
                         onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
                     />
-                    <Button type="button" onClick={() => this.handleStartGame()}>
+                    <Button type="button" disabled= {this.isGameReady()} onClick={() => this.handleStartGame()}>
                         Start Game
                     </Button>
                 </form>
@@ -223,22 +237,19 @@ class PlayerDetailForm extends React.Component {
 
 
 class PlayerDetailEntry extends React.Component {
-    //TODO: could have a list of unselected factions passed down to prevent duplicates
-    //TODO: work out a better way of recording all the faction details (enum equivalent?)
     getFactionList() {
-        let factionElements = Array(1);
-        factionElements[0] = <option key="unselected" value={null} hidden/>
-        
+        let factionElements = [<option key="unselected" value={null} hidden/>]
         factionElements = factionElements.concat(faction_store.map((faction) => 
             <option key={faction.shortName} value={JSON.stringify(faction)}>
                 {faction.fullName}
             </option>));
 
-        //TODO: consider a datalist instead. Allows type-ahead but clearing is clunky
+        let playerFaction = this.props.playerDetail.faction ? JSON.stringify(this.props.playerDetail.faction) : undefined;
+
         return <select 
             id="factions" 
             required 
-            defaultValue={this.props.playerDetail.faction}
+            value={playerFaction}
             onChange={this.props.onFactionChange}
         >
             {factionElements}
@@ -246,12 +257,13 @@ class PlayerDetailEntry extends React.Component {
     }
 
     getColourList() {
-        let colourElements = COLOURS.map((colour) => 
-        <option key={colour.description} value={JSON.stringify(colour)}>
-            {colour.description}
-        </option>);
+        let colourElements = [<option key="unselected" value={null} hidden/>]
+        colourElements = colourElements.concat(colour_store.map((colour) => 
+            <option key={colour.description} value={JSON.stringify(colour)}>
+                {colour.description}
+            </option>));
 
-        let playerColour = this.props.playerDetail.colour ? this.props.playerDetail.colour.colour : null;
+        let playerColour = this.props.playerDetail.colour ? JSON.stringify(this.props.playerDetail.colour) : undefined;
 
         return <select 
             id="colours" 

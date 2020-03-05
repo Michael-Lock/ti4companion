@@ -87,8 +87,10 @@ class GameManager extends React.Component {
 
     handlePlayerStrategyChange(e, playerNumber) {
         let playerDetails = this.state.playerDetails.slice();
-        let newStrategy = JSON.parse(e.target.value);
-        newStrategy.isUsed = false;
+        let newStrategy = {
+            strategyCard: JSON.parse(e.target.value),
+            isUsed: false,
+        }
         playerDetails[playerNumber].strategy = newStrategy
 
         this.setState({
@@ -137,14 +139,14 @@ class GameManager extends React.Component {
     handleStartRound() {
         let lowestInitiative = NUMBER_STRATEGIES;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
-            if (this.state.playerDetails[i].strategy.number <= lowestInitiative) {
-                lowestInitiative = this.state.playerDetails[i].strategy.number;
+            if (this.state.playerDetails[i].strategy.strategyCard.number <= lowestInitiative) {
+                lowestInitiative = this.state.playerDetails[i].strategy.strategyCard.number;
             }
         }
 
         let newPlayerDetails = this.state.playerDetails.map((player) => {
             let newPlayer = {...player};
-            newPlayer.isActivePlayer = newPlayer.strategy.number === lowestInitiative;
+            newPlayer.isActivePlayer = newPlayer.strategy.strategyCard.number === lowestInitiative;
             return newPlayer;
         });
 
@@ -480,15 +482,15 @@ class GameManager extends React.Component {
         //TODO Factor in Naalu initiative (race or promissory)
         let nextPlayer = activePlayer;
         // determine the highest initiative number that could possibly be next. Offset by the number of strategies to allow it to loop back;
-        let highestInitiativeNumber = activePlayer.strategy.number + NUMBER_STRATEGIES - 1;
+        let highestInitiativeNumber = activePlayer.strategy.strategyCard.number + NUMBER_STRATEGIES - 1;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
             if (!player.isActivePlayer && !player.isPassed) {
                 // determine the player initiative number, offset by the number of strategies to allow it to loop back
                 let playerInitiativeNumber =
-                    player.strategy.number < activePlayer.strategy.number ?
-                        player.strategy.number + NUMBER_STRATEGIES :
-                        player.strategy.number;
+                    player.strategy.strategyCard.number < activePlayer.strategy.strategyCard.number ?
+                        player.strategy.strategyCard.number + NUMBER_STRATEGIES :
+                        player.strategy.strategyCard.number;
                 if (playerInitiativeNumber < highestInitiativeNumber) {
                     highestInitiativeNumber = playerInitiativeNumber;
                     nextPlayer = player;

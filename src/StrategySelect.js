@@ -2,23 +2,27 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col} from 'react-bootstrap';
 
-const STRATEGIES = [
-    {name: "", number: null, colour: null},
-    {name: "Leadership", number: 1, colour: "red"},
-    {name: "Diplomacy", number: 2, colour: "orange"},
-    {name: "Politics", number: 3, colour: "yellow"},
-    {name: "Construction", number: 4, colour: "#307843"},
-    {name: "Trade", number: 5, colour: "#58e87e"},
-    {name: "Warfare", number: 6, colour: "cyan"},
-    {name: "Technology", number: 7, colour: "#084bc9"},
-    {name: "Imperial", number: 8, colour: "purple"},
-];
+import strategy_card_store from './data/strategy-cards.json';
 
 class StrategySelect extends React.Component {
     handleStartRound() {
         if (this.props.onStartRound) {
             return () => this.props.onStartRound()
         }
+    }
+
+    isRoundReady() {
+        let selectedStrategyCards = [];
+        for (let i = 0; i < this.props.playerDetails.length; i++) {
+            let player = this.props.playerDetails[i];
+            if (!player.strategy || 
+                    selectedStrategyCards.includes(player.strategy.strategyCard.number)) {
+                return true;
+            }
+            selectedStrategyCards[i] = player.strategy.strategyCard.number;
+        }
+
+        return false;
     }
 
     render() {
@@ -40,7 +44,7 @@ class StrategySelect extends React.Component {
                         </Button>
                     </Col>
                     <Col>
-                        <Button type="button" onClick={this.handleStartRound()}>
+                        <Button type="button" disabled={this.isRoundReady()} onClick={this.handleStartRound()}>
                             Start Round
                         </Button>
                     </Col>
@@ -87,17 +91,18 @@ class PlayerStrategyForm extends React.Component {
 
 class PlayerStrategyEntry extends React.Component {
     getStrategyList() {
-        let strategyElements = STRATEGIES.map((strategy) => 
+        let strategyElements = [<option key="unselected" value={null} hidden/>]
+        strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
             <option key={strategy.name} value={JSON.stringify(strategy)}>
                 {strategy.name}
-            </option>);
+            </option>));
 
-        let playerStrategy = this.props.playerDetail.strategy ? this.props.playerDetail.strategy.description : null;
+        let playerStrategy = this.props.playerDetail.strategy ? JSON.stringify(this.props.playerDetail.strategy.strategyCard) : undefined;
 
         return <select 
             id="strategies" 
             required 
-            defaultValue={playerStrategy} 
+            value={playerStrategy} 
             onChange={this.props.onStrategyChange}
         >
             {strategyElements}

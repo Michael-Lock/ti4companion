@@ -472,7 +472,7 @@
           "number": 2,
           "name": "Prototype War Sun II",
           "type": "Unit",
-          "text": "War Sun",
+          "text": "WS",
           "greenRequirement": 0,
           "redRequirement": 3,
           "blueRequirement": 0,

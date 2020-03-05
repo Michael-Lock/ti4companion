@@ -1,0 +1,8 @@
+[
+    {"description": "Red", "colour": "red"},
+    {"description": "Blue", "colour": "blue"},
+    {"description": "Green", "colour": "green"},
+    {"description": "Yellow", "colour": "yellow"},
+    {"description": "Purple", "colour": "purple"},
+    {"description": "Black", "colour": "black"}
+]
