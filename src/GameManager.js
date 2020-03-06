@@ -528,7 +528,9 @@ class GameManager extends React.Component {
             <Container fluid={true}>
                 <Row>{this.renderGameHeader(false)}</Row>
                 <Row>
-                    {this.renderObjectivePanel()}
+                    <Col xs={1}>
+                        {this.renderObjectivePanel()}
+                    </Col>
                     <Col>
                         <StrategySelect
                             playerDetails={this.state.playerDetails}
@@ -548,7 +550,9 @@ class GameManager extends React.Component {
             <Container fluid={true}>
                 <Row>{this.renderGameHeader(true)}</Row>
                 <Row>
-                    {this.renderObjectivePanel()}
+                    <Col xs={1}>
+                        {this.renderObjectivePanel()}
+                    </Col>
                     <Col>
                         <StatusBoard
                             roundNumber={this.state.roundNumber}
