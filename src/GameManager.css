@@ -33,7 +33,10 @@
     background-size: contain;
     background-repeat: no-repeat;
     border: none;
-    height: 1.75em;
-    width: 75px;
-    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .speakerToken.disabled {
+      pointer-events: none;
   }
