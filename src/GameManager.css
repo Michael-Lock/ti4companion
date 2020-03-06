@@ -26,3 +26,14 @@
     font-size: small;
     background-color: papayawhip;
 }
+
+.speakerToken {
+    background-image: url("./assets/speaker-token.gif");
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: 1.75em;
+    width: 75px;
+    padding: 0;
+  }

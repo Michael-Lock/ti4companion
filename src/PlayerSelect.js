@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import {Row, Col} from 'react-bootstrap';
 
 import './PlayerSelect.css';
 
@@ -145,27 +146,29 @@ class PlayerSelect extends React.Component {
         const playerNumberSelections = this.determineSelection();
 
         return (
-            <div>
-                <div>
-                    <h1>Number of Players</h1>
-                    <PlayerNumberSelect 
-                        playerNumberSelections={playerNumberSelections}
-                        onClick={playerNumber => this.playerNumberButtonHandleClick(playerNumber)}
-                    />
-                </div>
-                <form>
-                    <PlayerDetailForm 
-                        numberOfPlayers={this.state.selectedNumberOfPlayers} 
-                        playerDetails={this.state.playerDetails}
-                        onPlayerNameChange={(e, playerNumber) => this.handlePlayerNameChange(e, playerNumber)}
-                        onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
-                        onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
-                    />
-                    <Button type="button" disabled= {this.isGameReady()} onClick={() => this.handleStartGame()}>
-                        Start Game
-                    </Button>
-                </form>
-            </div>
+            <Row>
+                <Col xs={12} xl={{span: 8, offset: 2}}> 
+                    <div>
+                        <h1>Number of Players</h1>
+                        <PlayerNumberSelect 
+                            playerNumberSelections={playerNumberSelections}
+                            onClick={playerNumber => this.playerNumberButtonHandleClick(playerNumber)}
+                        />
+                    </div>
+                    <form>
+                        <PlayerDetailForm 
+                            numberOfPlayers={this.state.selectedNumberOfPlayers} 
+                            playerDetails={this.state.playerDetails}
+                            onPlayerNameChange={(e, playerNumber) => this.handlePlayerNameChange(e, playerNumber)}
+                            onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
+                            onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
+                        />
+                        <Button type="button" disabled= {this.isGameReady()} onClick={() => this.handleStartGame()}>
+                            Start Game
+                        </Button>
+                    </form>
+                </Col>
+            </Row>
         )
     }
 }
@@ -175,21 +178,23 @@ class PlayerNumberSelect extends React.Component {
     renderPlayerNumberButton(playerNumber) {
         const isSelected = this.props.playerNumberSelections[playerNumber - PLAYER_NUMBER_INDEX_OFFSET];
 
-        return (<PlayerNumberButton
-            value={playerNumber}
-            selected={isSelected}
-            onClick={() => this.props.onClick(playerNumber)}
-        />);
+        return (
+            <PlayerNumberButton
+                value={playerNumber}
+                selected={isSelected}
+                onClick={() => this.props.onClick(playerNumber)}
+            />
+        );
     }
 
     render() {
         return (
-            <div>
+            <Row>
                 { this.renderPlayerNumberButton(3) }
                 { this.renderPlayerNumberButton(4) }
                 { this.renderPlayerNumberButton(5) }
                 { this.renderPlayerNumberButton(6) }
-            </div>
+            </Row>
         );
     }
 }
@@ -277,15 +282,24 @@ class PlayerDetailEntry extends React.Component {
 
     render() {
         return (
-            <div>
-                <input 
-                    type="text"
-                    defaultValue={this.props.playerDetail.playerName} 
-                    onChange={this.props.onPlayerNameChange}
-                />
-                {this.getFactionList()}
-                {this.getColourList()}
-            </div>
+            <Row>
+                <Col xs={{span: 2, offset: 0}} xl={{span: 1, offset: 1}}>
+                    <button className={`speakerToken ${this.props.playerDetail.isSpeaker ? "" : "invisible"} disabled`}/>
+                </Col>
+                <Col xs={4}>
+                    <input 
+                        type="text"
+                        defaultValue={this.props.playerDetail.playerName} 
+                        onChange={this.props.onPlayerNameChange}
+                    />
+                </Col>
+                <Col xs={4}>
+                    {this.getFactionList()}
+                </Col>
+                <Col xs={2}>
+                    {this.getColourList()}
+                </Col>
+            </Row>
         );
     }
 }

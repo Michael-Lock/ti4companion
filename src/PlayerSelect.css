@@ -1,5 +1,5 @@
 .playerNumButton {
-    background-image: url("./assets/multiple-users-silhouette-grey.svg");
+    background-image: url("./assets/multiple-users-silhouette-grey.png");
     background-size: 85%, 75%;
     background-repeat: no-repeat;
     background-position: top;
@@ -14,5 +14,5 @@
   }
 
 .selectedPlayerNumButton {
-    background-image: url("./assets/multiple-users-silhouette.svg");
+    background-image: url("./assets/multiple-users-silhouette-black.png");
 }
