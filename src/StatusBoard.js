@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TimerBlock from './TimerBlock';
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Modal from 'react-bootstrap/Modal'
 import {Row, Col} from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
@@ -9,52 +11,60 @@ import TechPanel from './TechPanel';
 
 const USED_STRATEGY_COLOUR = "grey";
 
-class StatusBoard extends React.Component {
-    render() {
-        let players = this.props.players.slice();
-        players.sort((a, b) => a.strategy.strategyCard.number - b.strategy.strategyCard.number);
+function StatusBoard(props) {
+    const [showEndRoundModal, setShowEndRoundModal] = useState(false);
 
-        let playerCards = players.map(
-            (player) => 
-            <Col key={player.playerNumber}>
-                <PlayerCard 
-                    key={player.playerNumber} 
-                    player={player}
-                    playerTimer={this.props.playerTimers[player.playerNumber]}
-                    onEndTurn={() => this.props.onEndTurn()}
-                    onVictoryPointsClick={e => this.props.onVictoryPointsClick(e, JSON.stringify(player))}
-                    onStrategyCardClick={() => this.props.onStrategyCardClick(JSON.stringify(player))}
-                    onPassButtonClick={() => this.props.onPassButtonClick(JSON.stringify(player))}
-                    onTechClick={(techDefinition) => this.props.onTechClick(techDefinition, player)}
-                />
-            </Col>
-        );
+    let players = props.players.slice();
+    players.sort((a, b) => a.strategy.strategyCard.number - b.strategy.strategyCard.number);
 
-        return (
-            <Row className="d-flex flex-column">
-                <Row>
-                    {playerCards}
-                </Row>
-                <Row className="d-flex align-items-end">
-                    <Col xs={{ span: 3, offset: 1}}>
-                        <Button variant="success" type="button" onClick={() => this.props.onEndTurn()}>
+    let playerCards = players.map(
+        (player) => 
+        <Col key={player.playerNumber}>
+            <PlayerCard 
+                key={player.playerNumber} 
+                player={player}
+                playerTimer={props.playerTimers[player.playerNumber]}
+                onEndTurn={() => props.onEndTurn()}
+                onVictoryPointsClick={e => props.onVictoryPointsClick(e, JSON.stringify(player))}
+                onStrategyCardClick={() => props.onStrategyCardClick(JSON.stringify(player))}
+                onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
+                onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
+            />
+        </Col>
+    );
+
+    const isAllPassed = isAllPlayersPassed(players);
+
+    return (
+        <div className="d-flex flex-column">
+            <Row>
+                {playerCards}
+            </Row>
+            <Row>
+                <Col xs={{span:2, offset:1}}>
+                    <Button variant="light" type="button" onClick={() => props.onToggleTimers()}>
+                        {props.isGameActive ? "Pause Game" : "Resume Game"}
+                    </Button>
+                </Col>
+                <Col xs={{span:3, offset:6}}>
+                    <ButtonGroup>
+                        <Button type="button" disabled={isAllPassed} onClick={() => props.onEndTurn()}>
                             End Turn
                         </Button>
-                    </Col>
-                    <Col xs={{ span: 3, offset: 1}}>
-                        <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
-                            {this.props.isGameActive ? "Pause Game" : "Resume Game"}
-                        </Button>
-                    </Col>
-                    <Col xs={{ span: 3, offset: 1}}>
-                        <Button type="button" onClick={() => this.props.onEndRound()}>
+                        {/* <Button type="button" disabled={!isAllPassed} onClick={() => props.onEndRound()}> */}
+                        <Button type="button" disabled={!isAllPassed} onClick={() => setShowEndRoundModal(true)}>
                             End Round
                         </Button>
-                    </Col>
-                </Row>
+                    </ButtonGroup>
+                </Col>
             </Row>
-        )
-    }
+            <EndRoundConfirmModal 
+                showModal={showEndRoundModal}
+                onConfirmModal={() => props.onEndRound()}
+                onCloseModal={() => setShowEndRoundModal(false)}
+            />
+        </div>
+    )
 }
 
 
@@ -134,4 +144,36 @@ function PlayerCard(props) {
     )
 }
 
+function EndRoundConfirmModal(props) {
+    return (
+        <Modal show={props.showModal} onHide={props.onCloseModal} centered>
+            <Modal.Body>
+                <h3>End the round?</h3>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={props.onCloseModal}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={props.onConfirmModal}>
+                    Confirm
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    );
+}
+
 export default StatusBoard;
+
+//#region functions
+
+function isAllPlayersPassed(players) {
+    for (let i = 0; i < players.length; i++) {
+        if (!players[i].isPassed) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+//#endregion
