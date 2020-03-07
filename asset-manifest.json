@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ti4companion/static/css/main.3d4d063e.chunk.css",
-    "main.js": "/ti4companion/static/js/main.88073945.chunk.js",
-    "main.js.map": "/ti4companion/static/js/main.88073945.chunk.js.map",
+    "main.js": "/ti4companion/static/js/main.4ba9d5a3.chunk.js",
+    "main.js.map": "/ti4companion/static/js/main.4ba9d5a3.chunk.js.map",
     "runtime-main.js": "/ti4companion/static/js/runtime-main.0a554107.js",
     "runtime-main.js.map": "/ti4companion/static/js/runtime-main.0a554107.js.map",
     "static/js/2.1cce6dd2.chunk.js": "/ti4companion/static/js/2.1cce6dd2.chunk.js",
     "static/js/2.1cce6dd2.chunk.js.map": "/ti4companion/static/js/2.1cce6dd2.chunk.js.map",
     "index.html": "/ti4companion/index.html",
-    "precache-manifest.7f3e64dc26d89ec29e8d4e167d0190d6.js": "/ti4companion/precache-manifest.7f3e64dc26d89ec29e8d4e167d0190d6.js",
+    "precache-manifest.18637f230d6b01adef852e00592057f4.js": "/ti4companion/precache-manifest.18637f230d6b01adef852e00592057f4.js",
     "service-worker.js": "/ti4companion/service-worker.js",
     "static/css/main.3d4d063e.chunk.css.map": "/ti4companion/static/css/main.3d4d063e.chunk.css.map",
     "static/js/2.1cce6dd2.chunk.js.LICENSE.txt": "/ti4companion/static/js/2.1cce6dd2.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.0a554107.js",
     "static/js/2.1cce6dd2.chunk.js",
     "static/css/main.3d4d063e.chunk.css",
-    "static/js/main.88073945.chunk.js"
+    "static/js/main.4ba9d5a3.chunk.js"
   ]
 }
