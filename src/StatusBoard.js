@@ -29,6 +29,7 @@ function StatusBoard(props) {
                 onStrategyCardClick={() => props.onStrategyCardClick(JSON.stringify(player))}
                 onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
                 onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
+                onSpeakerButtonClick={props.onSpeakerButtonClick}
             />
         </Col>
     );
@@ -51,7 +52,6 @@ function StatusBoard(props) {
                         <Button type="button" disabled={isAllPassed} onClick={() => props.onEndTurn()}>
                             End Turn
                         </Button>
-                        {/* <Button type="button" disabled={!isAllPassed} onClick={() => props.onEndRound()}> */}
                         <Button type="button" disabled={!isAllPassed} onClick={() => setShowEndRoundModal(true)}>
                             End Round
                         </Button>
@@ -81,6 +81,15 @@ function PlayerCard(props) {
         >
             {playerStrategy.strategyCard.number}
         </button> : 
+        null;
+
+    let speakerButtonColumn = player.isSpeaker ? 
+        <Col>
+            <button
+                className="speakerToken"
+                onClick={props.onSpeakerButtonClick}
+            />
+        </Col> :
         null;
 
     return (
@@ -134,6 +143,7 @@ function PlayerCard(props) {
                     <Col>
                         {playerStrategyButton}
                     </Col>
+                    {speakerButtonColumn}
                 </Row>
                 <Row noGutters className="flex-column">
                     <hr className="playerCardDivider" />
