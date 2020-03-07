@@ -70,7 +70,8 @@ function StatusBoard(props) {
 
 function PlayerCard(props) {
     const player = props.player;
-    let playerColour = player.colour ? player.colour.colour : null;
+    let playerBackgroundColour = player.colour ? player.colour.colour : null;
+    let playerTextColour = player.colour ? player.colour.textColour : null;
     let playerStrategy = player.strategy;
     let playerStrategyButton = playerStrategy ? 
         <button 
@@ -101,7 +102,10 @@ function PlayerCard(props) {
                 {player.isActivePlayer ? "Current Player" : player.isPassed ? "Passed" : ""}
             </h6>
             <Card className="playerCard">
-                <Row noGutters style={{ backgroundColor: playerColour, }}>
+                <Row noGutters style={{ 
+                    backgroundColor: playerBackgroundColour, 
+                    color: playerTextColour,
+                }}>
                     <Col xs={2}>
                         {/* TODO: Add faction icon */}
                     </Col>
