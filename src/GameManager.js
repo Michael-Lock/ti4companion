@@ -7,9 +7,9 @@ import ObjectiveSelectModal from './ObjectiveSelectModal';
 import ObjectivePanel from './ObjectivePanel';
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
+import SpeakerChangeModal from './SpeakerChangeModal';
 
 import './GameManager.css';
-import SpeakerChangeModal from './SpeakerChangeModal';
 
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
@@ -18,6 +18,8 @@ const MODE_STATUS_BOARD = 3;
 const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
+
+const POLITICS_CARD_NUMBER = 3;
 
 const LEFT_CLICK = 1; //native event constant for a left click
 const RIGHT_CLICK = 3; //native event constant for the opening of the context menu (i.e. right click)
@@ -116,10 +118,14 @@ class GameManager extends React.Component {
 
         let newPlayerDetails = this.state.playerDetails.slice();
         newPlayerDetails[newPlayer.playerNumber] = newPlayer;
-
+        
         this.setState({
             playerDetails: newPlayerDetails,
         });
+        
+        if (newPlayer.strategy.strategyCard.number === POLITICS_CARD_NUMBER && newPlayer.strategy.isUsed) {
+            this.handleSpeakerButtonClicked();
+        }
     }
 
     handlePassButtonClicked(playerString) {
