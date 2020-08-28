@@ -420,10 +420,14 @@ class GameManager extends React.Component {
 
         let playerTimers = this.state.playerTimers.slice();
         const playerNumber = this.getActivePlayer().playerNumber;
-        let playerTimer = {...playerTimers[playerNumber]};
-        playerTimer.isCounting = true;
-        playerTimer.countStartTime = Date.now();
-        playerTimers[playerNumber] = playerTimer;
+
+        for (let i = 0; i < playerTimers.length; i++) {
+            let playerTimer = {...playerTimers[i]};
+            playerTimer.isCounting = i === playerNumber;
+            playerTimer.countStartTime = Date.now();
+            playerTimers[i] = playerTimer;
+    
+        }
 
         this.setState({
             currentTurnTimer: timer,
