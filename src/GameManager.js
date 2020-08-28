@@ -7,6 +7,7 @@ import ObjectiveSelectModal from './ObjectiveSelectModal';
 import ObjectivePanel from './ObjectivePanel';
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
+import SpeakerChangeModal from './SpeakerChangeModal';
 
 import './GameManager.css';
 
@@ -17,6 +18,8 @@ const MODE_STATUS_BOARD = 3;
 const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
 const NUMBER_OBJECTIVES_STAGE_TWO = 5;
+
+const POLITICS_CARD_NUMBER = 3;
 
 const LEFT_CLICK = 1; //native event constant for a left click
 const RIGHT_CLICK = 3; //native event constant for the opening of the context menu (i.e. right click)
@@ -29,10 +32,12 @@ class GameManager extends React.Component {
             //View controls
             gameMode: MODE_PLAYER_SELECT,
             showObjectiveSelectModal: false,
+            showSpeakerChangeModal: false,
 
             //Temporary State
             selectedObjective: null,
             selectedObjectiveSelection: null, //used for the objective select modal to record the current selection
+            selectedSpeakerNumber: null, //used for the speaker select modal to record the player selected
 
             //Game Details
             playerDetails: null,
@@ -113,10 +118,14 @@ class GameManager extends React.Component {
 
         let newPlayerDetails = this.state.playerDetails.slice();
         newPlayerDetails[newPlayer.playerNumber] = newPlayer;
-
+        
         this.setState({
             playerDetails: newPlayerDetails,
         });
+        
+        if (newPlayer.strategy.strategyCard.number === POLITICS_CARD_NUMBER && newPlayer.strategy.isUsed) {
+            this.handleSpeakerButtonClicked();
+        }
     }
 
     handlePassButtonClicked(playerString) {
@@ -264,7 +273,6 @@ class GameManager extends React.Component {
             
             this.setState({
                 publicObjectives: newPublicObjectives,
-                showObjectiveSelectModal: false,
             });
         }
 
@@ -272,6 +280,47 @@ class GameManager extends React.Component {
             showObjectiveSelectModal: false,
             selectedObjective: null,
             selectedObjectiveSelection: null,
+        });
+    }
+
+    handleSpeakerButtonClicked() {
+        this.setState({ 
+            showSpeakerChangeModal: true,
+        });
+    }
+
+    handleSpeakerChange(e) {
+        let newSpeakerNumber = e.target.value;
+        this.setState({
+            selectedSpeakerNumber: newSpeakerNumber,
+        });
+    }
+
+    handleCloseSpeakerChangeModal(isConfirmed) {
+        if(isConfirmed && this.state.selectedSpeakerNumber) {
+            let newPlayerDetails = this.state.playerDetails.slice();
+            let oldSpeaker = null;
+            for (let i = 0; i < newPlayerDetails.length; i++) {
+                if (newPlayerDetails[i].isSpeaker) {
+                    oldSpeaker = {...newPlayerDetails[i]}
+                    oldSpeaker.isSpeaker = false;
+                }
+            }
+
+            let newSpeaker = {...newPlayerDetails[this.state.selectedSpeakerNumber]};
+            newSpeaker.isSpeaker = true;
+            
+            newPlayerDetails[oldSpeaker.playerNumber] = oldSpeaker;
+            newPlayerDetails[newSpeaker.playerNumber] = newSpeaker;
+            
+            this.setState({
+                playerDetails: newPlayerDetails,
+            });
+        }
+
+        this.setState({
+            showSpeakerChangeModal: false,
+            selectedSpeakerNumber: null,
         });
     }
 
@@ -517,9 +566,9 @@ class GameManager extends React.Component {
 
     renderPlayerSelect() {
         return (
-            <div>
+            <Container fluid={true}>
                 <PlayerSelect onStartGame={playerDetails => this.handleStartGame(playerDetails)} />
-            </div>
+            </Container>
         );
     }
 
@@ -528,7 +577,7 @@ class GameManager extends React.Component {
             <Container fluid={true}>
                 <Row>{this.renderGameHeader(false)}</Row>
                 <Row>
-                    <Col xs={1}>
+                    <Col xs={4} md={2} xl={1}>
                         {this.renderObjectivePanel()}
                     </Col>
                     <Col>
@@ -538,6 +587,7 @@ class GameManager extends React.Component {
                             onToggleTimers={() => this.handleToggleTimers()}
                             onStartRound={() => this.handleStartRound()}
                             onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
+                            onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
                             />
                     </Col>
                 </Row>
@@ -550,7 +600,7 @@ class GameManager extends React.Component {
             <Container fluid={true}>
                 <Row>{this.renderGameHeader(true)}</Row>
                 <Row>
-                    <Col xs={1}>
+                    <Col xs={4} md={2} xl={1}>
                         {this.renderObjectivePanel()}
                     </Col>
                     <Col>
@@ -566,6 +616,7 @@ class GameManager extends React.Component {
                             onPassButtonClick={(playerString) => this.handlePassButtonClicked(playerString)}
                             onEndRound={() => this.handleEndRound()}
                             onTechClick={(techDefinition, player) => this.handleTechClicked(techDefinition, player)}
+                            onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
                         />
                     </Col>
                 </Row>
@@ -606,6 +657,14 @@ class GameManager extends React.Component {
                     onConfirmModal={() => this.handleCloseObjectiveSelectModal(true)}
                     onCloseModal={() => this.handleCloseObjectiveSelectModal()}
                     onObjectiveChange={e => this.handleObjectiveChange(e)}
+                />
+                <SpeakerChangeModal
+                    showModal={this.state.showSpeakerChangeModal}
+                    playerDetails={this.state.playerDetails}
+                    selectedSpeakerNumber={this.state.selectedSpeakerNumber}
+                    onConfirmModal={() => this.handleCloseSpeakerChangeModal(true)}
+                    onCloseModal={() => this.handleCloseSpeakerChangeModal()}
+                    onSpeakerChange={e => this.handleSpeakerChange(e)}
                 />
             </div>
         );

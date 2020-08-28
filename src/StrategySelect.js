@@ -35,6 +35,7 @@ class StrategySelect extends React.Component {
                     <PlayerStrategyForm
                         playerDetails={this.props.playerDetails}
                         onPlayerStrategyChange={(e, playerNumber) => this.props.onPlayerStrategyChange(e, playerNumber)}
+                        onSpeakerButtonClick={this.props.onSpeakerButtonClick}
                     />
                 </Row>
                 <Row>
@@ -71,19 +72,18 @@ class PlayerStrategyForm extends React.Component {
                     key={players[i].playerNumber}
                     playerDetail={players[i]}
                     onStrategyChange={e => this.props.onPlayerStrategyChange(e, players[i].playerNumber)}
+                    onSpeakerButtonClick={this.props.onSpeakerButtonClick}
                 />
         }
             
-        return (<div>
+        return (<Col>
             {playerStrategyEntries}
-        </div>);
+        </Col>);
     }
 
     render() {
         return (
-            <div>
-                {this.renderPlayerStrategyEntries()}
-            </div>
+            this.renderPlayerStrategyEntries()
         );
     }
 }
@@ -112,21 +112,33 @@ class PlayerStrategyEntry extends React.Component {
 
     render() {
         return (
-            <div>
-                <input 
-                    key="playerName"
-                    type="text"
-                    defaultValue={this.props.playerDetail.playerName} 
-                    disabled
-                />
-                <input 
-                    key="playerFaction"
-                    type="text"
-                    defaultValue={this.props.playerDetail.faction && this.props.playerDetail.faction.fullName} 
-                    disabled
-                />
-                {this.getStrategyList()}
-            </div>
+            <Row>
+                <Col xs={2} xl={1}>
+                    <button 
+                        className={`speakerToken ${this.props.playerDetail.isSpeaker ? "" : "invisible"}`}
+                        onClick={this.props.onSpeakerButtonClick} 
+                    />
+                </Col>
+                <Col xs={10} xl={11}>
+                    <input
+                        key="playerName"
+                        type="text"
+                        defaultValue={this.props.playerDetail.playerName}
+                        disabled
+                    />
+                {/* </Col> */}
+                {/* <Col xs={3}> */}
+                    <input
+                        key="playerFaction"
+                        type="text"
+                        defaultValue={this.props.playerDetail.faction && this.props.playerDetail.faction.fullName}
+                        disabled
+                    />
+                {/* </Col> */}
+                {/* <Col xs={4}> */}
+                    {this.getStrategyList()}
+                </Col>
+            </Row>
         );
     }
 }

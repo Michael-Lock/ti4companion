@@ -29,6 +29,7 @@ function StatusBoard(props) {
                 onStrategyCardClick={() => props.onStrategyCardClick(JSON.stringify(player))}
                 onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
                 onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
+                onSpeakerButtonClick={props.onSpeakerButtonClick}
             />
         </Col>
     );
@@ -51,7 +52,6 @@ function StatusBoard(props) {
                         <Button type="button" disabled={isAllPassed} onClick={() => props.onEndTurn()}>
                             End Turn
                         </Button>
-                        {/* <Button type="button" disabled={!isAllPassed} onClick={() => props.onEndRound()}> */}
                         <Button type="button" disabled={!isAllPassed} onClick={() => setShowEndRoundModal(true)}>
                             End Round
                         </Button>
@@ -70,7 +70,8 @@ function StatusBoard(props) {
 
 function PlayerCard(props) {
     const player = props.player;
-    let playerColour = player.colour ? player.colour.colour : null;
+    let playerBackgroundColour = player.colour ? player.colour.colour : null;
+    let playerTextColour = player.colour ? player.colour.textColour : null;
     let playerStrategy = player.strategy;
     let playerStrategyButton = playerStrategy ? 
         <button 
@@ -83,6 +84,15 @@ function PlayerCard(props) {
         </button> : 
         null;
 
+    let speakerButtonColumn = player.isSpeaker ? 
+        <Col>
+            <button
+                className="speakerToken"
+                onClick={props.onSpeakerButtonClick}
+            />
+        </Col> :
+        null;
+
     return (
         <Card className="border-0">
             <h6 
@@ -92,7 +102,10 @@ function PlayerCard(props) {
                 {player.isActivePlayer ? "Current Player" : player.isPassed ? "Passed" : ""}
             </h6>
             <Card className="playerCard">
-                <Row noGutters style={{ backgroundColor: playerColour, }}>
+                <Row noGutters style={{ 
+                    backgroundColor: playerBackgroundColour, 
+                    color: playerTextColour,
+                }}>
                     <Col xs={2}>
                         {/* TODO: Add faction icon */}
                     </Col>
@@ -134,6 +147,7 @@ function PlayerCard(props) {
                     <Col>
                         {playerStrategyButton}
                     </Col>
+                    {speakerButtonColumn}
                 </Row>
                 <Row noGutters className="flex-column">
                     <hr className="playerCardDivider" />
