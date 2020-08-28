@@ -1,0 +1,352 @@
+[
+  {
+    "type": "Law",
+    "name": "Anti-Intellectual Revolution",
+    "electionTarget": "",
+    "forEffect": "After a player researches a technology, they must destroy one of their non-fighter ships.",
+    "againstEffect": "At the start of the next strategy phase each player exhausts one planet for each technology they have researched."
+  },
+  {
+    "type": "Directive",
+    "name": "Archived Secret",
+    "electionTarget": "Player",
+    "forEffect": "Elected player draws 1 secret objective.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Arms Reduction",
+    "electionTarget": "",
+    "forEffect": "Each player destroys all but 2 of their dreadnaughts and all but 4 of their cruisers.",
+    "againstEffect": "At the start of the next strategy phase, each player exhausts each of their planets with a technology specialty."
+  },
+  {
+    "type": "Law",
+    "name": "Classified Document Leaks",
+    "electionTarget": "Scored Secret Objective",
+    "forEffect": "The elected secret objective becomes a public objective.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Colonial Redistribution",
+    "electionTarget": "Non-home, non-Mecatol Rex system",
+    "forEffect": "Destroy each unit on the planet. It's controller chooses a player with the fewest victory points to place 1 infantry on the planet.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Committee Formation",
+    "electionTarget": "Player",
+    "forEffect": "This card may be discarded during a future agenda to choose a player to be elected for an agenda, bypassing the voting process.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Compensated Disarmament",
+    "electionTarget": "Planet",
+    "forEffect": "Destroy each ground force on the planet. For each unit destroyed, the player who controls that planet gains 1 trade good.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Conventions of War",
+    "electionTarget": "",
+    "forEffect": "Players cannot use Bombardment against cultural planets.",
+    "againstEffect": "Players who voted \"Against\" discard all of their action cards."
+  },
+  {
+    "type": "Law",
+    "name": "Core Mining",
+    "electionTarget": "Hazardous Planet",
+    "forEffect": "Destroy 1 infantry on that planet. It resource value is increased by 2.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Demilitarized Zone",
+    "electionTarget": "Cultural Planet",
+    "forEffect": "Destroy all units on that planet. Player's units cannot land, be produced on or be placed on this planet.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Economic Equality",
+    "electionTarget": "",
+    "forEffect": "All players discard all trade goods, then draw 5.",
+    "againstEffect": "All players discard all trade goods."
+  },
+  {
+    "type": "Law",
+    "name": "Enforced Travel Ban",
+    "electionTarget": "",
+    "forEffect": "Alpha and beta wormholes have no effect during movement.",
+    "againstEffect": "Destroy each PDS in/adjacent to a wormhole."
+  },
+  {
+    "type": "Law",
+    "name": "Executive Sanctions",
+    "electionTarget": "",
+    "forEffect": "All players have a maximum of 3 action cards in hand.",
+    "againstEffect": "Each player discards a random action card."
+  },
+  {
+    "type": "Law",
+    "name": "Fleet Regulations",
+    "electionTarget": "",
+    "forEffect": "Each player cannot have more than 4 tokens in their fleet pool.",
+    "againstEffect": "Each player gains 1 command token into their fleet pool."
+  },
+  {
+    "type": "Law",
+    "name": "Holy Planet of Ixth",
+    "electionTarget": "Cultural Planet",
+    "forEffect": "The planet's controller gains 1VP. Units on this planet cannot use Production.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Homeland Defense Act",
+    "electionTarget": "",
+    "forEffect": "Each player can have any number of PDS on planets they control.",
+    "againstEffect": "Each player destroys one PDS."
+  },
+  {
+    "type": "Law",
+    "name": "Imperial Arbiter",
+    "electionTarget": "Player",
+    "forEffect": "At the end of the strategy phase this card may be discarded to swap one of this player's strategy cards with 1 of another player's strategy cards.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Incentive Program",
+    "electionTarget": "",
+    "forEffect": "Draw and reveal an additional stage 1 public objective.",
+    "againstEffect": "Draw and reveal an additional stage 2 public objective."
+  },
+  {
+    "type": "Directive",
+    "name": "Ixthian Artifact",
+    "electionTarget": "",
+    "forEffect": "The speaker rolls a die. 1-5: Destroy all units on Mecatol Rex & 3 units in each system adjacent to Mecatol Rex. 6-10: Each player researches 2 technologies.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Judicial Abolishment",
+    "electionTarget": "Law",
+    "forEffect": "Discard elected law.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Commerce",
+    "electionTarget": "Player",
+    "forEffect": "After the owner of this card replenishes commodities, they gain a trade good for each player that is their neighbor.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Exploration",
+    "electionTarget": "Player",
+    "forEffect": "When the owner of this cards gains control of a planet, they gain a trade good.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Industry",
+    "electionTarget": "Player",
+    "forEffect": "When the owner of this card places a space dock in a system, their units in that system use Production abilities.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Peace",
+    "electionTarget": "Player",
+    "forEffect": "After a player activates a system that contains 1 or more of a different player's units, the owner of this card may discard it to immediately end the active player's turn.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Policy",
+    "electionTarget": "Player",
+    "forEffect": "The owner draws an extra action card during the status phase.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of Sciences",
+    "electionTarget": "Player",
+    "forEffect": "When the owner of this card resolves the primary or secondary ability of the Technology Strategy card, they do not need to spend resources.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Minister of War",
+    "electionTarget": "Player",
+    "forEffect": "The owner of this card may discard this card after performing an action to remove one of their command tokens on the board. Then, they may perform an additional action.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Miscount Disclosed",
+    "electionTarget": "Law",
+    "forEffect": "Vote on that law again, as if it was revealed.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Mutiny",
+    "electionTarget": "",
+    "forEffect": "Each player who voted \"For\" gains 1 VP.",
+    "againstEffect": "Each player who voted \"For\" loses 1 VP."
+  },
+  {
+    "type": "Directive",
+    "name": "New Constitution",
+    "electionTarget": "",
+    "forEffect": "Discard all laws in play. Exhaust all home systems next strategy phase.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Prophecy of Ixth",
+    "electionTarget": "Player",
+    "forEffect": "The owner of this card applies +1 to their fighter's combat rolls. When the owner of this card uses a Production ability they discard this card unless they produce at least 2 fighters.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Public Execution",
+    "electionTarget": "Player",
+    "forEffect": "Elected player discards all action cards. If they have the speaker token, they pass it to the player on their left. They cannot vote on further agendas during this agenda phase.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Publicize Weapon Schematics",
+    "electionTarget": "",
+    "forEffect": "If a player has Warsun technology all players may ignore that technology's prerequisites. All warsuns lose sustain damage.",
+    "againstEffect": "Each player with war sun technology discards all of their action cards."
+  },
+  {
+    "type": "Law",
+    "name": "Regulated Conscription",
+    "electionTarget": "",
+    "forEffect": "Each fighter or infantry requires 1 resource instead of 1/2 of a resource to produce.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Representative Government",
+    "electionTarget": "",
+    "forEffect": "Players cannot exhaust planets to cast votes during the agenda phase. Each player may cast 1 vote on each agenda.",
+    "againstEffect": "At the start of the next strategy phase, each player that voted \"Against\" exhausts all of his cultural planets."
+  },
+  {
+    "type": "Law",
+    "name": "Research Team: Biotic",
+    "electionTarget": "Industrial Planet",
+    "forEffect": "When this planet's owner researches technology they may exhaust this card to ignore a green prerequisite.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Research Team: Cybernetic",
+    "electionTarget": "Industrial Planet",
+    "forEffect": "When this planet's owner researches technology they may exhaust this card to ignore a yellow prerequisite.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Research Team: Propulsion",
+    "electionTarget": "Industrial Planet",
+    "forEffect": "When this planet's owner researches technology they may exhaust this card to ignore a blue prerequisite.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Research Team: Warfare",
+    "electionTarget": "Hazardous Planet",
+    "forEffect": "When this planet's owner researches technology they may exhaust this card to ignore a red prerequisite.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Seed of an Empire",
+    "electionTarget": "",
+    "forEffect": "The player with most VP gains 1 VP.",
+    "againstEffect": "The player with the fewest VP gains 1 VP."
+  },
+  {
+    "type": "Law",
+    "name": "Senate Sanctuary",
+    "electionTarget": "Cultural Planet",
+    "forEffect": "The influence value of this planet is increased by 2.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Shard of the Throne",
+    "electionTarget": "Player",
+    "forEffect": "This card is worth 1VP. If a player wins a combat against the player that has this card, they gain this card.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "Shared Research",
+    "electionTarget": "",
+    "forEffect": "Units can move through nebulae.",
+    "againstEffect": "Each player places a command token in their home system"
+  },
+  {
+    "type": "Directive",
+    "name": "Swords to Plowshares",
+    "electionTarget": "",
+    "forEffect": "Each player destroys half of their infantry (rounded up) on each planet. Each player gains a trade good for each unit they destroyed.",
+    "againstEffect": "Each player gains 1 infantry on each planet they control."
+  },
+  {
+    "type": "Law",
+    "name": "Terraforming Initiative",
+    "electionTarget": "Hazardous Planet",
+    "forEffect": "The influence and resource values of this planet are each increased by 1.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "The Crown of Emphidia",
+    "electionTarget": "Player",
+    "forEffect": "This card is worth 1VP. If a player gains control of a planet in this player's home system they gain this card.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Law",
+    "name": "The Crown of Thalnos",
+    "electionTarget": "Player",
+    "forEffect": "During each round this card's owner may reroll any number of his dice. Any units that reroll but do not produce a hit are destroyed.",
+    "againstEffect": ""
+  },
+  {
+    "type": "Directive",
+    "name": "Unconventional Measures",
+    "electionTarget": "",
+    "forEffect": "Each player that voted \"For\" draws 2 action cards.",
+    "againstEffect": "Each player that voted \"For\" discards all of their action cards."
+  },
+  {
+    "type": "Law",
+    "name": "Wormhole Reconstruction",
+    "electionTarget": "",
+    "forEffect": "Systems that contain an alpha or beta wormhole are adjacent to each other.",
+    "againstEffect": "Each player places a command token in each system with one of their ships and either an alpha or beta wormhole."
+  },
+  {
+    "type": "Directive",
+    "name": "Wormhole Research",
+    "electionTarget": "",
+    "forEffect": "Each player with a ship in a system with an alpha or beta wormhole destroys all his ships in those systems, then researches a technology.",
+    "againstEffect": "Each player who voted \"Against\" removes a command token from his command sheet."
+  }
+]

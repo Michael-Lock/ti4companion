@@ -1,0 +1,41 @@
+.agendaCard {
+  width: 60vw;
+  background-color: rgb(222, 232, 245);
+  border-width: 2px;
+  border-style: solid;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: large;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.agendaCardDisplay {
+  width: 100%;
+}
+
+.agendaName {
+  font-size: x-large;
+  font-weight: bold;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  text-align: center;
+  text-align-last: center;
+  background-color: transparent;
+}
+
+.agendaName:focus {
+  outline: none;
+}
+
+.agendaType {
+  font-weight: bold;
+  text-align: center;
+}
+
+.agendaElectionTarget {
+  font-weight: bold;
+  text-align: center;
+}

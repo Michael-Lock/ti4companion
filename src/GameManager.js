@@ -2,6 +2,7 @@ import React from 'react';
 import PlayerSelect from './PlayerSelect';
 import StrategySelect from './StrategySelect';
 import StatusBoard from './StatusBoard';
+import PlayAgenda from './PlayAgenda';
 import TimerBlock from './TimerBlock';
 import ObjectiveSelectModal from './ObjectiveSelectModal';
 import ObjectivePanel from './ObjectivePanel';
@@ -14,6 +15,7 @@ import './GameManager.css';
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
 const MODE_STATUS_BOARD = 3;
+const MODE_AGENDA = 4;
 
 const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
@@ -38,6 +40,7 @@ class GameManager extends React.Component {
             selectedObjective: null,
             selectedObjectiveSelection: null, //used for the objective select modal to record the current selection
             selectedSpeakerNumber: null, //used for the speaker select modal to record the player selected
+            selectedAgenda: null,
 
             //Game Details
             playerDetails: null,
@@ -168,6 +171,12 @@ class GameManager extends React.Component {
         this.startTurnTimers();
     }
 
+    handlePlayAgenda() {
+        this.setState({
+            gameMode: MODE_AGENDA,
+        });
+    }
+
     handleTurnTimerClicked() {
         if (this.state.currentTurnTimer.isCounting) {
             this.stopTurnTimers();
@@ -280,6 +289,20 @@ class GameManager extends React.Component {
             showObjectiveSelectModal: false,
             selectedObjective: null,
             selectedObjectiveSelection: null,
+        });
+    }
+
+    handleAgendaChange(e) {
+        let newAgenda = JSON.parse(e.target.value);
+        this.setState({
+            selectedAgenda: newAgenda,
+        });
+    }
+
+    handleEndAgenda() {
+        this.setState({
+            gameMode: MODE_STRATEGY,
+            selectedAgenda: null,
         });
     }
 
@@ -563,6 +586,8 @@ class GameManager extends React.Component {
                 return this.renderStrategy();
             case MODE_STATUS_BOARD:
                 return this.renderStatusBoard();
+            case MODE_AGENDA:
+                return this.renderAgenda();
             default:
                 return null;
         }
@@ -590,6 +615,7 @@ class GameManager extends React.Component {
                             isGameActive={this.state.totalGameTimer.isCounting}
                             onToggleTimers={() => this.handleToggleTimers()}
                             onStartRound={() => this.handleStartRound()}
+                            onPlayAgenda={() => this.handlePlayAgenda()}
                             onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
                             onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
                             />
@@ -621,6 +647,27 @@ class GameManager extends React.Component {
                             onEndRound={() => this.handleEndRound()}
                             onTechClick={(techDefinition, player) => this.handleTechClicked(techDefinition, player)}
                             onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
+                        />
+                    </Col>
+                </Row>
+            </Container>
+        );
+    }
+
+    renderAgenda() {
+        return (
+            <Container fluid={true}>
+                <Row>{this.renderGameHeader(false)}</Row>
+                <Row>
+                    <Col xs={4} md={2} xl={1}>
+                        {this.renderObjectivePanel()}
+                    </Col>
+                    <Col>
+                        <PlayAgenda
+                            playerDetails={this.state.playerDetails}
+                            selectedAgenda={this.state.selectedAgenda}
+                            onAgendaChange={e => this.handleAgendaChange(e)}
+                            onEndAgenda={() => this.handleEndAgenda()}
                         />
                     </Col>
                 </Row>
