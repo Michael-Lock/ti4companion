@@ -249,6 +249,60 @@ class GameManager extends React.Component {
         }
     }
 
+
+    handleAvailableVotesClick(e, playerString, delta) {
+        let player = JSON.parse(playerString);
+        let newPlayerDetails = this.state.playerDetails.slice();
+        let newAvailableVotes = player.availableVotes;
+
+        if (e.nativeEvent.which === LEFT_CLICK) {
+            newAvailableVotes = Math.min(99, player.availableVotes + delta);
+        }
+        else if (e.nativeEvent.which === RIGHT_CLICK) {
+            newAvailableVotes = Math.max(0, player.availableVotes - delta);
+        }
+        
+        let newPlayer = {...player};
+        newPlayer.availableVotes = newAvailableVotes;
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+        this.setState({
+            playerDetails: newPlayerDetails,
+        });
+    }
+
+    handleSpentVotesClick(e, playerString, delta) {
+        let player = JSON.parse(playerString);
+        let newPlayerDetails = this.state.playerDetails.slice();
+        let newSpentVotes = player.spentVotes;
+
+        if (e.nativeEvent.which === LEFT_CLICK) {
+            newSpentVotes = Math.min(player.availableVotes, player.spentVotes + delta);
+        }
+        else if (e.nativeEvent.which === RIGHT_CLICK) {
+            newSpentVotes = Math.max(0, player.spentVotes - delta);
+        }
+        
+        let newPlayer = {...player};
+        newPlayer.spentVotes = newSpentVotes;
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+        this.setState({
+            playerDetails: newPlayerDetails,
+        });
+    }
+
+    handleVoteTargetChange(e, playerString) {
+        let player = JSON.parse(playerString);
+        let newPlayerDetails = this.state.playerDetails.slice();
+        let newVoteTarget = e.target.value;
+
+        let newPlayer = {...player};
+        newPlayer.voteTarget = newVoteTarget;
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+        this.setState({
+            playerDetails: newPlayerDetails,
+        });
+    }
+
     handleEndTurn() {
         this.startGameTimer();
         this.restartTurnTimers();
@@ -300,9 +354,19 @@ class GameManager extends React.Component {
     }
 
     handleEndAgenda() {
+        let newPlayerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < newPlayerDetails.length; i++) {
+            let player = {...newPlayerDetails[i]};
+            player.availableVotes = 0;
+            player.spentVotes = 0;
+            player.voteTarget = null;
+            newPlayerDetails[i] = player;
+        }
+
         this.setState({
             gameMode: MODE_STRATEGY,
             selectedAgenda: null,
+            playerDetails: newPlayerDetails,
         });
     }
 
@@ -668,6 +732,9 @@ class GameManager extends React.Component {
                             selectedAgenda={this.state.selectedAgenda}
                             onAgendaChange={e => this.handleAgendaChange(e)}
                             onEndAgenda={() => this.handleEndAgenda()}
+                            onAvailableVotesClick={(e, playerString, delta) => this.handleAvailableVotesClick(e, playerString, delta)}
+                            onSpentVotesClick={(e, playerString, delta) => this.handleSpentVotesClick(e, playerString, delta)}
+                            onVoteTargetChange={(e, playerString) => this.handleVoteTargetChange(e, playerString)}
                         />
                     </Col>
                 </Row>

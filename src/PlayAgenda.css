@@ -8,10 +8,13 @@
   font-size: large;
   margin-top: 1vh;
   margin-bottom: 1vh;
+  margin-left:2vw;
 }
 
 .agendaCardDisplay {
-  width: 100%;
+  width: 80%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .agendaName {
@@ -38,4 +41,26 @@
 .agendaElectionTarget {
   font-weight: bold;
   text-align: center;
+}
+
+.digitButton {
+  font-weight: bold;
+  text-align: center;
+  border-style: none;
+  width: 1em;
+  margin-top: 1px;
+  margin-bottom: 10px;
+}
+
+.digitButton:focus {
+  outline: none;
+}
+
+.digitButton.tens {
+  margin-left: 1em;
+}
+
+.columnHeader {
+  text-align: center;
+  font-weight: bold;
 }
