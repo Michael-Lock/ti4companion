@@ -11,6 +11,12 @@ class StrategySelect extends React.Component {
         }
     }
 
+    handlePlayAgenda() {
+        if (this.props.onPlayAgenda) {
+            return () => this.props.onPlayAgenda()
+        }
+    }
+
     isRoundReady() {
         let selectedStrategyCards = [];
         for (let i = 0; i < this.props.playerDetails.length; i++) {
@@ -42,6 +48,11 @@ class StrategySelect extends React.Component {
                     <Col>
                         <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
                             {this.props.isGameActive ? "Pause Game" : "Resume Game"}
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button type="button" onClick={this.handlePlayAgenda()}>
+                            Play Agenda
                         </Button>
                     </Col>
                     <Col>

@@ -37,6 +37,8 @@ class PlayerSelect extends React.Component {
             isSpeaker: playerNumber === 0 ? true : false,
             isActivePlayer: playerNumber === 0 ? true : false,
             isPassed: false,
+            availableVotes: 0,
+            spentVotes: 0,
         }
         return playerDetail;
     }
