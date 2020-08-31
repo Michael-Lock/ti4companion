@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/ti4companion/static/css/main.b45c5cc8.chunk.css",
-    "main.js": "/ti4companion/static/js/main.1c7d9fca.chunk.js",
-    "main.js.map": "/ti4companion/static/js/main.1c7d9fca.chunk.js.map",
+    "main.js": "/ti4companion/static/js/main.10d7087f.chunk.js",
+    "main.js.map": "/ti4companion/static/js/main.10d7087f.chunk.js.map",
     "runtime-main.js": "/ti4companion/static/js/runtime-main.0a554107.js",
     "runtime-main.js.map": "/ti4companion/static/js/runtime-main.0a554107.js.map",
-    "static/js/2.ddbf50af.chunk.js": "/ti4companion/static/js/2.ddbf50af.chunk.js",
-    "static/js/2.ddbf50af.chunk.js.map": "/ti4companion/static/js/2.ddbf50af.chunk.js.map",
+    "static/js/2.cb65bd3b.chunk.js": "/ti4companion/static/js/2.cb65bd3b.chunk.js",
+    "static/js/2.cb65bd3b.chunk.js.map": "/ti4companion/static/js/2.cb65bd3b.chunk.js.map",
     "index.html": "/ti4companion/index.html",
-    "precache-manifest.7ff2b8824710a66593aba0f7a0f16521.js": "/ti4companion/precache-manifest.7ff2b8824710a66593aba0f7a0f16521.js",
+    "precache-manifest.1e6c050d216736bf903251aa2ec6f264.js": "/ti4companion/precache-manifest.1e6c050d216736bf903251aa2ec6f264.js",
     "service-worker.js": "/ti4companion/service-worker.js",
     "static/css/main.b45c5cc8.chunk.css.map": "/ti4companion/static/css/main.b45c5cc8.chunk.css.map",
-    "static/js/2.ddbf50af.chunk.js.LICENSE.txt": "/ti4companion/static/js/2.ddbf50af.chunk.js.LICENSE.txt",
+    "static/js/2.cb65bd3b.chunk.js.LICENSE.txt": "/ti4companion/static/js/2.cb65bd3b.chunk.js.LICENSE.txt",
     "static/media/GameManager.css": "/ti4companion/static/media/speaker-token.01c0e6e6.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.0a554107.js",
-    "static/js/2.ddbf50af.chunk.js",
+    "static/js/2.cb65bd3b.chunk.js",
     "static/css/main.b45c5cc8.chunk.css",
-    "static/js/main.1c7d9fca.chunk.js"
+    "static/js/main.10d7087f.chunk.js"
   ]
 }
