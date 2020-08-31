@@ -5,6 +5,18 @@ import {Row, Col, ButtonGroup} from 'react-bootstrap';
 import './PlayAgenda.css';
 
 import agenda_store from './data/agendas.json';
+import planets_store from './data/planets.json';
+
+const ELECTION_TARGET_PLAYER = "Player";
+const ELECTION_TARGET_PLANET = "Planet";
+const ELECTION_TARGET_HAZARDOUS = "Hazardous";
+const ELECTION_TARGET_CULTURAL = "Cultural";
+const ELECTION_TARGET_INDUSTRIAL = "Industrial";
+
+const standardVoteOptions = [
+    "For",
+    "Against"
+]
 
 class PlayAgenda extends React.Component {
     handleNextAgenda() {
@@ -129,18 +141,21 @@ class AgendaSelector extends React.Component {
 
 function VotePanel(props) {
     const players = props.playerDetails.slice();
-    var speakerIndex = 0;
+    //First voter should be the player immediately after the speaker
+    var firstVoterIndex = 0;
     for (let i = 0; i < players.length; i++) {
-        speakerIndex = players[i].isSpeaker ? i : speakerIndex;
+        firstVoterIndex = players[i].isSpeaker ? (i + 1 % players.length) : firstVoterIndex;
     }
 
     let playerVotePanels = Array(players.length).fill(null);
     for (let i = 0; i < players.length; i++) {
-        let destinationIndex = (((i - speakerIndex) % players.length) + players.length) % players.length;
+        let destinationIndex = (((i - firstVoterIndex) % players.length) + players.length) % players.length;
         playerVotePanels[destinationIndex] =
         <PlayerVotePanel
             key={i}
             player={players[i]}
+            players={players}
+            selectedAgenda={props.selectedAgenda}
             onAvailableVotesClick={(e, playerString, delta) => props.onAvailableVotesClick(e, playerString, delta)}
             onSpentVotesClick={(e, playerString, delta) => props.onSpentVotesClick(e, playerString, delta)}
             onVoteTargetChange={(e, playerString) => props.onVoteTargetChange(e, playerString)}
@@ -235,6 +250,7 @@ function PlayerVotePanel(props) {
                     voteTarget={props.player.voteTarget}
                     selectedAgenda={props.selectedAgenda}
                     onVoteTargetChange={e => props.onVoteTargetChange(e, JSON.stringify(props.player))}
+                    players={props.players}
                 />
             </Col>
         </Row>
@@ -274,17 +290,31 @@ function AgendaCard(props) {
 }
 
 function VoteTargetSelector(props) {
-    let voteOptions = [<option key="unselected" value={null}/>]
-    voteOptions = voteOptions.concat(
-        <option key={"For"} value={"For"}>
-            For
+    let voteOptions = [
+        <option key="unselected" value={null}/>,
+        <option key="Abstain" value={"Abstain"}>
+            --Abstain
         </option>
-    );
-    voteOptions = voteOptions.concat(
-        <option key={"Against"} value={"Against"}>
-            Against
-        </option>
-    );
+    ]
+
+    if (props.selectedAgenda) {
+        switch (props.selectedAgenda.electionTargetType) {
+            case ELECTION_TARGET_PLAYER:
+                voteOptions = voteOptions.concat(getPlayerVoteOptions(props.players));
+                break;
+            case ELECTION_TARGET_PLANET:
+                voteOptions = voteOptions.concat(getPlanetVoteOptions());
+                break;
+            case ELECTION_TARGET_HAZARDOUS:
+            case ELECTION_TARGET_CULTURAL:
+            case ELECTION_TARGET_INDUSTRIAL:
+                voteOptions = voteOptions.concat(getPlanetVoteOptions(props.selectedAgenda.electionTargetType));
+                break;
+            default:
+                voteOptions = voteOptions.concat(getStandardVoteOptions());
+                break;
+        }
+    }
 
     return <select 
         className="voteTargetSelector"
@@ -294,6 +324,29 @@ function VoteTargetSelector(props) {
     >
         {voteOptions}
     </select>;
+}
+
+function getStandardVoteOptions() {
+    return standardVoteOptions.map((voteOption) => 
+        <option key={voteOption} value={voteOption}>
+            {voteOption}
+        </option>);
+}
+
+function getPlayerVoteOptions(players) {
+    return players.map((player) => 
+        <option key={player.playerName} value={player.playerName}>
+            {player.playerName}
+        </option>);
+}
+
+function getPlanetVoteOptions(electionTargetType) {
+    let planets = electionTargetType ? planets_store.filter((planet) => planet.trait === electionTargetType) : planets_store;
+
+    return planets.map((planet) => 
+    <option key={planet.name} value={planet.name}>
+        {planet.name}
+    </option>);
 }
 
 function ResultsPanel(props) {
@@ -324,6 +377,7 @@ function ResultsPanel(props) {
 
     let votedResolutions = null;
     if (resolutions.length > 0) {
+        resolutions.sort((a,b) => b.votes - a.votes);
         votedResolutions = [];
         for (let i = 0; i < resolutions.length; i++) {
             votedResolutions.push(

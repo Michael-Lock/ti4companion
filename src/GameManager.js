@@ -297,6 +297,10 @@ class GameManager extends React.Component {
 
         let newPlayer = {...player};
         newPlayer.voteTarget = newVoteTarget;
+        if (newVoteTarget === "Abstain") {
+            newPlayer.spentVotes = 0;
+        }
+        
         newPlayerDetails[newPlayer.playerNumber] = newPlayer;
         this.setState({
             playerDetails: newPlayerDetails,
@@ -350,6 +354,21 @@ class GameManager extends React.Component {
         let newAgenda = JSON.parse(e.target.value);
         this.setState({
             selectedAgenda: newAgenda,
+        });
+    }
+
+    handleNextAgenda() {
+        let newPlayerDetails = this.state.playerDetails.slice();
+        for (let i = 0; i < newPlayerDetails.length; i++) {
+            let player = {...newPlayerDetails[i]};
+            player.availableVotes = player.availableVotes - player.spentVotes;
+            player.spentVotes = 0;
+            player.voteTarget = null;
+            newPlayerDetails[i] = player;
+        }
+
+        this.setState({
+            playerDetails: newPlayerDetails,
         });
     }
 
@@ -731,6 +750,7 @@ class GameManager extends React.Component {
                             playerDetails={this.state.playerDetails}
                             selectedAgenda={this.state.selectedAgenda}
                             onAgendaChange={e => this.handleAgendaChange(e)}
+                            onNextAgenda={() => this.handleNextAgenda()}
                             onEndAgenda={() => this.handleEndAgenda()}
                             onAvailableVotesClick={(e, playerString, delta) => this.handleAvailableVotesClick(e, playerString, delta)}
                             onSpentVotesClick={(e, playerString, delta) => this.handleSpentVotesClick(e, playerString, delta)}
