@@ -46,7 +46,7 @@ class GameManager extends React.Component {
             playerDetails: null,
             playerTimers: null,
             roundNumber: 1,
-            naaluTelepathicActive: false,
+            isNaaluTelepathicActive: false,
             totalGameTimer: {
                 baseSeconds: 0,
                 currentSeconds: 0,
@@ -85,10 +85,11 @@ class GameManager extends React.Component {
             }
         }
 
-        let naaluTelepathicActive = false;
+        let isNaaluTelepathicActive = false;
         for (let i = 0; i < playerDetails.length; i++) {
-            if (playerDetails[i].faction.naaluTelepathic) {
-                naaluTelepathicActive = true;
+            if (playerDetails[i].faction.isNaaluTelepathic) {
+                isNaaluTelepathicActive = true;
+                playerDetails[i].isNaaluTelepathic = true;
             }
         }
 
@@ -96,7 +97,7 @@ class GameManager extends React.Component {
             playerDetails: playerDetails,
             playerTimers: playerTimers,
             gameMode: MODE_STRATEGY,
-            naaluTelepathicActive: naaluTelepathicActive,
+            isNaaluTelepathicActive: isNaaluTelepathicActive,
         });
 
         this.startGameTimer();
@@ -161,7 +162,7 @@ class GameManager extends React.Component {
         let lowestInitiative = NUMBER_STRATEGIES;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
-            let playerInitiative = player.faction.naaluTelepathic ? 0 : player.strategy.strategyCard.number; 
+            let playerInitiative = player.isNaaluTelepathic ? 0 : player.strategy.strategyCard.number; 
             if (playerInitiative <= lowestInitiative) {
                 lowestInitiative = playerInitiative;
             }
@@ -169,7 +170,7 @@ class GameManager extends React.Component {
 
         let newPlayerDetails = this.state.playerDetails.map((player) => {
             let newPlayer = {...player};
-            let playerInitiative = newPlayer.faction.naaluTelepathic ? 0 : newPlayer.strategy.strategyCard.number; 
+            let playerInitiative = newPlayer.isNaaluTelepathic ? 0 : newPlayer.strategy.strategyCard.number; 
             newPlayer.isActivePlayer = playerInitiative === lowestInitiative;
             return newPlayer;
         });
@@ -652,15 +653,15 @@ class GameManager extends React.Component {
     getNextPlayer(activePlayer) {
         let nextPlayer = activePlayer;
         //TODO Make Naalu initiative account for it being held my non-Naalu players
-        let activePlayerInitiative = activePlayer.faction.naaluTelepathic ? 0 : activePlayer.strategy.strategyCard.number;
-        let initiativeRange = NUMBER_STRATEGIES + (this.state.naaluTelepathicActive ? 1 : 0);
+        let activePlayerInitiative = activePlayer.isNaaluTelepathic ? 0 : activePlayer.strategy.strategyCard.number;
+        let initiativeRange = NUMBER_STRATEGIES + (this.state.isNaaluTelepathicActive ? 1 : 0);
         // determine the highest initiative number that could possibly be next. Offset by the number of strategies to allow it to loop back;
         let highestInitiativeNumber = activePlayerInitiative + initiativeRange - 1;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
             if (!player.isActivePlayer && !player.isPassed) {
                 // determine the player initiative number, offset by the number of strategies to allow it to loop back
-                let playerInitiativeNumber = player.faction.naaluTelepathic ? 0 : player.strategy.strategyCard.number;
+                let playerInitiativeNumber = player.isNaaluTelepathic ? 0 : player.strategy.strategyCard.number;
                 if (playerInitiativeNumber < activePlayerInitiative) {
                     playerInitiativeNumber += initiativeRange;
                 }
