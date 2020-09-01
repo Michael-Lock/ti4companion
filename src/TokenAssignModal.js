@@ -2,15 +2,15 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export default function SpeakerChangeModal(props) {
+export default function TokenAssignModal(props) {
     if (!props.showModal) {
         return null;
     }
 
     let playerList = [<option key="unselected" value={null} hidden/>];
-    for (let i = 0; i < props.playerDetails.length; i++) {
-        let player = props.playerDetails[i];
-        if (!player.isSpeaker) {
+    for (let i = 0; i < props.players.length; i++) {
+        let player = props.players[i];
+        if (player.playerNumber !== props.currentTokenOwnerNumber) {
             playerList.push(
                 <option key={player.playerNumber} value={player.playerNumber}>
                     {player.playerName + " - " + player.faction.shortName}
@@ -18,7 +18,8 @@ export default function SpeakerChangeModal(props) {
             );
         }
     }
-    let playerSelect = <select id="speakerCandidates" required onChange={props.onSpeakerChange}>
+
+    let playerSelect = <select id="tokenOwnerCandidates" required onChange={props.onTokenOwnerChange}>
         {playerList}
     </select>
 
@@ -26,7 +27,7 @@ export default function SpeakerChangeModal(props) {
     return (
         <Modal show={props.showModal} onHide={props.onCloseModal} centered>
             <Modal.Header>
-                <Modal.Title>Select New Speaker</Modal.Title>
+                <Modal.Title>{props.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="d-flex flex-column">
@@ -37,7 +38,7 @@ export default function SpeakerChangeModal(props) {
                 <Button variant="secondary" onClick={props.onCloseModal}>
                     Cancel
                 </Button>
-                <Button variant="primary" onClick={props.onConfirmModal} disabled={!props.selectedSpeakerNumber}>
+                <Button variant="primary" onClick={props.onConfirmModal} disabled={!props.selectedTokenOwnerNumber}>
                     Confirm
                 </Button>
             </Modal.Footer>

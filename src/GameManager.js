@@ -8,14 +8,20 @@ import ObjectiveSelectModal from './ObjectiveSelectModal';
 import ObjectivePanel from './ObjectivePanel';
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
-import SpeakerChangeModal from './SpeakerChangeModal';
+import TokenAssignModal from './TokenAssignModal';
 
 import './GameManager.css';
 
+//game modes
 const MODE_PLAYER_SELECT = 1;
 const MODE_STRATEGY = 2;
 const MODE_STATUS_BOARD = 3;
 const MODE_AGENDA = 4;
+
+//assign token owner modes
+const MODE_NO_ASSIGN = 0;
+const MODE_ASSIGN_SPEAKER = 1;
+const MODE_ASSIGN_NAALU_INITIATIVE = 2;
 
 const NUMBER_STRATEGIES = 8;
 const NUMBER_OBJECTIVES_STAGE_ONE = 5;
@@ -34,12 +40,14 @@ class GameManager extends React.Component {
             //View controls
             gameMode: MODE_PLAYER_SELECT,
             showObjectiveSelectModal: false,
-            showSpeakerChangeModal: false,
+            tokenAssignModalMode: MODE_NO_ASSIGN,
 
             //Temporary State
             selectedObjective: null,
             selectedObjectiveSelection: null, //used for the objective select modal to record the current selection
-            selectedSpeakerNumber: null, //used for the speaker select modal to record the player selected
+            selectedTokenOwnerNumber: null, //used for the token assignment modal to record the new owner selected
+            currentTokenOwnerNumber: null, //used for the token assignment modal as an input identifying the current token owner
+            tokenAssignModalTitle: null, //used to set the title of the token assignment modal
             selectedAgenda: null,
 
             //Game Details
@@ -403,43 +411,72 @@ class GameManager extends React.Component {
     }
 
     handleSpeakerButtonClicked() {
+        let speakerNumber = null;
+        for (let i = 0; i < this.state.playerDetails.length; i++) {
+            if (this.state.playerDetails[i].isSpeaker) {
+                speakerNumber = this.state.playerDetails[i].playerNumber;
+            }
+        }
         this.setState({ 
-            showSpeakerChangeModal: true,
+            tokenAssignModalMode: MODE_ASSIGN_SPEAKER,
+            currentTokenOwnerNumber: speakerNumber,
+            tokenAssignModalTitle: "Select new speaker",
         });
     }
 
-    handleSpeakerChange(e) {
-        let newSpeakerNumber = e.target.value;
+    handleNaaluInitiativeButtonClicked() {
+        let naaluTelepathicPlayerNumber = null;
+        for (let i = 0; i < this.state.playerDetails.length; i++) {
+            if (this.state.playerDetails[i].isNaaluTelepathic) {
+                naaluTelepathicPlayerNumber = this.state.playerDetails[i].playerNumber;
+            }
+        }
+        this.setState({ 
+            tokenAssignModalMode: MODE_ASSIGN_NAALU_INITIATIVE,
+            currentTokenOwnerNumber: naaluTelepathicPlayerNumber,
+            tokenAssignModalTitle: "Select new telepath",
+        });
+    }
+
+    handleTokenOwnerChange(e) {
+        let newTokenOwnerNumber = e.target.value;
         this.setState({
-            selectedSpeakerNumber: newSpeakerNumber,
+            selectedTokenOwnerNumber: newTokenOwnerNumber,
         });
     }
 
-    handleCloseSpeakerChangeModal(isConfirmed) {
-        if(isConfirmed && this.state.selectedSpeakerNumber) {
+    handleCloseTokenAssignModal(isConfirmed) {
+        if(isConfirmed && this.state.selectedTokenOwnerNumber) {
             let newPlayerDetails = this.state.playerDetails.slice();
-            let oldSpeaker = null;
-            for (let i = 0; i < newPlayerDetails.length; i++) {
-                if (newPlayerDetails[i].isSpeaker) {
-                    oldSpeaker = {...newPlayerDetails[i]}
-                    oldSpeaker.isSpeaker = false;
-                }
+            let oldOwner = {...newPlayerDetails[this.state.currentTokenOwnerNumber]}
+            let newOwner = {...newPlayerDetails[this.state.selectedTokenOwnerNumber]};
+
+            switch (this.state.tokenAssignModalMode) {
+                case MODE_ASSIGN_SPEAKER:
+                    oldOwner.isSpeaker = false;
+                    newOwner.isSpeaker = true;
+                    break;
+                case MODE_ASSIGN_NAALU_INITIATIVE:
+                    oldOwner.isNaaluTelepathic = false;
+                    newOwner.isNaaluTelepathic = true;
+                    break;
+                default:
+                    break;
             }
 
-            let newSpeaker = {...newPlayerDetails[this.state.selectedSpeakerNumber]};
-            newSpeaker.isSpeaker = true;
-            
-            newPlayerDetails[oldSpeaker.playerNumber] = oldSpeaker;
-            newPlayerDetails[newSpeaker.playerNumber] = newSpeaker;
-            
+            newPlayerDetails[oldOwner.playerNumber] = oldOwner;
+            newPlayerDetails[newOwner.playerNumber] = newOwner;
+
             this.setState({
                 playerDetails: newPlayerDetails,
             });
         }
 
         this.setState({
-            showSpeakerChangeModal: false,
-            selectedSpeakerNumber: null,
+            tokenAssignModalMode: MODE_NO_ASSIGN,
+            selectedTokenOwnerNumber: null,
+            currentTokenOwnerNumber: null,
+            tokenAssignModalTitle: null,
         });
     }
 
@@ -745,6 +782,7 @@ class GameManager extends React.Component {
                             onEndRound={() => this.handleEndRound()}
                             onTechClick={(techDefinition, player) => this.handleTechClicked(techDefinition, player)}
                             onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
+                            onNaaluInitiativeButtonClick={() => this.handleNaaluInitiativeButtonClicked()}
                         />
                     </Col>
                 </Row>
@@ -811,13 +849,15 @@ class GameManager extends React.Component {
                     onCloseModal={() => this.handleCloseObjectiveSelectModal()}
                     onObjectiveChange={e => this.handleObjectiveChange(e)}
                 />
-                <SpeakerChangeModal
-                    showModal={this.state.showSpeakerChangeModal}
-                    playerDetails={this.state.playerDetails}
-                    selectedSpeakerNumber={this.state.selectedSpeakerNumber}
-                    onConfirmModal={() => this.handleCloseSpeakerChangeModal(true)}
-                    onCloseModal={() => this.handleCloseSpeakerChangeModal()}
-                    onSpeakerChange={e => this.handleSpeakerChange(e)}
+                <TokenAssignModal
+                    showModal={this.state.tokenAssignModalMode !== MODE_NO_ASSIGN}
+                    title={this.state.tokenAssignModalTitle}
+                    players={this.state.playerDetails}
+                    currentTokenOwnerNumber={this.state.currentTokenOwnerNumber}
+                    selectedTokenOwnerNumber={this.state.selectedTokenOwnerNumber}
+                    onConfirmModal={() => this.handleCloseTokenAssignModal(true)}
+                    onCloseModal={() => this.handleCloseTokenAssignModal()}
+                    onTokenOwnerChange={e => this.handleTokenOwnerChange(e)}
                 />
             </div>
         );

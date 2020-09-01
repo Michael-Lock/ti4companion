@@ -31,6 +31,7 @@ function StatusBoard(props) {
                 onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
                 onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
                 onSpeakerButtonClick={props.onSpeakerButtonClick}
+                onNaaluInitiativeButtonClick={props.onNaaluInitiativeButtonClick}
             />
         </Col>
     );
@@ -98,7 +99,7 @@ function PlayerCard(props) {
         <Col>
             <button
                 className="naaluInitiative"
-                onClick={props.onSpeakerButtonClick}
+                onClick={props.onNaaluInitiativeButtonClick}
             />
         </Col> :
         null;
