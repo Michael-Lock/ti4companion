@@ -15,7 +15,8 @@ function StatusBoard(props) {
     const [showEndRoundModal, setShowEndRoundModal] = useState(false);
 
     let players = props.players.slice();
-    players.sort((a, b) => a.strategy.strategyCard.number - b.strategy.strategyCard.number);
+    players.sort((a, b) => 
+        (a.isNaaluTelepathic ? 0 : a.strategy.strategyCard.number) - (b.isNaaluTelepathic ? 0 : b.strategy.strategyCard.number));
 
     let playerCards = players.map(
         (player) => 
@@ -30,6 +31,7 @@ function StatusBoard(props) {
                 onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
                 onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
                 onSpeakerButtonClick={props.onSpeakerButtonClick}
+                onNaaluInitiativeButtonClick={props.onNaaluInitiativeButtonClick}
             />
         </Col>
     );
@@ -93,6 +95,15 @@ function PlayerCard(props) {
         </Col> :
         null;
 
+    let naaluTelepathicButtonColumn = player.isNaaluTelepathic ? 
+        <Col>
+            <button
+                className="naaluInitiative"
+                onClick={props.onNaaluInitiativeButtonClick}
+            />
+        </Col> :
+        null;
+
     return (
         <Card className="border-0">
             <h6 
@@ -148,6 +159,7 @@ function PlayerCard(props) {
                         {playerStrategyButton}
                     </Col>
                     {speakerButtonColumn}
+                    {naaluTelepathicButtonColumn}
                 </Row>
                 <Row noGutters className="flex-column">
                     <hr className="playerCardDivider" />
