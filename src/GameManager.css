@@ -35,8 +35,18 @@
     border: none;
     height: 100%;
     width: 100%;
-  }
+}
 
-  .speakerToken.disabled {
-      pointer-events: none;
+.speakerToken.disabled {
+    pointer-events: none;
+}
+
+.naaluInitiative {
+    background-image: url("./assets/naalu-initiative.png");
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: 100%;
+    width: 100%;
   }
