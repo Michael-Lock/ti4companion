@@ -10,7 +10,8 @@ import properties from './data/properties.json';
 import colour_store from './data/colours.json';
 
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
-const MAX_PLAYER_NUMBER = 6;
+//TODO: this should instead come from a user controlled setting, not a properties file
+const MAX_PLAYER_NUMBER = properties.enableProphecyOfKings ? 8 : 6;
 
 class PlayerSelect extends React.Component {
     constructor(props) {
@@ -190,13 +191,18 @@ class PlayerNumberSelect extends React.Component {
         );
     }
 
+    generatePlayerNumberButtons() {
+        let playerNumberButtons = Array(MAX_PLAYER_NUMBER - PLAYER_NUMBER_INDEX_OFFSET + 1);
+        for (let i = 0; i < playerNumberButtons.length; i++) {
+            playerNumberButtons[i] = this.renderPlayerNumberButton(i + PLAYER_NUMBER_INDEX_OFFSET);
+        }
+        return playerNumberButtons;
+    }
+
     render() {
         return (
             <Row>
-                { this.renderPlayerNumberButton(3) }
-                { this.renderPlayerNumberButton(4) }
-                { this.renderPlayerNumberButton(5) }
-                { this.renderPlayerNumberButton(6) }
+                {this.generatePlayerNumberButtons()}
             </Row>
         );
     }
@@ -266,10 +272,16 @@ class PlayerDetailEntry extends React.Component {
 
     getColourList() {
         let colourElements = [<option key="unselected" value={null} hidden/>]
-        colourElements = colourElements.concat(colour_store.map((colour) => 
-            <option key={colour.description} value={JSON.stringify(colour)}>
-                {colour.description}
-            </option>));
+        colourElements = colourElements.concat(colour_store.map((colour) => {
+            //TODO: this should instead come from a user controlled setting, not a properties file
+            if (properties.enableProphecyOfKings || !colour.expansionPok) { 
+                return (
+                    <option key={colour.description} value={JSON.stringify(colour)}>
+                        {colour.description}
+                    </option>
+                )
+            }
+        }));
 
         let playerColour = this.props.playerDetail.colour ? JSON.stringify(this.props.playerDetail.colour) : undefined;
 
