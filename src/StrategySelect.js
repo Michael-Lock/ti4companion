@@ -4,6 +4,8 @@ import {Row, Col} from 'react-bootstrap';
 
 import strategy_card_store from './data/strategy-cards.json';
 
+const SECOND_STRATEGY_THRESHOLD = 4; //the maximum number of players (inclusive) before only a single strategy is picked per player 
+
 class StrategySelect extends React.Component {
     handleStartRound() {
         if (this.props.onStartRound) {
@@ -18,17 +20,23 @@ class StrategySelect extends React.Component {
     }
 
     isRoundReady() {
+        let strategiesPerPlayer = this.props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
         let selectedStrategyCards = [];
+
         for (let i = 0; i < this.props.playerDetails.length; i++) {
             let player = this.props.playerDetails[i];
-            if (!player.strategy || 
-                    selectedStrategyCards.includes(player.strategy.strategyCard.number)) {
-                return true;
+            if (player.strategies.length < strategiesPerPlayer) {
+                return false;
             }
-            selectedStrategyCards[i] = player.strategy.strategyCard.number;
+            for (let strategyIndex = 0; strategyIndex < player.strategies.length; strategyIndex++) {
+                if (selectedStrategyCards.includes(player.strategies[strategyIndex].strategyCard.number)) {
+                    return false;
+                }
+                selectedStrategyCards.push(player.strategies[strategyIndex].strategyCard.number);
+            }
         }
 
-        return false;
+        return true;
     }
 
     render() {
@@ -40,7 +48,7 @@ class StrategySelect extends React.Component {
                 <Row>
                     <PlayerStrategyForm
                         playerDetails={this.props.playerDetails}
-                        onPlayerStrategyChange={(e, playerNumber) => this.props.onPlayerStrategyChange(e, playerNumber)}
+                        onPlayerStrategyChange={(e, playerNumber, strategyNumber) => this.props.onPlayerStrategyChange(e, playerNumber, strategyNumber)}
                         onSpeakerButtonClick={this.props.onSpeakerButtonClick}
                     />
                 </Row>
@@ -56,7 +64,7 @@ class StrategySelect extends React.Component {
                         </Button>
                     </Col>
                     <Col>
-                        <Button type="button" disabled={this.isRoundReady()} onClick={this.handleStartRound()}>
+                        <Button type="button" disabled={!this.isRoundReady()} onClick={this.handleStartRound()}>
                             Start Round
                         </Button>
                     </Col>
@@ -75,6 +83,8 @@ class PlayerStrategyForm extends React.Component {
             speakerIndex = players[i].isSpeaker ? i : speakerIndex;
         }
 
+        let strategiesPerPlayer = this.props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
+
         let playerStrategyEntries = Array(players.length).fill(null);
         for (let i = 0; i < players.length; i++) {
             let destinationIndex = (((i - speakerIndex) % players.length) + players.length) % players.length;
@@ -82,7 +92,8 @@ class PlayerStrategyForm extends React.Component {
                 <PlayerStrategyEntry
                     key={players[i].playerNumber}
                     playerDetail={players[i]}
-                    onStrategyChange={e => this.props.onPlayerStrategyChange(e, players[i].playerNumber)}
+                    strategiesPerPlayer={strategiesPerPlayer}
+                    onStrategyChange={(e, strategyNumber) => this.props.onPlayerStrategyChange(e, players[i].playerNumber, strategyNumber)}
                     onSpeakerButtonClick={this.props.onSpeakerButtonClick}
                 />
         }
@@ -101,23 +112,24 @@ class PlayerStrategyForm extends React.Component {
 
 
 class PlayerStrategyEntry extends React.Component {
-    getStrategyList() {
-        let strategyElements = [<option key="unselected" value={null} hidden/>]
-        strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
-            <option key={strategy.name} value={JSON.stringify(strategy)}>
-                {strategy.name}
-            </option>));
+    getStrategyLists() {
+        let strategyLists = [];
+        for (let i = 0; i < this.props.strategiesPerPlayer; i++) {
+            let strategyElements = [<option key="unselected" value={null} hidden/>]
+            strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
+                <option key={strategy.name} value={JSON.stringify(strategy)}>
+                    {strategy.name}
+                </option>));
 
-        let playerStrategy = this.props.playerDetail.strategy ? JSON.stringify(this.props.playerDetail.strategy.strategyCard) : undefined;
-
-        return <select 
-            id="strategies" 
-            required 
-            value={playerStrategy} 
-            onChange={this.props.onStrategyChange}
-        >
-            {strategyElements}
-        </select>;
+            strategyLists[i] = <select 
+                key={i}
+                required 
+                onChange={(e) => this.props.onStrategyChange(e, i)}
+            >
+                {strategyElements}
+            </select>;   
+        }
+        return strategyLists;
     }
 
 
@@ -147,7 +159,7 @@ class PlayerStrategyEntry extends React.Component {
                     />
                 {/* </Col> */}
                 {/* <Col xs={4}> */}
-                    {this.getStrategyList()}
+                    {this.getStrategyLists()}
                 </Col>
             </Row>
         );
