@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal'
 import {Row, Col} from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
+import {hasUnplayedStrategies} from './Utils';
+
 import './StatusBoard.css';
 import TechPanel from './TechPanel';
 
@@ -16,7 +18,7 @@ function StatusBoard(props) {
 
     let players = props.players.slice();
     players.sort((a, b) => 
-        (a.isNaaluTelepathic ? 0 : a.strategy.strategyCard.number) - (b.isNaaluTelepathic ? 0 : b.strategy.strategyCard.number));
+        (a.isNaaluTelepathic ? 0 : a.strategies[0].strategyCard.number) - (b.isNaaluTelepathic ? 0 : b.strategies[0].strategyCard.number));
 
     let playerCards = players.map(
         (player) => 
@@ -27,7 +29,7 @@ function StatusBoard(props) {
                 playerTimer={props.playerTimers[player.playerNumber]}
                 onEndTurn={() => props.onEndTurn()}
                 onVictoryPointsClick={e => props.onVictoryPointsClick(e, JSON.stringify(player))}
-                onStrategyCardClick={() => props.onStrategyCardClick(JSON.stringify(player))}
+                onStrategyCardClick={(strategyCardNumber) => props.onStrategyCardClick(strategyCardNumber, JSON.stringify(player))}
                 onPassButtonClick={() => props.onPassButtonClick(JSON.stringify(player))}
                 onTechClick={(techDefinition) => props.onTechClick(techDefinition, player)}
                 onSpeakerButtonClick={props.onSpeakerButtonClick}
@@ -74,35 +76,42 @@ function PlayerCard(props) {
     const player = props.player;
     let playerBackgroundColour = player.colour ? player.colour.colour : null;
     let playerTextColour = player.colour ? player.colour.textColour : null;
-    let playerStrategy = player.strategy;
-    let playerStrategyButton = playerStrategy ? 
-        <button 
+
+    let playerButtons = player.strategies.map((strategy) =>
+        <Col key={"strategy" + strategy.strategyCard.number + "Col"}>
+            <button
+            key={strategy.strategyCard.number} 
             className="strategyCardButton" 
             type="button"
-            style={{backgroundColor: playerStrategy.isUsed ? USED_STRATEGY_COLOUR : playerStrategy.strategyCard.colour,}}
-            onClick={props.onStrategyCardClick}
-        >
-            {playerStrategy.strategyCard.number}
-        </button> : 
-        null;
+            style={{backgroundColor: strategy.isUsed ? USED_STRATEGY_COLOUR : strategy.strategyCard.colour,}}
+            onClick={() => props.onStrategyCardClick(strategy.strategyCard.number)}
+            >
+                {strategy.strategyCard.number}
+            </button>
+        </Col>
+    );
 
-    let speakerButtonColumn = player.isSpeaker ? 
-        <Col>
-            <button
-                className="speakerToken"
-                onClick={props.onSpeakerButtonClick}
-            />
-        </Col> :
-        null;
+    if (player.isSpeaker) {
+        playerButtons.push(
+            <Col key="speakerTokenCol">
+                <button
+                    className="speakerToken"
+                    onClick={props.onSpeakerButtonClick}
+                />
+            </Col>
+        )
+    }
 
-    let naaluTelepathicButtonColumn = player.isNaaluTelepathic ? 
-        <Col>
-            <button
-                className="naaluInitiative"
-                onClick={props.onNaaluInitiativeButtonClick}
-            />
-        </Col> :
-        null;
+    if (player.isNaaluTelepathic) { 
+        playerButtons.push(
+            <Col key="naaluInitiativeTokenCol">
+                <button
+                    className="naaluInitiative"
+                    onClick={props.onNaaluInitiativeButtonClick}
+                />
+            </Col>
+        )
+    }
 
     return (
         <Card className="border-0">
@@ -128,11 +137,11 @@ function PlayerCard(props) {
                         <button 
                             className={
                                 `rounded passButton 
-                                ${!player.strategy.isUsed ? "invisible" : 
+                                ${hasUnplayedStrategies(player) ? "invisible" : 
                                 player.isPassed ? "passButtonPassed" : ""}`
                             }
                             onClick={props.onPassButtonClick}
-                            disabled={!player.strategy.isUsed}
+                            disabled={hasUnplayedStrategies(player)}
                         />
                     </Col>
                 </Row>
@@ -155,11 +164,7 @@ function PlayerCard(props) {
                     <hr className="playerCardDivider" />
                 </Row>
                 <Row noGutters>
-                    <Col>
-                        {playerStrategyButton}
-                    </Col>
-                    {speakerButtonColumn}
-                    {naaluTelepathicButtonColumn}
+                    {playerButtons}
                 </Row>
                 <Row noGutters className="flex-column">
                     <hr className="playerCardDivider" />

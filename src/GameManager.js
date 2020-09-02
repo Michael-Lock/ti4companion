@@ -10,6 +10,8 @@ import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
 import TokenAssignModal from './TokenAssignModal';
 
+import {hasUnplayedStrategies} from './Utils';
+
 import './GameManager.css';
 
 //game modes
@@ -111,31 +113,42 @@ class GameManager extends React.Component {
         this.startGameTimer();
     }
 
-    handlePlayerStrategyChange(e, playerNumber) {
+    handlePlayerStrategyChange(e, playerNumber, strategyNumber) {
         let playerDetails = this.state.playerDetails.slice();
         let newStrategy = {
             strategyCard: JSON.parse(e.target.value),
             isUsed: false,
         }
-        playerDetails[playerNumber].strategy = newStrategy
+        playerDetails[playerNumber].strategies[strategyNumber] = newStrategy
 
         this.setState({
             playerDetails: playerDetails,
         });
     }
 
-    //TODO Review the function name as it's likely to become confusing once strategy cards area added to the strategy select view
-    handleStrategyCardClicked(playerString) {
+    //TODO Review the function name as it's likely to become confusing once strategy cards area added to the strategy select view. 
+    // This one relates to clicking the card on the Status Board to indicate that the strategy has been played
+    handleStrategyCardClicked(strategyCardNumber, playerString) {
         let player = JSON.parse(playerString);
         if (player.isPassed) {
             return; //can't toggle strategy card if already passed
         }
 
-        let newStrategy = {...player.strategy};
-        newStrategy.isUsed = !newStrategy.isUsed;
+        let isPlayingPolitics = false;
+
+        let newStrategies = [];
+        for (let i = 0; i < player.strategies.length; i++) {
+            newStrategies[i] = {...player.strategies[i]};
+            if (newStrategies[i].strategyCard.number === strategyCardNumber) {
+                newStrategies[i].isUsed = !newStrategies[i].isUsed;
+                if (strategyCardNumber === POLITICS_CARD_NUMBER && newStrategies[i].isUsed) {
+                    isPlayingPolitics = true;
+                }
+            }
+        }
         
-        let newPlayer = {...player};
-        newPlayer.strategy = newStrategy;
+        let newPlayer = {...player}; 
+        newPlayer.strategies = newStrategies;
 
         let newPlayerDetails = this.state.playerDetails.slice();
         newPlayerDetails[newPlayer.playerNumber] = newPlayer;
@@ -144,14 +157,14 @@ class GameManager extends React.Component {
             playerDetails: newPlayerDetails,
         });
         
-        if (newPlayer.strategy.strategyCard.number === POLITICS_CARD_NUMBER && newPlayer.strategy.isUsed) {
+        if (isPlayingPolitics) {
             this.handleSpeakerButtonClicked();
         }
     }
 
     handlePassButtonClicked(playerString) {
         let player = JSON.parse(playerString);
-        if (!player.isPassed && !player.strategy.isUsed) {
+        if (!player.isPassed && hasUnplayedStrategies(player)) {
             return; //can't pass if strategy card is not yet played
         }
 
@@ -170,7 +183,8 @@ class GameManager extends React.Component {
         let lowestInitiative = NUMBER_STRATEGIES;
         for (let i = 0; i < this.state.playerDetails.length; i++) {
             let player = this.state.playerDetails[i];
-            let playerInitiative = player.isNaaluTelepathic ? 0 : player.strategy.strategyCard.number; 
+            let playerStrategies = player.strategies.sort((a, b) => a.strategyCard.number - b.strategyCard.number);
+            let playerInitiative = player.isNaaluTelepathic ? 0 : playerStrategies[0].strategyCard.number; 
             if (playerInitiative <= lowestInitiative) {
                 lowestInitiative = playerInitiative;
             }
@@ -178,7 +192,8 @@ class GameManager extends React.Component {
 
         let newPlayerDetails = this.state.playerDetails.map((player) => {
             let newPlayer = {...player};
-            let playerInitiative = newPlayer.isNaaluTelepathic ? 0 : newPlayer.strategy.strategyCard.number; 
+            newPlayer.strategies = player.strategies.sort((a, b) => a.strategyCard.number - b.strategyCard.number);
+            let playerInitiative = newPlayer.isNaaluTelepathic ? 0 : newPlayer.strategies[0].strategyCard.number; 
             newPlayer.isActivePlayer = playerInitiative === lowestInitiative;
             return newPlayer;
         });
@@ -690,7 +705,7 @@ class GameManager extends React.Component {
     getNextPlayer(activePlayer) {
         let nextPlayer = activePlayer;
         //TODO Make Naalu initiative account for it being held my non-Naalu players
-        let activePlayerInitiative = activePlayer.isNaaluTelepathic ? 0 : activePlayer.strategy.strategyCard.number;
+        let activePlayerInitiative = activePlayer.isNaaluTelepathic ? 0 : activePlayer.strategies[0].strategyCard.number;
         let initiativeRange = NUMBER_STRATEGIES + (this.state.isNaaluTelepathicActive ? 1 : 0);
         // determine the highest initiative number that could possibly be next. Offset by the number of strategies to allow it to loop back;
         let highestInitiativeNumber = activePlayerInitiative + initiativeRange - 1;
@@ -698,7 +713,7 @@ class GameManager extends React.Component {
             let player = this.state.playerDetails[i];
             if (!player.isActivePlayer && !player.isPassed) {
                 // determine the player initiative number, offset by the number of strategies to allow it to loop back
-                let playerInitiativeNumber = player.isNaaluTelepathic ? 0 : player.strategy.strategyCard.number;
+                let playerInitiativeNumber = player.isNaaluTelepathic ? 0 : player.strategies[0].strategyCard.number;
                 if (playerInitiativeNumber < activePlayerInitiative) {
                     playerInitiativeNumber += initiativeRange;
                 }
@@ -751,7 +766,7 @@ class GameManager extends React.Component {
                             onToggleTimers={() => this.handleToggleTimers()}
                             onStartRound={() => this.handleStartRound()}
                             onPlayAgenda={() => this.handlePlayAgenda()}
-                            onPlayerStrategyChange={(e, playerNumber) => this.handlePlayerStrategyChange(e, playerNumber)}
+                            onPlayerStrategyChange={(e, playerNumber, strategyNumber) => this.handlePlayerStrategyChange(e, playerNumber, strategyNumber)}
                             onSpeakerButtonClick={() => this.handleSpeakerButtonClicked()}
                             />
                     </Col>
@@ -777,7 +792,7 @@ class GameManager extends React.Component {
                             onEndTurn={() => this.handleEndTurn()}
                             onToggleTimers={() => this.handleToggleTimers()}
                             onVictoryPointsClick={(e, playerString) => this.handleVictoryPointClick(e, playerString)}
-                            onStrategyCardClick={(playerString) => this.handleStrategyCardClicked(playerString)}
+                            onStrategyCardClick={(strategyCardNumber, playerString) => this.handleStrategyCardClicked(strategyCardNumber, playerString)}
                             onPassButtonClick={(playerString) => this.handlePassButtonClicked(playerString)}
                             onEndRound={() => this.handleEndRound()}
                             onTechClick={(techDefinition, player) => this.handleTechClicked(techDefinition, player)}

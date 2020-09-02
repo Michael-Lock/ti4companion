@@ -34,6 +34,7 @@ class PlayerSelect extends React.Component {
             playerNumber: playerNumber,
             faction: properties.testMode ? faction_store[playerNumber] : null,
             colour: properties.testMode ? colour_store[playerNumber] : null,
+            strategies: [],
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
             isActivePlayer: playerNumber === 0 ? true : false,
@@ -184,6 +185,7 @@ class PlayerNumberSelect extends React.Component {
 
         return (
             <PlayerNumberButton
+                key={playerNumber} 
                 value={playerNumber}
                 selected={isSelected}
                 onClick={() => this.props.onClick(playerNumber)}
@@ -281,6 +283,7 @@ class PlayerDetailEntry extends React.Component {
                     </option>
                 )
             }
+            return null;
         }));
 
         let playerColour = this.props.playerDetail.colour ? JSON.stringify(this.props.playerDetail.colour) : undefined;

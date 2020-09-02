@@ -1,4 +1,4 @@
 {
-    "testMode": false,
-    "enableProphecyOfKings": true
+    "testMode": true,
+    "enableProphecyOfKings": false
 }
