@@ -1,0 +1,142 @@
+[
+    {
+      "id": 1,
+      "stage": 1,
+      "name": "Corner the Market",
+      "longDescription": "Control 4 planets that each have the same planet trait",
+      "shortDescription": "4 planets; same trait"
+    },
+    {
+      "id": 2,
+      "stage": 1,
+      "name": "Develop Weaponry",
+      "longDescription": "Own 2 unit upgrade technologies",
+      "shortDescription": "2 unit upgrade techs"
+    },
+    {
+      "id": 3,
+      "stage": 1,
+      "name": "Diversify Research",
+      "longDescription": "Own 2 technologies in each of 2 colors",
+      "shortDescription": "2 techs in 2 colours"
+    },
+    {
+      "id": 4,
+      "stage": 1,
+      "name": "Erect a Monument",
+      "longDescription": "Spend 8 resources",
+      "shortDescription": "Spend 8 resources"
+    },
+    {
+      "id": 5,
+      "stage": 1,
+      "name": "Expand Borders",
+      "longDescription": "Control 6 planets in non-home systems",
+      "shortDescription": "6 planets; non-home systems"
+    },
+    {
+      "id": 6,
+      "stage": 1,
+      "name": "Found Research Outposts",
+      "longDescription": "Control 3 planets that have technology specialties",
+      "shortDescription": "3 planets; tech specialty"
+    },
+    {
+      "id": 7,
+      "stage": 1,
+      "name": "Intimidate Council",
+      "longDescription": "Have 1 or more ships in 2 systems that are adjacent to Mecatol Rex's System",
+      "shortDescription": "2 systems; Mecatol adjacent"
+    },
+    {
+      "id": 8,
+      "stage": 1,
+      "name": "Lead From the Front",
+      "longDescription": "Spend a total of 3 tokens from your tactic and/or strategy pools",
+      "shortDescription": "Spend 3 command tokens"
+    },
+    {
+      "id": 9,
+      "stage": 1,
+      "name": "Negotiate Trade Routes",
+      "longDescription": "Spend 5 trade goods",
+      "shortDescription": "Spend 5 trade goods"
+    },
+    {
+      "id": 10,
+      "stage": 1,
+      "name": "Sway the Council",
+      "longDescription": "Spend 8 influence",
+      "shortDescription": "Spend 8 influence"
+    },
+    {
+      "id": 11,
+      "stage": 2,
+      "name": "Centralize Galactic Trade",
+      "longDescription": "Spend 10 trade goods",
+      "shortDescription": "Spend 10 trade goods"
+    },
+    {
+      "id": 12,
+      "stage": 2,
+      "name": "Conquer the Weak",
+      "longDescription": "Control 1 planet that is in another player's home system",
+      "shortDescription": "1 planet; other home system"
+    },
+    {
+      "id": 13,
+      "stage": 2,
+      "name": "Form Galactic Brain Trust",
+      "longDescription": "Control 5 planets that have technology specialties",
+      "shortDescription": "5 planets; tech specialty"
+    },
+    {
+      "id": 14,
+      "stage": 2,
+      "name": "Found a Golden Age",
+      "longDescription": "Spend 16 resources",
+      "shortDescription": "Spend 16 resources"
+    },
+    {
+      "id": 15,
+      "stage": 2,
+      "name": "Galvanize the People",
+      "longDescription": "Spend a total of 6 tokens from your tactic and/or strategy pools",
+      "shortDescription": "Spend 6 command tokens"
+    },
+    {
+      "id": 16,
+      "stage": 2,
+      "name": "Manipulate Galactic Law",
+      "longDescription": "Spend 16 influence",
+      "shortDescription": "Spend 16 influence"
+    },
+    {
+      "id": 17,
+      "stage": 2,
+      "name": "Master the Sciences",
+      "longDescription": "Own 2 technologies in each of 4 colors",
+      "shortDescription": "2 techs in 4 colours"
+    },
+    {
+      "id": 18,
+      "stage": 2,
+      "name": "Revolutionize Warfare",
+      "longDescription": "Own 3 unit upgrade technologies",
+      "shortDescription": "3 unit upgrade techs"
+    },
+    {
+      "id": 19,
+      "stage": 2,
+      "name": "Subdue the Galaxy",
+      "longDescription": "Control 11 planets in non-home systems",
+      "shortDescription": "11 planets; non-home systems"
+    },
+    {
+      "id": 20,
+      "stage": 2,
+      "name": "Unify the Colonies",
+      "longDescription": "Control 6 planets that each have the same planet trait",
+      "shortDescription": "6 planets; same trait"
+    }
+]

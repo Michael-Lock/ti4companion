@@ -1,0 +1,61 @@
+.techButton {
+  height: 4vh;
+  width: 100%;
+  font-size: small;
+  font-weight: bold;
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+
+.Biotic {
+  border-color: green;
+}
+
+.Warfare {
+  border-color: crimson;
+}
+
+.Propulsion {
+  border-color: blue;
+}
+
+.Cybernetic {
+  border-color: goldenrod;
+}
+
+.Unit {
+  border-color: black;
+}
+
+.Special {
+  border-color: purple;
+}
+
+.Biotic.researched {
+  background-color: green;
+}
+
+.Warfare.researched {
+  background-color: crimson;
+}
+
+.Propulsion.researched {
+  background-color: blue;
+}
+
+.Cybernetic.researched {
+  background-color: goldenrod;
+}
+
+.Unit.researched {
+  background-color: black;
+  color: white;
+}
+
+.Special.researched {
+  background-color: purple;
+  color: white;
+}

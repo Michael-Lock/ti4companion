@@ -1,0 +1,52 @@
+.statusBoard {
+    min-height: 5px;
+}
+
+.objectiveCard {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    border-width: 0.5vh;
+    height: 9vh;
+    width: 90%;
+    margin-bottom: 2px;
+}
+
+.stage1 {
+    background-color: rgb(245, 197, 108);
+    border-color: orange;
+}
+
+.stage2 {
+    border-color: blue;
+    background-color: rgb(2, 126, 241);
+}
+
+.revealed {
+    font-size: small;
+    background-color: papayawhip;
+}
+
+.speakerToken {
+    background-image: url("./assets/speaker-token.gif");
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+.speakerToken.disabled {
+    pointer-events: none;
+}
+
+.naaluInitiative {
+    background-image: url("./assets/naalu-initiative.png");
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
