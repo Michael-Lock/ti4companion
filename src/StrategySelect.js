@@ -75,95 +75,79 @@ class StrategySelect extends React.Component {
 }
 
 
-class PlayerStrategyForm extends React.Component {
-    renderPlayerStrategyEntries() {
-        const players = this.props.playerDetails.slice();
-        var speakerIndex = 0;
-        for (let i = 0; i < players.length; i++) {
-            speakerIndex = players[i].isSpeaker ? i : speakerIndex;
-        }
+function PlayerStrategyForm(props) {
+    const players = props.playerDetails.slice();
+    var speakerIndex = 0;
+    for (let i = 0; i < players.length; i++) {
+        speakerIndex = players[i].isSpeaker ? i : speakerIndex;
+    }
 
-        let strategiesPerPlayer = this.props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
+    let strategiesPerPlayer = props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
 
-        let playerStrategyEntries = Array(players.length).fill(null);
-        for (let i = 0; i < players.length; i++) {
-            let destinationIndex = (((i - speakerIndex) % players.length) + players.length) % players.length;
-            playerStrategyEntries[destinationIndex] =
-                <PlayerStrategyEntry
-                    key={players[i].playerNumber}
-                    playerDetail={players[i]}
-                    strategiesPerPlayer={strategiesPerPlayer}
-                    onStrategyChange={(e, strategyNumber) => this.props.onPlayerStrategyChange(e, players[i].playerNumber, strategyNumber)}
-                    onSpeakerButtonClick={this.props.onSpeakerButtonClick}
-                />
-        }
-            
-        return (<Col>
+    let playerStrategyEntries = Array(players.length).fill(null);
+    for (let i = 0; i < players.length; i++) {
+        let destinationIndex = (((i - speakerIndex) % players.length) + players.length) % players.length;
+        playerStrategyEntries[destinationIndex] =
+            <PlayerStrategyEntry
+                key={players[i].playerNumber}
+                playerDetail={players[i]}
+                strategiesPerPlayer={strategiesPerPlayer}
+                onStrategyChange={(e, strategyNumber) => props.onPlayerStrategyChange(e, players[i].playerNumber, strategyNumber)}
+                onSpeakerButtonClick={props.onSpeakerButtonClick}
+            />
+    }
+        
+    return (
+        <Col>
             {playerStrategyEntries}
-        </Col>);
-    }
-
-    render() {
-        return (
-            this.renderPlayerStrategyEntries()
-        );
-    }
+        </Col>
+    );
 }
 
 
-class PlayerStrategyEntry extends React.Component {
-    getStrategyLists() {
-        let strategyLists = [];
-        for (let i = 0; i < this.props.strategiesPerPlayer; i++) {
-            let strategyElements = [<option key="unselected" value={null} hidden/>]
-            strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
-                <option key={strategy.name} value={JSON.stringify(strategy)}>
-                    {strategy.name}
-                </option>));
+function PlayerStrategyEntry(props) {
+    let strategyLists = [];
+    for (let i = 0; i < props.strategiesPerPlayer; i++) {
+        let strategyElements = [<option key="unselected" value={null} hidden/>]
+        strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
+            <option key={strategy.name} value={JSON.stringify(strategy)}>
+                {strategy.name}
+            </option>));
 
-            strategyLists[i] = <select 
-                key={i}
-                required 
-                onChange={(e) => this.props.onStrategyChange(e, i)}
-            >
-                {strategyElements}
-            </select>;   
-        }
-        return strategyLists;
+        strategyLists[i] = <select 
+            key={i}
+            required 
+            onChange={(e) => props.onStrategyChange(e, i)}
+        >
+            {strategyElements}
+        </select>;   
     }
 
-
-    render() {
-        return (
-            <Row>
-                <Col xs={2} xl={1}>
-                    <button 
-                        className={`speakerToken ${this.props.playerDetail.isSpeaker ? "" : "invisible"}`}
-                        onClick={this.props.onSpeakerButtonClick} 
-                    />
-                </Col>
-                <Col xs={10} xl={11}>
-                    <input
-                        key="playerName"
-                        type="text"
-                        defaultValue={this.props.playerDetail.playerName}
-                        disabled
-                    />
-                {/* </Col> */}
-                {/* <Col xs={3}> */}
-                    <input
-                        key="playerFaction"
-                        type="text"
-                        defaultValue={this.props.playerDetail.faction && this.props.playerDetail.faction.fullName}
-                        disabled
-                    />
-                {/* </Col> */}
-                {/* <Col xs={4}> */}
-                    {this.getStrategyLists()}
-                </Col>
-            </Row>
-        );
-    }
+    return (
+        <Row>
+            <Col xs={2} xl={1}>
+                <button 
+                    className={`speakerToken ${props.playerDetail.isSpeaker ? "" : "invisible"}`}
+                    onClick={props.onSpeakerButtonClick} 
+                />
+            </Col>
+            <Col xs={10} xl={11}>
+                <input
+                    key="playerName"
+                    type="text"
+                    defaultValue={props.playerDetail.playerName}
+                    disabled
+                />
+                <input
+                    key="playerFaction"
+                    type="text"
+                    defaultValue={props.playerDetail.faction && props.playerDetail.faction.fullName}
+                    disabled
+                />
+                {strategyLists}
+            </Col>
+        </Row>
+    );
 }
 
 

@@ -18,48 +18,33 @@ const standardVoteOptions = [
     "Against"
 ]
 
-class PlayAgenda extends React.Component {
-    handleNextAgenda() {
-        if (this.props.onNextAgenda) {
-            return () => this.props.onNextAgenda()
-        }
-    }
-
-    handleEndAgenda() {
-        if (this.props.onEndAgenda) {
-            return () => this.props.onEndAgenda()
-        }
-    }
-
-
-    render() {
-        return (
-            <div>
-                <Row>
-                    <AgendaForm
-                        selectedAgenda={this.props.selectedAgenda}
-                        onAgendaChange={this.props.onAgendaChange}
-                        playerDetails={this.props.playerDetails}
-                        onAvailableVotesClick={(e, playerString, delta) => this.props.onAvailableVotesClick(e, playerString, delta)}
-                        onSpentVotesClick={(e, playerString, delta) => this.props.onSpentVotesClick(e, playerString, delta)}
-                        onVoteTargetChange={(e, playerString) => this.props.onVoteTargetChange(e, playerString)}
-                    />
-                </Row>
-                <Row>
-                    <Col>
-                        <Button type="button" onClick={this.handleNextAgenda()}>
-                            Next Agenda
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="button" onClick={this.handleEndAgenda()}>
-                            End Agenda Phase
-                        </Button>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+function PlayAgenda(props) {
+    return (
+        <div>
+            <Row>
+                <AgendaForm
+                    selectedAgenda={props.selectedAgenda}
+                    onAgendaChange={props.onAgendaChange}
+                    playerDetails={props.playerDetails}
+                    onAvailableVotesClick={(e, playerString, delta) => props.onAvailableVotesClick(e, playerString, delta)}
+                    onSpentVotesClick={(e, playerString, delta) => props.onSpentVotesClick(e, playerString, delta)}
+                    onVoteTargetChange={(e, playerString) => props.onVoteTargetChange(e, playerString)}
+                />
+            </Row>
+            <Row>
+                <Col>
+                    <Button type="button" onClick={props.onNextAgenda}>
+                        Next Agenda
+                    </Button>
+                </Col>
+                <Col>
+                    <Button type="button" onClick={props.onEndAgenda}>
+                        End Agenda Phase
+                    </Button>
+                </Col>
+            </Row>
+        </div>
+    );
 }
 
 
@@ -98,42 +83,39 @@ function AgendaForm(props) {
     );
 }
 
-class AgendaSelector extends React.Component {
-    getAgendaList() {
-        let agendaElements = [<option key="unselected" value={null} hidden/>]
-        agendaElements = agendaElements.concat(agenda_store.map((agenda) => 
-            <option key={agenda.name} value={JSON.stringify(agenda)}>
-                {agenda.name}
-            </option>));
+function AgendaSelector(props) {
+    let agendaElements = [<option key="unselected" value={null} hidden/>]
+    agendaElements = agendaElements.concat(agenda_store.map((agenda) => 
+        <option key={agenda.name} value={JSON.stringify(agenda)}>
+            {agenda.name}
+        </option>));
 
-        let selectedAgenda = this.props.selectedAgenda ? JSON.stringify(this.props.selectedAgenda) : undefined;
+    let selectedAgenda = props.selectedAgenda ? JSON.stringify(props.selectedAgenda) : undefined;
 
-        return <select 
-            className="agendaName"
-            id="agendas" 
-            required 
-            defaultValue={selectedAgenda} 
-            onChange={this.props.onAgendaChange}
-        >
-            {agendaElements}
-        </select>;
-    }
+    let agendaList = 
+    <select 
+        className="agendaName"
+        id="agendas" 
+        required 
+        defaultValue={selectedAgenda} 
+        onChange={props.onAgendaChange}
+    >
+        {agendaElements}
+    </select>;
 
 
-    render() {
-        return (
-            <div className="agendaCard">
-                <Row>
-                    {this.getAgendaList()}
-                </Row>
-                <Row>
-                    <AgendaCard
-                        agenda={this.props.selectedAgenda}
-                    />
-                </Row>
-            </div>
-        );
-    }
+    return (
+        <div className="agendaCard">
+            <Row>
+                {agendaList}
+            </Row>
+            <Row>
+                <AgendaCard
+                    agenda={props.selectedAgenda}
+                />
+            </Row>
+        </div>
+    );
 }
 
 
@@ -184,8 +166,6 @@ function VotePanel(props) {
 }
 
 function PlayerVotePanel(props) {
-        
-    
     return (
         <Row>
             <Col xs={2} xl={1}>

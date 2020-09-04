@@ -179,37 +179,30 @@ class PlayerSelect extends React.Component {
 }
 
 
-class PlayerNumberSelect extends React.Component {
-    renderPlayerNumberButton(playerNumber) {
-        const isSelected = this.props.playerNumberSelections[playerNumber - PLAYER_NUMBER_INDEX_OFFSET];
-
-        return (
-            <PlayerNumberButton
-                key={playerNumber} 
-                value={playerNumber}
-                selected={isSelected}
-                onClick={() => this.props.onClick(playerNumber)}
-            />
-        );
+function PlayerNumberSelect(props) {
+    let playerNumberButtons = Array(MAX_PLAYER_NUMBER - PLAYER_NUMBER_INDEX_OFFSET + 1);
+    for (let i = 0; i < playerNumberButtons.length; i++) {
+        let isSelected = props.playerNumberSelections[i];
+        playerNumberButtons[i] = generatePlayerNumberButton(i + PLAYER_NUMBER_INDEX_OFFSET, isSelected, props.onClick);
     }
 
-    generatePlayerNumberButtons() {
-        let playerNumberButtons = Array(MAX_PLAYER_NUMBER - PLAYER_NUMBER_INDEX_OFFSET + 1);
-        for (let i = 0; i < playerNumberButtons.length; i++) {
-            playerNumberButtons[i] = this.renderPlayerNumberButton(i + PLAYER_NUMBER_INDEX_OFFSET);
-        }
-        return playerNumberButtons;
-    }
-
-    render() {
-        return (
-            <Row>
-                {this.generatePlayerNumberButtons()}
-            </Row>
-        );
-    }
+    return (
+        <Row>
+            {playerNumberButtons}
+        </Row>
+    );
 }
 
+function generatePlayerNumberButton(playerNumber, isSelected, onClick) {
+    return (
+        <PlayerNumberButton
+            key={playerNumber} 
+            value={playerNumber}
+            selected={isSelected}
+            onClick={() => onClick(playerNumber)}
+        />
+    );
+}
 
 function PlayerNumberButton(props) {
     return (
@@ -224,102 +217,90 @@ function PlayerNumberButton(props) {
 }
 
 
-class PlayerDetailForm extends React.Component {
-    renderPlayerDetailEntries() {
-        let playerDetailEntries = Array(this.props.numberOfPlayers);
-        for (let i = 0; i < this.props.numberOfPlayers; i++) {
-            playerDetailEntries[i] = <PlayerDetailEntry 
-                key={i}
-                playerDetail={this.props.playerDetails[i]}
-                onPlayerNameChange={e => this.props.onPlayerNameChange(e, i)}
-                onFactionChange={e => this.props.onPlayerFactionChange(e, i)}
-                onColourChange={e => this.props.onPlayerColourChange(e, i)}
-            />;
-        }
+function PlayerDetailForm(props) {
+    let playerDetailEntries = Array(props.numberOfPlayers);
+    for (let i = 0; i < props.numberOfPlayers; i++) {
+        playerDetailEntries[i] = <PlayerDetailEntry 
+            key={i}
+            playerDetail={props.playerDetails[i]}
+            onPlayerNameChange={e => props.onPlayerNameChange(e, i)}
+            onFactionChange={e => props.onPlayerFactionChange(e, i)}
+            onColourChange={e => props.onPlayerColourChange(e, i)}
+        />;
+    }
 
-        return (<div>
+    return (
+        <div>
             {playerDetailEntries}
-        </div>);
-    }
-
-    render() {
-        return (
-            <div>
-                {this.renderPlayerDetailEntries()}
-            </div>
-        );
-    }
+        </div>
+    );
 }
 
 
-class PlayerDetailEntry extends React.Component {
-    getFactionList() {
-        let factionElements = [<option key="unselected" value={null} hidden/>]
-        factionElements = factionElements.concat(faction_store.map((faction) => 
-            <option key={faction.shortName} value={JSON.stringify(faction)}>
-                {faction.fullName}
-            </option>));
+function PlayerDetailEntry(props) {
+    let factionElements = [<option key="unselected" value={null} hidden/>]
+    factionElements = factionElements.concat(faction_store.map((faction) => 
+        <option key={faction.shortName} value={JSON.stringify(faction)}>
+            {faction.fullName}
+        </option>));
 
-        let playerFaction = this.props.playerDetail.faction ? JSON.stringify(this.props.playerDetail.faction) : undefined;
+    let playerFaction = props.playerDetail.faction ? JSON.stringify(props.playerDetail.faction) : undefined;
 
-        return <select 
+    let factionList = 
+        <select 
             id="factions" 
             required 
             value={playerFaction}
-            onChange={this.props.onFactionChange}
+            onChange={props.onFactionChange}
         >
             {factionElements}
         </select>;
-    }
 
-    getColourList() {
-        let colourElements = [<option key="unselected" value={null} hidden/>]
-        colourElements = colourElements.concat(colour_store.map((colour) => {
-            //TODO: this should instead come from a user controlled setting, not a properties file
-            if (properties.enableProphecyOfKings || !colour.expansionPok) { 
-                return (
-                    <option key={colour.description} value={JSON.stringify(colour)}>
-                        {colour.description}
-                    </option>
-                )
-            }
-            return null;
-        }));
+    let colourElements = [<option key="unselected" value={null} hidden/>]
+    colourElements = colourElements.concat(colour_store.map((colour) => {
+        //TODO: this should instead come from a user controlled setting, not a properties file
+        if (properties.enableProphecyOfKings || !colour.expansionPok) { 
+            return (
+                <option key={colour.description} value={JSON.stringify(colour)}>
+                    {colour.description}
+                </option>
+            )
+        }
+        return null;
+    }));
 
-        let playerColour = this.props.playerDetail.colour ? JSON.stringify(this.props.playerDetail.colour) : undefined;
+    let playerColour = props.playerDetail.colour ? JSON.stringify(props.playerDetail.colour) : undefined;
 
-        return <select 
+    let colourList =
+        <select 
             id="colours" 
             required 
             defaultValue={playerColour} 
-            onChange={this.props.onColourChange}
+            onChange={props.onColourChange}
         >
             {colourElements}
         </select>;
-    }
 
-    render() {
-        return (
-            <Row>
-                <Col xs={{span: 2, offset: 0}} xl={{span: 1, offset: 1}}>
-                    <button className={`speakerToken ${this.props.playerDetail.isSpeaker ? "" : "invisible"} disabled`}/>
-                </Col>
-                <Col xs={4}>
-                    <input 
-                        type="text"
-                        defaultValue={this.props.playerDetail.playerName} 
-                        onChange={this.props.onPlayerNameChange}
-                    />
-                </Col>
-                <Col xs={4}>
-                    {this.getFactionList()}
-                </Col>
-                <Col xs={2}>
-                    {this.getColourList()}
-                </Col>
-            </Row>
-        );
-    }
+    return (
+        <Row>
+            <Col xs={{span: 2, offset: 0}} xl={{span: 1, offset: 1}}>
+                <button className={`speakerToken ${props.playerDetail.isSpeaker ? "" : "invisible"} disabled`}/>
+            </Col>
+            <Col xs={4}>
+                <input 
+                    type="text"
+                    defaultValue={props.playerDetail.playerName} 
+                    onChange={props.onPlayerNameChange}
+                />
+            </Col>
+            <Col xs={4}>
+                {factionList}
+            </Col>
+            <Col xs={2}>
+                {colourList}
+            </Col>
+        </Row>
+    );
 }
 
 export default PlayerSelect;
