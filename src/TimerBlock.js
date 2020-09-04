@@ -12,19 +12,17 @@ function Timer(props) {
     );
 }
 
-class TimerBlock extends React.Component {
-    render() {
-        const time = parseTime(this.props.currentSeconds);
+function TimerBlock(props) {
+    const time = parseTime(props.currentSeconds);
 
-        let interactive = this.props.onClick;
+    let interactive = props.onClick;
 
-        return (
-            <span className="Timer">
-                <label className="timerLabel">{this.props.label}</label>
-                <Timer time={time} disabled={this.props.disabled} onClick={interactive ? () => this.props.onClick(this.props.currentSeconds) : null} />
-            </span>
-        );
-    }
+    return (
+        <span className="Timer">
+            <label className="timerLabel">{props.label}</label>
+            <Timer time={time} disabled={props.disabled} onClick={interactive ? () => props.onClick(props.currentSeconds) : null} />
+        </span>
+    );
 }
 
 //-------------------------------------------

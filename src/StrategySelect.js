@@ -6,72 +6,55 @@ import strategy_card_store from './data/strategy-cards.json';
 
 const SECOND_STRATEGY_THRESHOLD = 4; //the maximum number of players (inclusive) before only a single strategy is picked per player 
 
-class StrategySelect extends React.Component {
-    handleStartRound() {
-        if (this.props.onStartRound) {
-            return () => this.props.onStartRound()
+function StrategySelect(props) {
+    let isRoundReady = true;
+    let strategiesPerPlayer = props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
+    let selectedStrategyCards = [];
+
+    for (let i = 0; i < props.playerDetails.length; i++) {
+        let player = props.playerDetails[i];
+        if (player.strategies.length < strategiesPerPlayer) {
+            isRoundReady = false;
         }
-    }
-
-    handlePlayAgenda() {
-        if (this.props.onPlayAgenda) {
-            return () => this.props.onPlayAgenda()
-        }
-    }
-
-    isRoundReady() {
-        let strategiesPerPlayer = this.props.playerDetails.length <= SECOND_STRATEGY_THRESHOLD ? 2 : 1;
-        let selectedStrategyCards = [];
-
-        for (let i = 0; i < this.props.playerDetails.length; i++) {
-            let player = this.props.playerDetails[i];
-            if (player.strategies.length < strategiesPerPlayer) {
-                return false;
+        for (let strategyIndex = 0; strategyIndex < player.strategies.length; strategyIndex++) {
+            if (selectedStrategyCards.includes(player.strategies[strategyIndex].strategyCard.number)) {
+                isRoundReady = false;
             }
-            for (let strategyIndex = 0; strategyIndex < player.strategies.length; strategyIndex++) {
-                if (selectedStrategyCards.includes(player.strategies[strategyIndex].strategyCard.number)) {
-                    return false;
-                }
-                selectedStrategyCards.push(player.strategies[strategyIndex].strategyCard.number);
-            }
+            selectedStrategyCards.push(player.strategies[strategyIndex].strategyCard.number);
         }
-
-        return true;
     }
 
-    render() {
-        return (
-            <div>
-                <Row>
-                    {/*TODO: add strategy cards */}
-                </Row>
-                <Row>
-                    <PlayerStrategyForm
-                        playerDetails={this.props.playerDetails}
-                        onPlayerStrategyChange={(e, playerNumber, strategyNumber) => this.props.onPlayerStrategyChange(e, playerNumber, strategyNumber)}
-                        onSpeakerButtonClick={this.props.onSpeakerButtonClick}
-                    />
-                </Row>
-                <Row>
-                    <Col>
-                        <Button variant="light" type="button" onClick={() => this.props.onToggleTimers()}>
-                            {this.props.isGameActive ? "Pause Game" : "Resume Game"}
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="button" onClick={this.handlePlayAgenda()}>
-                            Play Agenda
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="button" disabled={!this.isRoundReady()} onClick={this.handleStartRound()}>
-                            Start Round
-                        </Button>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Row>
+                {/*TODO: add strategy cards */}
+            </Row>
+            <Row>
+                <PlayerStrategyForm
+                    playerDetails={props.playerDetails}
+                    onPlayerStrategyChange={(e, playerNumber, strategyNumber) => props.onPlayerStrategyChange(e, playerNumber, strategyNumber)}
+                    onSpeakerButtonClick={props.onSpeakerButtonClick}
+                />
+            </Row>
+            <Row>
+                <Col>
+                    <Button variant="light" type="button" onClick={() => props.onToggleTimers()}>
+                        {props.isGameActive ? "Pause Game" : "Resume Game"}
+                    </Button>
+                </Col>
+                <Col>
+                    <Button type="button" onClick={props.onPlayAgenda}>
+                        Play Agenda
+                    </Button>
+                </Col>
+                <Col>
+                    <Button type="button" disabled={!isRoundReady} onClick={props.onStartRound}>
+                        Start Round
+                    </Button>
+                </Col>
+            </Row>
+        </div>
+    )
 }
 
 

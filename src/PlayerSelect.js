@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col} from 'react-bootstrap';
 
@@ -13,169 +13,103 @@ const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
 //TODO: this should instead come from a user controlled setting, not a properties file
 const MAX_PLAYER_NUMBER = properties.enableProphecyOfKings ? 8 : 6;
 
-class PlayerSelect extends React.Component {
-    constructor(props) {
-        super(props);
-
+function PlayerSelect(props) {
+    const [selectedNumberOfPlayers, setSelectedNumberOfPlayers] = useState(MAX_PLAYER_NUMBER);
+    const [playerDetails, setPlayerDetails] = useState(() => {
         let playerDetails = Array(MAX_PLAYER_NUMBER);
         for (let i = 0; i < MAX_PLAYER_NUMBER; i++) {
-            playerDetails[i] = this.createPlayer(i);
+            playerDetails[i] = createPlayer(i);
         }
+        return playerDetails;
+    });
 
-        this.state = {
-            selectedNumberOfPlayers: MAX_PLAYER_NUMBER,
-            playerDetails: playerDetails,
-        };
+
+
+    // playerNumberButtonHandleClick(playerNumber) {
+    //     this.setState({
+    //         selectedNumberOfPlayers: playerNumber,
+    //     });
+    // }
+
+    //FIXME: this is far more convoluted than it needs to be, should be able to just use the number and pass that down
+    let playerNumberSelections = Array(MAX_PLAYER_NUMBER).fill(false);
+    if (selectedNumberOfPlayers !== null) {
+        playerNumberSelections[selectedNumberOfPlayers - PLAYER_NUMBER_INDEX_OFFSET] = true;
     }
 
-    createPlayer(playerNumber) {
-        let playerDetail = {
-            playerName: "Player " + (playerNumber + 1),
-            playerNumber: playerNumber,
-            faction: properties.testMode ? faction_store[playerNumber] : null,
-            colour: properties.testMode ? colour_store[playerNumber] : null,
-            strategies: [],
-            victoryPoints: 0,
-            isSpeaker: playerNumber === 0 ? true : false,
-            isActivePlayer: playerNumber === 0 ? true : false,
-            isPassed: false,
-            isNaaluTelepathic: false,
-            availableVotes: 0,
-            spentVotes: 0,
-        }
-        return playerDetail;
+    let handlePlayerNameChange = (e, playerNumber) => {
+        let newPlayerDetails = playerDetails.slice();
+        newPlayerDetails[playerNumber].playerName = e.target.value;
+        setPlayerDetails(newPlayerDetails);
     }
 
-    playerNumberButtonHandleClick(playerNumber) {
-        this.setState({
-            selectedNumberOfPlayers: playerNumber,
-        });
-    }
-
-    determineSelection() {
-        let playerNumberSelections = Array(MAX_PLAYER_NUMBER).fill(false);
-        if (this.state.selectedNumberOfPlayers !== null) {
-            playerNumberSelections[this.state.selectedNumberOfPlayers - PLAYER_NUMBER_INDEX_OFFSET] = true;
-        }
-
-        return playerNumberSelections;
-    }
-
-    handlePlayerNameChange(e, playerNumber) {
-        let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].playerName = e.target.value;
-        this.setState ({
-            playerDetails: playerDetails,
-        });
-    }
-
-    handlePlayerFactionChange(e, playerNumber) {
-        let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].faction = JSON.parse(e.target.value);
-        this.setState ({
-            playerDetails: playerDetails,
-        });
+    let handlePlayerFactionChange = (e, playerNumber) => {
+        let newPlayerDetails = playerDetails.slice();
+        newPlayerDetails[playerNumber].faction = JSON.parse(e.target.value);
+        setPlayerDetails(newPlayerDetails);
     }
     
-    handlePlayerColourChange(e, playerNumber) {
-        let playerDetails = this.state.playerDetails.slice();
-        playerDetails[playerNumber].colour = JSON.parse(e.target.value);
-        this.setState ({
-            playerDetails: playerDetails,
-        });
+    let handlePlayerColourChange = (e, playerNumber) => {
+        let newPlayerDetails = playerDetails.slice();
+        newPlayerDetails[playerNumber].colour = JSON.parse(e.target.value);
+        setPlayerDetails(newPlayerDetails);
     }
 
-    handleStartGame() {
-        let finalPlayerDetails = this.state.playerDetails.slice(0, this.state.selectedNumberOfPlayers)
-        finalPlayerDetails = this.initialiseTechnologies(finalPlayerDetails);
+    //FIXME: heavier than it needs to be?
+    let handleStartGame = () => {
+        let finalPlayerDetails = playerDetails.slice(0, selectedNumberOfPlayers)
+        finalPlayerDetails = initialiseTechnologies(finalPlayerDetails);
 
-        return this.props.onStartGame(finalPlayerDetails);
+        return props.onStartGame(finalPlayerDetails);
     }
 
-    initialiseTechnologies(finalPlayerDetails) {
-        let playerDetails = finalPlayerDetails.map((player) => {
-            let newPlayer = {...player};
-            let techSets = [];
-            techSets.push(this.createPlayerTechnologies(tech_store.Biotic));
-            techSets.push(this.createPlayerTechnologies(tech_store.Warfare));
-            techSets.push(this.createPlayerTechnologies(tech_store.Propulsion));
-            techSets.push(this.createPlayerTechnologies(tech_store.Cybernetic));
-            techSets.push(this.createPlayerTechnologies(tech_store[newPlayer.faction.shortName]));
-            techSets.push(this.createPlayerTechnologies(tech_store.Ship));
-            techSets.push(this.createPlayerTechnologies(tech_store.Unit));
-            techSets.push(this.createPlayerTechnologies(tech_store.Warsun));
-            newPlayer.techs = techSets;
-            return newPlayer;
-        });
 
-        return playerDetails;
+    let isGameReady = true;
+    if (!selectedNumberOfPlayers) {
+        isGameReady = false;
     }
-
-    createPlayerTechnologies(techSet) {
-        let playerTechs = techSet.map((techDefinition) => {
-            return {
-                techDefinition: techDefinition,
-                isResearched: false,
-            };
-        });
-
-        return playerTechs;
-    }
-
-    isGameReady() {
-        if (!this.state.selectedNumberOfPlayers) {
-            return true;
+    
+    let selectedFactions = [];
+    let selectedColours = [];
+    let selectedNames = [];
+    for (let i = 0; i < selectedNumberOfPlayers; i++) {
+        let player = playerDetails[i];
+        if (!player.faction || !player.colour || !player.playerName ||
+                selectedColours.includes(player.colour.description) ||
+                selectedFactions.includes(player.faction.shortName) || 
+                selectedNames.includes(player.playerName)) {
+            isGameReady = false;
         }
-        
-        let selectedFactions = [];
-        let selectedColours = [];
-        let selectedNames = [];
-        for (let i = 0; i < this.state.selectedNumberOfPlayers; i++) {
-            let player = this.state.playerDetails[i];
-            if (!player.faction || !player.colour || !player.playerName ||
-                    selectedColours.includes(player.colour.description) ||
-                    selectedFactions.includes(player.faction.shortName) || 
-                    selectedNames.includes(player.playerName)) {
-                return true;
-            }
-            selectedFactions[i] = player.faction.shortName;
-            selectedColours[i] = player.colour.description;
-            selectedNames[i] = player.playerName;
-        }
-
-
-        return false;
+        selectedFactions[i] = player.faction.shortName;
+        selectedColours[i] = player.colour.description;
+        selectedNames[i] = player.playerName;
     }
 
-    render() {
-        const playerNumberSelections = this.determineSelection();
-
-        return (
-            <Row>
-                <Col xs={12} xl={{span: 8, offset: 2}}> 
-                    <div>
-                        <h1>Number of Players</h1>
-                        <PlayerNumberSelect 
-                            playerNumberSelections={playerNumberSelections}
-                            onClick={playerNumber => this.playerNumberButtonHandleClick(playerNumber)}
-                        />
-                    </div>
-                    <form>
-                        <PlayerDetailForm 
-                            numberOfPlayers={this.state.selectedNumberOfPlayers} 
-                            playerDetails={this.state.playerDetails}
-                            onPlayerNameChange={(e, playerNumber) => this.handlePlayerNameChange(e, playerNumber)}
-                            onPlayerFactionChange={(e, playerNumber) => this.handlePlayerFactionChange(e, playerNumber)}
-                            onPlayerColourChange={(e, playerNumber) => this.handlePlayerColourChange(e, playerNumber)}
-                        />
-                        <Button type="button" disabled= {this.isGameReady()} onClick={() => this.handleStartGame()}>
-                            Start Game
-                        </Button>
-                    </form>
-                </Col>
-            </Row>
-        )
-    }
+    return (
+        <Row>
+            <Col xs={12} xl={{span: 8, offset: 2}}> 
+                <div>
+                    <h1>Number of Players</h1>
+                    <PlayerNumberSelect 
+                        playerNumberSelections={playerNumberSelections}
+                        onClick={(playerNumber) => setSelectedNumberOfPlayers(playerNumber)}
+                    />
+                </div>
+                <form>
+                    <PlayerDetailForm 
+                        numberOfPlayers={selectedNumberOfPlayers} 
+                        playerDetails={playerDetails}
+                        onPlayerNameChange={(e, playerNumber) => handlePlayerNameChange(e, playerNumber)}
+                        onPlayerFactionChange={(e, playerNumber) => handlePlayerFactionChange(e, playerNumber)}
+                        onPlayerColourChange={(e, playerNumber) => handlePlayerColourChange(e, playerNumber)}
+                    />
+                    <Button type="button" disabled= {!isGameReady} onClick={() => handleStartGame()}>
+                        Start Game
+                    </Button>
+                </form>
+            </Col>
+        </Row>
+    )
 }
 
 
@@ -301,6 +235,54 @@ function PlayerDetailEntry(props) {
             </Col>
         </Row>
     );
+}
+
+function createPlayer(playerNumber) {
+    let playerDetail = {
+        playerName: "Player " + (playerNumber + 1),
+        playerNumber: playerNumber,
+        faction: properties.testMode ? faction_store[playerNumber] : null,
+        colour: properties.testMode ? colour_store[playerNumber] : null,
+        strategies: [],
+        victoryPoints: 0,
+        isSpeaker: playerNumber === 0 ? true : false,
+        isActivePlayer: playerNumber === 0 ? true : false,
+        isPassed: false,
+        isNaaluTelepathic: false,
+        availableVotes: 0,
+        spentVotes: 0,
+    }
+    return playerDetail;
+}
+
+function initialiseTechnologies(finalPlayerDetails) {
+    let playerDetails = finalPlayerDetails.map((player) => {
+        let newPlayer = {...player};
+        let techSets = [];
+        techSets.push(createPlayerTechnologies(tech_store.Biotic));
+        techSets.push(createPlayerTechnologies(tech_store.Warfare));
+        techSets.push(createPlayerTechnologies(tech_store.Propulsion));
+        techSets.push(createPlayerTechnologies(tech_store.Cybernetic));
+        techSets.push(createPlayerTechnologies(tech_store[newPlayer.faction.shortName]));
+        techSets.push(createPlayerTechnologies(tech_store.Ship));
+        techSets.push(createPlayerTechnologies(tech_store.Unit));
+        techSets.push(createPlayerTechnologies(tech_store.Warsun));
+        newPlayer.techs = techSets;
+        return newPlayer;
+    });
+
+    return playerDetails;
+}
+
+function createPlayerTechnologies(techSet) {
+    let playerTechs = techSet.map((techDefinition) => {
+        return {
+            techDefinition: techDefinition,
+            isResearched: false,
+        };
+    });
+
+    return playerTechs;
 }
 
 export default PlayerSelect;
