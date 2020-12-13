@@ -1,4 +1,4 @@
 {
-    "testMode": true,
-    "expansions": ["Base"]
+    "testMode": false,
+    "expansions": ["Base", "PoK"]
 }
