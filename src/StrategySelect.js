@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col} from 'react-bootstrap';
 
-import strategy_card_store from './data/strategy-cards.json';
+import {strategy_card_store} from './DataHelper.js';
 
 const SECOND_STRATEGY_THRESHOLD = 4; //the maximum number of players (inclusive) before only a single strategy is picked per player 
 
@@ -116,7 +116,7 @@ class PlayerStrategyEntry extends React.Component {
         let strategyLists = [];
         for (let i = 0; i < this.props.strategiesPerPlayer; i++) {
             let strategyElements = [<option key="unselected" value={null} hidden/>]
-            strategyElements = strategyElements.concat(strategy_card_store.map((strategy) => 
+            strategyElements = strategyElements.concat(strategy_card_store().map((strategy) => 
                 <option key={strategy.name} value={JSON.stringify(strategy)}>
                     {strategy.name}
                 </option>));

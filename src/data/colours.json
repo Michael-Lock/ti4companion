@@ -1,10 +1,10 @@
 [
-    {"description": "Red", "colour": "red", "textColour": "white", "expansionPok": false},
-    {"description": "Blue", "colour": "blue", "textColour": "white", "expansionPok": false},
-    {"description": "Green", "colour": "green", "textColour": "white", "expansionPok": false},
-    {"description": "Yellow", "colour": "yellow", "textColour": "black", "expansionPok": false},
-    {"description": "Purple", "colour": "purple", "textColour": "white", "expansionPok": false},
-    {"description": "Black", "colour": "black", "textColour": "white", "expansionPok": false},
-    {"description": "Pink", "colour": "pink", "textColour": "white", "expansionPok": true},
-    {"description": "Orange", "colour": "orange", "textColour": "white", "expansionPok": true}
+    {"description": "Red", "colour": "red", "textColour": "white", "setAdded": "Base"},
+    {"description": "Blue", "colour": "blue", "textColour": "white", "setAdded": "Base"},
+    {"description": "Green", "colour": "green", "textColour": "white", "setAdded": "Base"},
+    {"description": "Yellow", "colour": "yellow", "textColour": "black", "setAdded": "Base"},
+    {"description": "Purple", "colour": "purple", "textColour": "white", "setAdded": "Base"},
+    {"description": "Black", "colour": "black", "textColour": "white", "setAdded": "Base"},
+    {"description": "Pink", "colour": "pink", "textColour": "white", "setAdded": "PoK"},
+    {"description": "Orange", "colour": "orange", "textColour": "white", "setAdded": "PoK"}
 ]

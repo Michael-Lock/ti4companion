@@ -1,19 +1,146 @@
 [
-    {"fullName": "Arborec", "shortName": "Arborec", "isNaaluTelepathic": false},
-    {"fullName": "Barony of Letnev", "shortName": "Letnev", "isNaaluTelepathic": false},
-    {"fullName": "Clan of Saar", "shortName": "Saar", "isNaaluTelepathic": false},
-    {"fullName": "Embers of Muaat", "shortName": "Muaat", "isNaaluTelepathic": false},
-    {"fullName": "Emirates of Hacan", "shortName": "Hacan", "isNaaluTelepathic": false},
-    {"fullName": "Federation of Sol", "shortName": "Sol", "isNaaluTelepathic": false},
-    {"fullName": "Ghosts of Creuss", "shortName": "Creuss", "isNaaluTelepathic": false},
-    {"fullName": "L1Z1X Mindnet", "shortName": "L1Z1X", "isNaaluTelepathic": false},
-    {"fullName": "Mentak Coalition", "shortName": "Mentak", "isNaaluTelepathic": false},
-    {"fullName": "Naalu Collective", "shortName": "Naalu", "isNaaluTelepathic": true},
-    {"fullName": "Nekro Virus", "shortName": "Nekro", "isNaaluTelepathic": false},
-    {"fullName": "Sardakk N’orr", "shortName": "Sardakk", "isNaaluTelepathic": false},
-    {"fullName": "Universities of Jol-Nar", "shortName": "Jol-Nar", "isNaaluTelepathic": false},
-    {"fullName": "Winnu", "shortName": "Winnu", "isNaaluTelepathic": false},
-    {"fullName": "Xxcha Kingdom", "shortName": "Xxcha", "isNaaluTelepathic": false},
-    {"fullName": "Yin Brotherhood", "shortName": "Yin", "isNaaluTelepathic": false},
-    {"fullName": "Yssaril Tribes", "shortName": "Yssaril", "isNaaluTelepathic": false}     
+ {
+   "fullName": "Arborec",
+   "shortName": "Arborec",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Argent Flight",
+   "shortName": "Argent",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Barony of Letnev",
+   "shortName": "Letnev",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Clan of Saar",
+   "shortName": "Saar",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Embers of Muaat",
+   "shortName": "Muaat",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Emirates of Hacan",
+   "shortName": "Hacan",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Empyrean",
+   "shortName": "Empyrean",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Federation of Sol",
+   "shortName": "Sol",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Ghosts of Creuss",
+   "shortName": "Creuss",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "L1Z1X Mindnet",
+   "shortName": "L1Z1X",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Mahact Gene-Sorcerers",
+   "shortName": "Mahact",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Mentak Coalition",
+   "shortName": "Mentak",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Naalu Collective",
+   "shortName": "Naalu",
+   "isNaaluTelepathic": true,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Naaz-Rokha Alliance",
+   "shortName": "Naaz-Rokha",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Nekro Virus",
+   "shortName": "Nekro",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Nomad",
+   "shortName": "Nomad",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Sardakk N'orr",
+   "shortName": "Sardakk",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Titans of Ul",
+   "shortName": "Ul",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Universities of Jol-Nar",
+   "shortName": "Jol-Nar",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Vuil'Raith Cabal",
+   "shortName": "Vuil'Raith",
+   "isNaaluTelepathic": false,
+   "setAdded": "PoK"
+ },
+ {
+   "fullName": "Winnu",
+   "shortName": "Winnu",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Xxcha Kingdom",
+   "shortName": "Xxcha",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Yin Brotherhood",
+   "shortName": "Yin",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ },
+ {
+   "fullName": "Yssaril Tribes",
+   "shortName": "Yssaril",
+   "isNaaluTelepathic": false,
+   "setAdded": "Base"
+ }
 ]

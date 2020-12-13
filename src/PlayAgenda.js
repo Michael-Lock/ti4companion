@@ -4,8 +4,7 @@ import {Row, Col, ButtonGroup} from 'react-bootstrap';
 
 import './PlayAgenda.css';
 
-import agenda_store from './data/agendas.json';
-import planets_store from './data/planets.json';
+import {agenda_store, planet_store} from './DataHelper.js';
 
 const ELECTION_TARGET_PLAYER = "Player";
 const ELECTION_TARGET_PLANET = "Planet";
@@ -101,7 +100,7 @@ function AgendaForm(props) {
 class AgendaSelector extends React.Component {
     getAgendaList() {
         let agendaElements = [<option key="unselected" value={null} hidden/>]
-        agendaElements = agendaElements.concat(agenda_store.map((agenda) => 
+        agendaElements = agendaElements.concat(agenda_store().map((agenda) => 
             <option key={agenda.name} value={JSON.stringify(agenda)}>
                 {agenda.name}
             </option>));
@@ -341,7 +340,7 @@ function getPlayerVoteOptions(players) {
 }
 
 function getPlanetVoteOptions(electionTargetType) {
-    let planets = electionTargetType ? planets_store.filter((planet) => planet.trait === electionTargetType) : planets_store;
+    let planets = electionTargetType ? planet_store().filter((planet) => planet.trait === electionTargetType) : planet_store();
 
     return planets.map((planet) => 
     <option key={planet.name} value={planet.name}>
