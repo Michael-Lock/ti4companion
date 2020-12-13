@@ -140,15 +140,25 @@ class AgendaSelector extends React.Component {
 
 function VotePanel(props) {
     const players = props.playerDetails.slice();
+
     //First voter should be the player immediately after the speaker
     var firstVoterIndex = 0;
+    var argentZealIndex = -1;
     for (let i = 0; i < players.length; i++) {
         firstVoterIndex = players[i].isSpeaker ? (i + 1 % players.length) : firstVoterIndex;
+        argentZealIndex = players[i].faction.isArgentZeal ? i : argentZealIndex;
     }
 
     let playerVotePanels = Array(players.length).fill(null);
     for (let i = 0; i < players.length; i++) {
-        let destinationIndex = (((i - firstVoterIndex) % players.length) + players.length) % players.length;
+        var destinationIndex = (((i - firstVoterIndex) % players.length) + players.length) % players.length;
+        if (i === argentZealIndex) {
+            destinationIndex = 0;
+        }
+        else if (destinationIndex < argentZealIndex) {
+            destinationIndex++;
+        }
+
         playerVotePanels[destinationIndex] =
         <PlayerVotePanel
             key={i}
