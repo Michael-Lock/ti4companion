@@ -71,6 +71,11 @@ class GameManager extends React.Component {
             },
             publicObjectives: this.fillPublicObjectives(),
         };
+
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        });
     }
 
     //#region Lifecycle

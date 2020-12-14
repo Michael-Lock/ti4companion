@@ -1,142 +1,362 @@
 [
-    {
-      "id": 1,
-      "stage": 1,
-      "name": "Corner the Market",
-      "longDescription": "Control 4 planets that each have the same planet trait",
-      "shortDescription": "4 planets; same trait"
-    },
-    {
-      "id": 2,
-      "stage": 1,
-      "name": "Develop Weaponry",
-      "longDescription": "Own 2 unit upgrade technologies",
-      "shortDescription": "2 unit upgrade techs"
-    },
-    {
-      "id": 3,
-      "stage": 1,
-      "name": "Diversify Research",
-      "longDescription": "Own 2 technologies in each of 2 colors",
-      "shortDescription": "2 techs in 2 colours"
-    },
-    {
-      "id": 4,
-      "stage": 1,
-      "name": "Erect a Monument",
-      "longDescription": "Spend 8 resources",
-      "shortDescription": "Spend 8 resources"
-    },
-    {
-      "id": 5,
-      "stage": 1,
-      "name": "Expand Borders",
-      "longDescription": "Control 6 planets in non-home systems",
-      "shortDescription": "6 planets; non-home systems"
-    },
-    {
-      "id": 6,
-      "stage": 1,
-      "name": "Found Research Outposts",
-      "longDescription": "Control 3 planets that have technology specialties",
-      "shortDescription": "3 planets; tech specialty"
-    },
-    {
-      "id": 7,
-      "stage": 1,
-      "name": "Intimidate Council",
-      "longDescription": "Have 1 or more ships in 2 systems that are adjacent to Mecatol Rex's System",
-      "shortDescription": "2 systems; Mecatol adjacent"
-    },
-    {
-      "id": 8,
-      "stage": 1,
-      "name": "Lead From the Front",
-      "longDescription": "Spend a total of 3 tokens from your tactic and/or strategy pools",
-      "shortDescription": "Spend 3 command tokens"
-    },
-    {
-      "id": 9,
-      "stage": 1,
-      "name": "Negotiate Trade Routes",
-      "longDescription": "Spend 5 trade goods",
-      "shortDescription": "Spend 5 trade goods"
-    },
-    {
-      "id": 10,
-      "stage": 1,
-      "name": "Sway the Council",
-      "longDescription": "Spend 8 influence",
-      "shortDescription": "Spend 8 influence"
-    },
-    {
-      "id": 11,
-      "stage": 2,
-      "name": "Centralize Galactic Trade",
-      "longDescription": "Spend 10 trade goods",
-      "shortDescription": "Spend 10 trade goods"
-    },
-    {
-      "id": 12,
-      "stage": 2,
-      "name": "Conquer the Weak",
-      "longDescription": "Control 1 planet that is in another player's home system",
-      "shortDescription": "1 planet; other home system"
-    },
-    {
-      "id": 13,
-      "stage": 2,
-      "name": "Form Galactic Brain Trust",
-      "longDescription": "Control 5 planets that have technology specialties",
-      "shortDescription": "5 planets; tech specialty"
-    },
-    {
-      "id": 14,
-      "stage": 2,
-      "name": "Found a Golden Age",
-      "longDescription": "Spend 16 resources",
-      "shortDescription": "Spend 16 resources"
-    },
-    {
-      "id": 15,
-      "stage": 2,
-      "name": "Galvanize the People",
-      "longDescription": "Spend a total of 6 tokens from your tactic and/or strategy pools",
-      "shortDescription": "Spend 6 command tokens"
-    },
-    {
-      "id": 16,
-      "stage": 2,
-      "name": "Manipulate Galactic Law",
-      "longDescription": "Spend 16 influence",
-      "shortDescription": "Spend 16 influence"
-    },
-    {
-      "id": 17,
-      "stage": 2,
-      "name": "Master the Sciences",
-      "longDescription": "Own 2 technologies in each of 4 colors",
-      "shortDescription": "2 techs in 4 colours"
-    },
-    {
-      "id": 18,
-      "stage": 2,
-      "name": "Revolutionize Warfare",
-      "longDescription": "Own 3 unit upgrade technologies",
-      "shortDescription": "3 unit upgrade techs"
-    },
-    {
-      "id": 19,
-      "stage": 2,
-      "name": "Subdue the Galaxy",
-      "longDescription": "Control 11 planets in non-home systems",
-      "shortDescription": "11 planets; non-home systems"
-    },
-    {
-      "id": 20,
-      "stage": 2,
-      "name": "Unify the Colonies",
-      "longDescription": "Control 6 planets that each have the same planet trait",
-      "shortDescription": "6 planets; same trait"
-    }
+ {
+   "id": 1,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Amass wealth",
+   "longDescription": "Spend 3 influence, 3 resources and 3 trade goods",
+   "shortDescription": "Spend 3 inf, res, trade goods"
+ },
+ {
+   "id": 2,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Build Defenses",
+   "longDescription": "Have 4 or more structures (on the game board)",
+   "shortDescription": "4+ structures"
+ },
+ {
+   "id": 3,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Corner the Market",
+   "longDescription": "Control 4 planets that each have the same planet trait",
+   "shortDescription": "4 planets; same trait"
+ },
+ {
+   "id": 4,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Develop Weaponry",
+   "longDescription": "Own 2 unit upgrade technologies",
+   "shortDescription": "2 unit upgrade techs"
+ },
+ {
+   "id": 5,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Discover Lost Outposts",
+   "longDescription": "Control 2 planets that have attachments",
+   "shortDescription": "2 planets; attachments"
+ },
+ {
+   "id": 6,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Diversify Research",
+   "longDescription": "Own 2 technologies in each of 2 colors",
+   "shortDescription": "2 techs in 2 colours"
+ },
+ {
+   "id": 7,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Engineer a Marvel",
+   "longDescription": "Have your flagship or a war sun on the game board",
+   "shortDescription": "Flagship or war sun"
+ },
+ {
+   "id": 8,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Erect a Monument",
+   "longDescription": "Spend 8 resources",
+   "shortDescription": "Spend 8 resources"
+ },
+ {
+   "id": 9,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Expand Borders",
+   "longDescription": "Control 6 planets in non-home systems",
+   "shortDescription": "6 planets; non-home systems"
+ },
+ {
+   "id": 10,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Explore Deep Space",
+   "longDescription": "Have units in 3 systems that do not contain planets",
+   "shortDescription": "Units; 3 systems; no planet"
+ },
+ {
+   "id": 11,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Found Research Outposts",
+   "longDescription": "Control 3 planets that have technology specialties",
+   "shortDescription": "3 planets; tech specialty"
+ },
+ {
+   "id": 12,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Improve Infrastructure",
+   "longDescription": "Have structures on 3 planets outside of your home system",
+   "shortDescription": "Structures; 3 non-home planets"
+ },
+ {
+   "id": 13,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Intimidate Council",
+   "longDescription": "Have 1 or more ships in 2 systems that are adjacent to Mecatol Rex's System",
+   "shortDescription": "2 systems; Mecatol adjacent"
+ },
+ {
+   "id": 14,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Lead From the Front",
+   "longDescription": "Spend a total of 3 tokens from your tactic and/or strategy pools",
+   "shortDescription": "Spend 3 command tokens"
+ },
+ {
+   "id": 15,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Make History",
+   "longDescription": "Have units in 2 systems that contain legendary planets, Mecatol Rex or anomalies",
+   "shortDescription": "Units; 2 special systems"
+ },
+ {
+   "id": 16,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Negotiate Trade Routes",
+   "longDescription": "Spend 5 trade goods",
+   "shortDescription": "Spend 5 trade goods"
+ },
+ {
+   "id": 17,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Populate the Outer Rim",
+   "longDescription": "Have units in 3 systems on the edge of the game board (other than your home system)",
+   "shortDescription": "Units; 3 systems; board edge"
+ },
+ {
+   "id": 18,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Push Boundaries",
+   "longDescription": "Control more planets than each of 2 of your neighbors",
+   "shortDescription": "More planets; 2 neighbours"
+ },
+ {
+   "id": 19,
+   "stage": 1,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Raise a Fleet",
+   "longDescription": "Have 5 or more non-fighter ships in one system",
+   "shortDescription": "5 capital ships in one system"
+ },
+ {
+   "id": 20,
+   "stage": 1,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Sway the Council",
+   "longDescription": "Spend 8 influence",
+   "shortDescription": "Spend 8 influence"
+ },
+ {
+   "id": 21,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Achieve Supremacy",
+   "longDescription": "Have your flagship or a war sun in another player's home system or the Mecatol Rex system",
+   "shortDescription": "Flag or WS; home/Mecatol"
+ },
+ {
+   "id": 22,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Become a Legend",
+   "longDescription": "Have units in 4 systems that contain legendary planets, Mecatol Rex, or anomalies",
+   "shortDescription": "Units; 4 special systems"
+ },
+ {
+   "id": 23,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Centralize Galactic Trade",
+   "longDescription": "Spend 10 trade goods",
+   "shortDescription": "Spend 10 trade goods"
+ },
+ {
+   "id": 24,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Command an Armada",
+   "longDescription": "Have 8 or more non-fighter ships in 1 system",
+   "shortDescription": "8 capital ships in one system"
+ },
+ {
+   "id": 25,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Conquer the Weak",
+   "longDescription": "Control 1 planet that is in another player's home system",
+   "shortDescription": "1 planet; other home system"
+ },
+ {
+   "id": 26,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Construct Massive Cities",
+   "longDescription": "Have 7 or more structures (on the game board)",
+   "shortDescription": "7+ structures"
+ },
+ {
+   "id": 27,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Control the Borderlands",
+   "longDescription": "Have unit in 5 systems on the edge of the game board (other than your home system)",
+   "shortDescription": "Units; 5 systems; board edge"
+ },
+ {
+   "id": 28,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Form Galactic Brain Trust",
+   "longDescription": "Control 5 planets that have technology specialties",
+   "shortDescription": "5 planets; tech specialty"
+ },
+ {
+   "id": 29,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Found a Golden Age",
+   "longDescription": "Spend 16 resources",
+   "shortDescription": "Spend 16 resources"
+ },
+ {
+   "id": 30,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Galvanize the People",
+   "longDescription": "Spend a total of 6 tokens from your tactic and/or strategy pools",
+   "shortDescription": "Spend 6 command tokens"
+ },
+ {
+   "id": 31,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Hold Vast Reserves",
+   "longDescription": "Spend 6 influence, 6 resources and 6 trade goods",
+   "shortDescription": "Spend 6 inf, res, trade goods"
+ },
+ {
+   "id": 32,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Manipulate Galactic Law",
+   "longDescription": "Spend 16 influence",
+   "shortDescription": "Spend 16 influence"
+ },
+ {
+   "id": 33,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Master the Sciences",
+   "longDescription": "Own 2 technologies in each of 4 colors",
+   "shortDescription": "2 techs in 4 colours"
+ },
+ {
+   "id": 34,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Patrol Vast Territories",
+   "longDescription": "Have units in 5 systems that do not contain planets",
+   "shortDescription": "Units; 5 systems; no planet"
+ },
+ {
+   "id": 35,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Protect the Border",
+   "longDescription": "Have structures on 5 planets outside of your home system",
+   "shortDescription": "Structures; 5 non-home planets"
+ },
+ {
+   "id": 36,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Reclaim Ancient Monuments",
+   "longDescription": "Control 3 planets that have attachments",
+   "shortDescription": "3 planets; attachments"
+ },
+ {
+   "id": 37,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Revolutionize Warfare",
+   "longDescription": "Own 3 unit upgrade technologies",
+   "shortDescription": "3 unit upgrade techs"
+ },
+ {
+   "id": 38,
+   "stage": 2,
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "name": "Rule Distant Lands",
+   "longDescription": "Control 2 planets that are each in or adjacent to a different, other player's home system",
+   "shortDescription": "2 planets; in/adj other home"
+ },
+ {
+   "id": 39,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Subdue the Galaxy",
+   "longDescription": "Control 11 planets in non-home systems",
+   "shortDescription": "11 planets; non-home systems"
+ },
+ {
+   "id": 40,
+   "stage": 2,
+   "setAdded": "Base",
+   "setRemoved": "",
+   "name": "Unify the Colonies",
+   "longDescription": "Control 6 planets that each have the same planet trait",
+   "shortDescription": "6 planets; same trait"
+ }
 ]

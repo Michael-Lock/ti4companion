@@ -55,7 +55,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "When 1 or more of your units use?Bombardment?or?Space Cannon, 1 of those rolls may roll 1 additional die."
+          "description": "When 1 or more of your units use Bombardment or Space Cannon, 1 of those rolls may roll 1 additional die."
        },
        {
           "number": 2,
@@ -66,7 +66,7 @@
           "redRequirement": 1,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "You may exhaust this card at the start of a round of ground combat on a planet that contains 1 or more of your units that have?Planetary Shield; your opponent cannot make combat rolls this combat round."
+          "description": "You may exhaust this card at the start of a round of ground combat on a planet that contains 1 or more of your units that have Planetary Shield; your opponent cannot make combat rolls this combat round."
        },
        {
           "number": 3,
@@ -77,7 +77,7 @@
           "redRequirement": 2,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "During each combat round, after you assign hits to your units, repair 1 of your damaged units that did not use?Sustain Damage?during this combat round."
+          "description": "During each combat round, after you assign hits to your units, repair 1 of your damaged units that did not use Sustain Damage during this combat round."
        },
        {
           "number": 4,
@@ -147,7 +147,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "When 1 or more of your units use?Production, reduce the combined cost of the produced units by 1."
+          "description": "When 1 or more of your units use Production, reduce the combined cost of the produced units by 1."
        },
        {
           "number": 2,
@@ -158,7 +158,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 1,
-          "description": "You may exhaust this card before 1 or more of your units uses?Space Cannon; hits produced by those units must be assigned to non-fighter ships if able."
+          "description": "You may exhaust this card before 1 or more of your units uses Space Cannon; hits produced by those units must be assigned to non-fighter ships if able."
        },
        {
           "number": 3,
@@ -322,7 +322,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 1,
-          "description": "During an invasion, units cannot use?Space Cannon?against your units."
+          "description": "During an invasion, units cannot use Space Cannon against your units."
        },
        {
           "number": 2,
@@ -333,7 +333,7 @@
           "redRequirement": 2,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "When 1 of your units uses?Sustain Damage, cancel 2 hits instead of 1."
+          "description": "When 1 of your units uses Sustain Damage, cancel 2 hits instead of 1."
        }
     ],
     "Hacan": [
@@ -346,7 +346,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "ACTION:?Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods."
+          "description": "ACTION: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods."
        },
        {
           "number": 2,
@@ -357,7 +357,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 3,
-          "description": "At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods.? If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards."
+          "description": "At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods.  If you do, give 1 of your strategy cards to that player and take 1 of his strategy cards."
        }
     ],
     "Naalu": [
@@ -418,7 +418,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "After 1 or more of your units use?Production, place 1 infantry from your reinforcements on a planet you control in that system."
+          "description": "After 1 or more of your units use Production, place 1 infantry from your reinforcements on a planet you control in that system."
        },
        {
           "number": 2,
@@ -453,7 +453,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "ACTION:?Exhaust this card to look at another player's hand of action cards.? Choose 1 of those cards and add it to your hand."
+          "description": "ACTION: Exhaust this card to look at another player's hand of action cards.  Choose 1 of those cards and add it to your hand."
        }
     ],
     "Muaat": [
@@ -466,7 +466,7 @@
           "redRequirement": 2,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "Your ships can move into supernovas. After 1 or more of your units use?Production?in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good."
+          "description": "Your ships can move into supernovas. After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good."
        },
        {
           "number": 2,
@@ -501,7 +501,7 @@
           "redRequirement": 0,
           "blueRequirement": 2,
           "yellowRequirement": 0,
-          "description": "At the start of the?status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships."
+          "description": "At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships."
        }
     ],
     "Sardakk": [
@@ -538,7 +538,7 @@
           "redRequirement": 0,
           "blueRequirement": 1,
           "yellowRequirement": 0,
-          "description": "Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at least 1 of your units that has?Production."
+          "description": "Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at least 1 of your units that has Production."
        },
        {
           "number": 2,
@@ -658,7 +658,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "When you would gain another players?technology?using 1 of your faction ability, you may place the \"X\" assimilator token on a faction technology owned by that player instead.? While that token is on a technology, this card gains that technology's text.? You cannot place an assimilator token on technology that already has an assimilator token."
+          "description": "When you would gain another players technology using 1 of your faction ability, you may place the \"X\" assimilator token on a faction technology owned by that player instead.  While that token is on a technology, this card gains that technology's text.  You cannot place an assimilator token on technology that already has an assimilator token."
        },
        {
           "number": 2,
@@ -669,7 +669,7 @@
           "redRequirement": 0,
           "blueRequirement": 0,
           "yellowRequirement": 0,
-          "description": "When you would gain another players technology using 1 of your faction ability, you may place the \"Y\" assimilator token on a faction technology owned by that player instead.? While that token is on a technology, this card gains that technology's text.? You cannot place an assimilator token on technology that already has an assimilator token."
+          "description": "When you would gain another players technology using 1 of your faction ability, you may place the \"Y\" assimilator token on a faction technology owned by that player instead.  While that token is on a technology, this card gains that technology's text.  You cannot place an assimilator token on technology that already has an assimilator token."
        }
     ],
     "Sol": [
@@ -695,5 +695,173 @@
           "yellowRequirement": 0,
           "description": ""
        }
-    ]
+    ],
+    "Argent": [
+      {
+         "number": 1,
+         "name": "Aerie Hololattice",
+         "type": "Cybernetic",
+         "text": "",
+         "greenRequirement": 0,
+         "redRequirement": 0,
+         "blueRequirement": 0,
+         "yellowRequirement": 1,
+         "description": "Other players cannot move ships through systems that contain your structures. Each planet that contains 1 or more of your structures gains the PRODUCTION 1 ability as if it were a unit"
+      },
+      {
+         "number": 2,
+         "name": "Strike Wing Alpha II",
+         "type": "Unit",
+         "text": "De",
+         "greenRequirement": 0,
+         "redRequirement": 2,
+         "blueRequirement": 0,
+         "yellowRequirement": 0,
+         "description": ""
+      }
+   ],
+   "Empyrean": [
+     {
+        "number": 1,
+        "name": "Aetherstream",
+        "type": "Propulsion",
+        "text": "",
+        "greenRequirement": 0,
+        "redRequirement": 0,
+        "blueRequirement": 2,
+        "yellowRequirement": 0,
+        "description": "After you or one of your neighbors activates a system that is adjacent to an anomaly, you may apply +1 to the move value of all of that player's ships during this tactical action"
+     },
+     {
+        "number": 2,
+        "name": "Voidwatch",
+        "type": "Biotic",
+        "text": "",
+        "greenRequirement": 1,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": "After a player moves ships into a system that contains 1 or more of your units, they must give you 1 promissory note from their hand, if able"
+     }
+   ],
+   "Mahact": [
+     {
+        "number": 1,
+        "name": "Genetic Recombination",
+        "type": "Biotic",
+        "text": "",
+        "greenRequirement": 1,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": "You may exhaust this card before a player casts votes; that player must cast at least 1 vote for an outcome of your choice or remove 1 token from their fleet pool and return it to their reinforcements"
+     },
+     {
+        "number": 2,
+        "name": "Crimson Legionnaire II",
+        "type": "Unit",
+        "text": "Inf",
+        "greenRequirement": 2,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": ""
+     }
+   ],
+   "Naaz-Rokha": [
+     {
+        "number": 1,
+        "name": "Supercharge",
+        "type": "Warfare",
+        "text": "",
+        "greenRequirement": 0,
+        "redRequirement": 1,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": "At the start of a combat round, you may exhaust this card to apply +1 to the result of each of your unit's combat rolls during this combat round"
+     },
+     {
+        "number": 2,
+        "name": "Pre-Fab Arcologies",
+        "type": "Biotic",
+        "text": "",
+        "greenRequirement": 3,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": "After you explore a planet, ready that planet"
+     }
+   ],
+   "Nomad": [
+     {
+        "number": 1,
+        "name": "Temporal Command Suite",
+        "type": "Cybernetic",
+        "text": "",
+        "greenRequirement": 0,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 1,
+        "description": "After any player's agent becomes exhausted, you may exhaust this card to ready that agent; if you ready another player's agent, you may perform a transaction with that player"
+     },
+     {
+        "number": 2,
+        "name": "Memoria II",
+        "type": "Unit",
+        "text": "Flag",
+        "greenRequirement": 1,
+        "redRequirement": 0,
+        "blueRequirement": 1,
+        "yellowRequirement": 1,
+        "description": ""
+     }
+   ],
+   "Ul": [
+     {
+        "number": 1,
+        "name": "Saturn Engine II",
+        "type": "Unit",
+        "text": "Cr",
+        "greenRequirement": 1,
+        "redRequirement": 1,
+        "blueRequirement": 0,
+        "yellowRequirement": 1,
+        "description": ""
+     },
+     {
+        "number": 2,
+        "name": "Hel Titan II",
+        "type": "Unit",
+        "text": "PDS",
+        "greenRequirement": 0,
+        "redRequirement": 1,
+        "blueRequirement": 0,
+        "yellowRequirement": 1,
+        "description": ""
+     }
+   ],
+   "Vuil'Raith": [
+     {
+        "number": 1,
+        "name": "Vortex",
+        "type": "Warfare",
+        "text": "",
+        "greenRequirement": 0,
+        "redRequirement": 1,
+        "blueRequirement": 0,
+        "yellowRequirement": 0,
+        "description": "ACTION: Exhaust this card to choose another player's non-structure unit in a system that is adjacent to 1 or more of your space docks. Capture 1 unit of that type from that player's reinforcements"
+     },
+     {
+        "number": 2,
+        "name": "Dimensional Tear II",
+        "type": "Unit",
+        "text": "SD",
+        "greenRequirement": 0,
+        "redRequirement": 0,
+        "blueRequirement": 0,
+        "yellowRequirement": 2,
+        "description": ""
+     }
+  ]
  }

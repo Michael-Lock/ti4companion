@@ -1,130 +1,402 @@
 [
-  {
-    "system": "Abyz-Fria",
-    "wormhole": ""
-  },
-  {
-    "system": "Abyz-Fria",
-    "wormhole": ""
-  },
-  {
-    "system": "Arinam-Meer",
-    "wormhole": ""
-  },
-  {
-    "system": "Arinam-Meer",
-    "wormhole": ""
-  },
-  {
-    "system": "Arnor-Lor",
-    "wormhole": ""
-  },
-  {
-    "system": "Arnor-Lor",
-    "wormhole": ""
-  },
-  {
-    "system": "Bereg-Lirta IV",
-    "wormhole": ""
-  },
-  {
-    "system": "Bereg-Lirta IV",
-    "wormhole": ""
-  },
-  {
-    "system": "Centauri-Gral",
-    "wormhole": ""
-  },
-  {
-    "system": "Centauri-Gral",
-    "wormhole": ""
-  },
-  {
-    "system": "Coorneeq-Resculon",
-    "wormhole": ""
-  },
-  {
-    "system": "Coorneeq-Resculon",
-    "wormhole": ""
-  },
-  {
-    "system": "Dal Bootha-Xxehan",
-    "wormhole": ""
-  },
-  {
-    "system": "Dal Bootha-Xxehan",
-    "wormhole": ""
-  },
-  {
-    "system": "Lazar-Sakulag",
-    "wormhole": ""
-  },
-  {
-    "system": "Lazar-Sakulag",
-    "wormhole": ""
-  },
-  {
-    "system": "Lodor",
-    "wormhole": "Alpha"
-  },
-  {
-    "system": "Mehar Xull",
-    "wormhole": ""
-  },
-  {
-    "system": "Mellon-Zhobat",
-    "wormhole": ""
-  },
-  {
-    "system": "Mellon-Zhobat",
-    "wormhole": ""
-  },
-  {
-    "system": "New Albion-Starpoint",
-    "wormhole": ""
-  },
-  {
-    "system": "New Albion-Starpoint",
-    "wormhole": ""
-  },
-  {
-    "system": "Quann",
-    "wormhole": "Beta"
-  },
-  {
-    "system": "Qucen'n-Rarron",
-    "wormhole": ""
-  },
-  {
-    "system": "Qucen'n-Rarron",
-    "wormhole": ""
-  },
-  {
-    "system": "Saudor",
-    "wormhole": ""
-  },
-  {
-    "system": "Tar'Mann",
-    "wormhole": ""
-  },
-  {
-    "system": "Tequ'ran-Torkan",
-    "wormhole": ""
-  },
-  {
-    "system": "Tequ'ran-Torkan",
-    "wormhole": ""
-  },
-  {
-    "system": "Thibah",
-    "wormhole": ""
-  },
-  {
-    "system": "Vefut II",
-    "wormhole": ""
-  },
-  {
-    "system": "Wellon",
-    "wormhole": ""
-  }
+ {
+   "system": "Abaddon-Ashtroth-Loki",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Abyz-Fria",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Ang",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Archon Vail",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Arinam-Meer",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Arnor-Lor",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Atlas",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": true,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Ba'kal-Alio Prima",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Bereg-Lirta IV",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Cealdri-Xanhact",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Centauri-Gral",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Coorneeq-Resculon",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Cormund",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": true,
+   "nebula": false
+ },
+ {
+   "system": "Dal Bootha-Xxehan",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Everra",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": true
+ },
+ {
+   "system": "Hope's End",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Jeol Ir-Accoen",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Kraag-Siig",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Lazar-Sakulag",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Lisis-Velnor",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Lodor",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": true,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Mallice",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": true,
+   "wormholeBeta": true,
+   "wormholeGamma": true,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Mehar Xull",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Mellon-Zhobat",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Mirage",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "New Albion-Starpoint",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Perimeter",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Primor",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Quann",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": true,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Qucen'n-Rarron",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Rigel I-Rigel II-Rigel III",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Saudor",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Sem Lore",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Tar'Mann",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Tequ'ran-Torkan",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Thibah",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Vefut II",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Vega Major-Vega Minor",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Vorhal",
+   "setAdded": "PoK",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ },
+ {
+   "system": "Wellon",
+   "setAdded": "Base",
+   "setRemoved": "",
+   "wormholeAlpha": false,
+   "wormholeBeta": false,
+   "wormholeGamma": false,
+   "gravityRift": false,
+   "nebula": false
+ }
 ]

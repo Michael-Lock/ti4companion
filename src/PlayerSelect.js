@@ -4,14 +4,12 @@ import {Row, Col} from 'react-bootstrap';
 
 import './PlayerSelect.css';
 
-import faction_store from './data/factions.json';
-import tech_store from './data/technologies.json';
 import properties from './data/properties.json';
-import colour_store from './data/colours.json';
+import {colour_store, faction_store, tech_store} from './DataHelper.js';
 
 const PLAYER_NUMBER_INDEX_OFFSET = 3; //player 3 is array index 0
 //TODO: this should instead come from a user controlled setting, not a properties file
-const MAX_PLAYER_NUMBER = properties.enableProphecyOfKings ? 8 : 6;
+const MAX_PLAYER_NUMBER = properties.expansions.includes("PoK") ? 8 : 6;
 
 class PlayerSelect extends React.Component {
     constructor(props) {
@@ -32,8 +30,8 @@ class PlayerSelect extends React.Component {
         let playerDetail = {
             playerName: "Player " + (playerNumber + 1),
             playerNumber: playerNumber,
-            faction: properties.testMode ? faction_store[playerNumber] : null,
-            colour: properties.testMode ? colour_store[playerNumber] : null,
+            faction: properties.testMode ? faction_store()[playerNumber] : null,
+            colour: properties.testMode ? colour_store()[playerNumber] : null,
             strategies: [],
             victoryPoints: 0,
             isSpeaker: playerNumber === 0 ? true : false,
@@ -96,14 +94,14 @@ class PlayerSelect extends React.Component {
         let playerDetails = finalPlayerDetails.map((player) => {
             let newPlayer = {...player};
             let techSets = [];
-            techSets.push(this.createPlayerTechnologies(tech_store.Biotic));
-            techSets.push(this.createPlayerTechnologies(tech_store.Warfare));
-            techSets.push(this.createPlayerTechnologies(tech_store.Propulsion));
-            techSets.push(this.createPlayerTechnologies(tech_store.Cybernetic));
-            techSets.push(this.createPlayerTechnologies(tech_store[newPlayer.faction.shortName]));
-            techSets.push(this.createPlayerTechnologies(tech_store.Ship));
-            techSets.push(this.createPlayerTechnologies(tech_store.Unit));
-            techSets.push(this.createPlayerTechnologies(tech_store.Warsun));
+            techSets.push(this.createPlayerTechnologies(tech_store().Biotic));
+            techSets.push(this.createPlayerTechnologies(tech_store().Warfare));
+            techSets.push(this.createPlayerTechnologies(tech_store().Propulsion));
+            techSets.push(this.createPlayerTechnologies(tech_store().Cybernetic));
+            techSets.push(this.createPlayerTechnologies(tech_store()[newPlayer.faction.shortName]));
+            techSets.push(this.createPlayerTechnologies(tech_store().Ship));
+            techSets.push(this.createPlayerTechnologies(tech_store().Unit));
+            techSets.push(this.createPlayerTechnologies(tech_store().Warsun));
             newPlayer.techs = techSets;
             return newPlayer;
         });
@@ -255,7 +253,7 @@ class PlayerDetailForm extends React.Component {
 class PlayerDetailEntry extends React.Component {
     getFactionList() {
         let factionElements = [<option key="unselected" value={null} hidden/>]
-        factionElements = factionElements.concat(faction_store.map((faction) => 
+        factionElements = factionElements.concat(faction_store().map((faction) => 
             <option key={faction.shortName} value={JSON.stringify(faction)}>
                 {faction.fullName}
             </option>));
@@ -274,16 +272,12 @@ class PlayerDetailEntry extends React.Component {
 
     getColourList() {
         let colourElements = [<option key="unselected" value={null} hidden/>]
-        colourElements = colourElements.concat(colour_store.map((colour) => {
-            //TODO: this should instead come from a user controlled setting, not a properties file
-            if (properties.enableProphecyOfKings || !colour.expansionPok) { 
-                return (
-                    <option key={colour.description} value={JSON.stringify(colour)}>
-                        {colour.description}
-                    </option>
-                )
-            }
-            return null;
+        colourElements = colourElements.concat(colour_store().map((colour) => {
+            return (
+                <option key={colour.description} value={JSON.stringify(colour)}>
+                    {colour.description}
+                </option>
+            )
         }));
 
         let playerColour = this.props.playerDetail.colour ? JSON.stringify(this.props.playerDetail.colour) : undefined;

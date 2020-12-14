@@ -1,4 +1,4 @@
 {
     "testMode": false,
-    "enableProphecyOfKings": false
+    "expansions": ["Base", "PoK"]
 }

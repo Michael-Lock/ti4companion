@@ -2,7 +2,8 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-import objective_store from './data/objectives.json';
+import {objective_store} from './DataHelper.js';
+
 
 export default function ObjectiveSelectModal(props) {
     if (!props.showModal) {
@@ -12,7 +13,7 @@ export default function ObjectiveSelectModal(props) {
     let selectedObjectives = props.objectives.map((objective) => objective.isRevealed ? objective : null);
     selectedObjectives = selectedObjectives.filter((objective) => objective !== null);
 
-    let availableObjectives = objective_store.filter((objective) => objective.stage === props.stage);
+    let availableObjectives = objective_store().filter((objective) => objective.stage === props.stage);
     availableObjectives = availableObjectives.filter(
         (objective) => !selectedObjectives.some(
             function (selectedObjective) {
