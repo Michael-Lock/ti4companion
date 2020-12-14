@@ -5,6 +5,6 @@
     {"description": "Yellow", "colour": "yellow", "textColour": "black", "setAdded": "Base"},
     {"description": "Purple", "colour": "purple", "textColour": "white", "setAdded": "Base"},
     {"description": "Black", "colour": "black", "textColour": "white", "setAdded": "Base"},
-    {"description": "Pink", "colour": "pink", "textColour": "white", "setAdded": "PoK"},
+    {"description": "Pink", "colour": "pink", "textColour": "black", "setAdded": "PoK"},
     {"description": "Orange", "colour": "orange", "textColour": "white", "setAdded": "PoK"}
 ]
