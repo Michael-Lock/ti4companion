@@ -155,7 +155,7 @@ function VotePanel(props) {
         if (i === argentZealIndex) {
             destinationIndex = 0;
         }
-        else if (destinationIndex < argentZealIndex) {
+        else {
             destinationIndex++;
         }
 
