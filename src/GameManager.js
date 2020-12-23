@@ -242,7 +242,7 @@ class GameManager extends React.Component {
         let playerDetails = this.state.playerDetails.slice().map(
             player => ({
                 ...player,
-                strategy: null,
+                strategies: [],
                 isPassed: false,
             })
         );
