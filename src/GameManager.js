@@ -744,7 +744,7 @@ class GameManager extends React.Component {
                 if (playerInitiativeNumber < activePlayerInitiative) {
                     playerInitiativeNumber += initiativeRange;
                 }
-                if (playerInitiativeNumber < highestInitiativeNumber) {
+                if (playerInitiativeNumber <= highestInitiativeNumber) {
                     highestInitiativeNumber = playerInitiativeNumber;
                     nextPlayer = player;
                 }
