@@ -41,6 +41,7 @@ class PlayAgenda extends React.Component {
                         playerDetails={this.props.playerDetails}
                         onAvailableVotesClick={(e, playerString, delta) => this.props.onAvailableVotesClick(e, playerString, delta)}
                         onSpentVotesClick={(e, playerString, delta) => this.props.onSpentVotesClick(e, playerString, delta)}
+                        onExtraVotesClick={(e, playerString, delta) => this.props.onExtraVotesClick(e, playerString, delta)}
                         onVoteTargetChange={(e, playerString) => this.props.onVoteTargetChange(e, playerString)}
                     />
                 </Row>
@@ -69,6 +70,7 @@ function AgendaForm(props) {
         selectedAgenda={props.selectedAgenda}
         onAvailableVotesClick={(e, playerString, delta) => props.onAvailableVotesClick(e, playerString, delta)}
         onSpentVotesClick={(e, playerString, delta) => props.onSpentVotesClick(e, playerString, delta)}
+        onExtraVotesClick={(e, playerString, delta) => props.onExtraVotesClick(e, playerString, delta)}
         onVoteTargetChange={(e, playerString) => props.onVoteTargetChange(e, playerString)}
     />
     : null
@@ -167,6 +169,7 @@ function VotePanel(props) {
             selectedAgenda={props.selectedAgenda}
             onAvailableVotesClick={(e, playerString, delta) => props.onAvailableVotesClick(e, playerString, delta)}
             onSpentVotesClick={(e, playerString, delta) => props.onSpentVotesClick(e, playerString, delta)}
+            onExtraVotesClick={(e, playerString, delta) => props.onExtraVotesClick(e, playerString, delta)}
             onVoteTargetChange={(e, playerString) => props.onVoteTargetChange(e, playerString)}
         />
     }
@@ -184,6 +187,11 @@ function VotePanel(props) {
                 <Col xs={2} xl={2}>
                     <p className="columnHeader">
                         Assigned
+                    </p>
+                </Col>
+                <Col xs={2} xl={2}>
+                    <p className="columnHeader">
+                        Extra
                     </p>
                 </Col>
             </Row>
@@ -251,6 +259,28 @@ function PlayerVotePanel(props) {
                         onContextMenu={e => props.onSpentVotesClick(e, JSON.stringify(props.player), 1)}
                     >
                         {props.player.spentVotes % 10}
+                    </Button>
+                </ButtonGroup>
+            </Col>
+            <Col xs={2} xl={2}>
+                <ButtonGroup>
+                    <Button 
+                        variant="light"
+                        key="tens" 
+                        className="digitButton tens"
+                        onClick={e => props.onExtraVotesClick(e, JSON.stringify(props.player), 10)}
+                        onContextMenu={e => props.onExtraVotesClick(e, JSON.stringify(props.player), 10)}
+                    >
+                        {props.player.extraVotes >= 10 ? Math.floor(props.player.extraVotes / 10) : ""}
+                    </Button>
+                    <Button 
+                        variant="light"
+                        key="ones" 
+                        className="digitButton ones"
+                        onClick={e => props.onExtraVotesClick(e, JSON.stringify(props.player), 1)}
+                        onContextMenu={e => props.onExtraVotesClick(e, JSON.stringify(props.player), 1)}
+                    >
+                        {props.player.extraVotes % 10}
                     </Button>
                 </ButtonGroup>
             </Col>
@@ -362,7 +392,7 @@ function ResultsPanel(props) {
     let players = props.playerDetails;
     let resolutions = [];
     for (let i = 0; i < players.length; i++) {
-        if (players[i].voteTarget && players[i].spentVotes > 0) {
+        if (players[i].voteTarget && (players[i].spentVotes > 0 || players[i].extraVotes > 0 )) {
             let existingResolution = null;
             for (let j = 0; j < resolutions.length; j++) {
                 if (resolutions[j].resolution === players[i].voteTarget) {
@@ -373,12 +403,14 @@ function ResultsPanel(props) {
                 resolutions[existingResolution] = {
                     resolution: resolutions[existingResolution].resolution,
                     votes: resolutions[existingResolution].votes + players[i].spentVotes,
+                    extraVotes: resolutions[existingResolution].extraVotes + players[i].extraVotes,
                 }
             }
             else {
                 resolutions.push({
                     resolution: players[i].voteTarget, 
                     votes: players[i].spentVotes,
+                    extraVotes: players[i].extraVotes,
                 })
             }
         }
@@ -386,12 +418,12 @@ function ResultsPanel(props) {
 
     let votedResolutions = null;
     if (resolutions.length > 0) {
-        resolutions.sort((a,b) => b.votes - a.votes);
+        resolutions.sort((a,b) => (b.votes + b.extraVotes) - (a.votes + a.extraVotes));
         votedResolutions = [];
         for (let i = 0; i < resolutions.length; i++) {
             votedResolutions.push(
                 <p className="votedResolution" key={i}>
-                    {resolutions[i].resolution} - {resolutions[i].votes} votes
+                    {resolutions[i].resolution} - {resolutions[i].votes + resolutions[i].extraVotes} votes ({resolutions[i].votes} + {resolutions[i].extraVotes})
                 </p>
             ); 
         }

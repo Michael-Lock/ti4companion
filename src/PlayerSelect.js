@@ -40,6 +40,7 @@ class PlayerSelect extends React.Component {
             isNaaluTelepathic: false,
             availableVotes: 0,
             spentVotes: 0,
+            extraVotes: 0,
         }
         return playerDetail;
     }

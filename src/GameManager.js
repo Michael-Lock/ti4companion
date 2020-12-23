@@ -331,6 +331,26 @@ class GameManager extends React.Component {
         });
     }
 
+    handleExtraVotesClick(e, playerString, delta) {
+        let player = JSON.parse(playerString);
+        let newPlayerDetails = this.state.playerDetails.slice();
+        let newExtraVotes = player.extraVotes;
+
+        if (e.nativeEvent.which === LEFT_CLICK) {
+            newExtraVotes = Math.min(99, player.extraVotes + delta);
+        }
+        else if (e.nativeEvent.which === RIGHT_CLICK) {
+            newExtraVotes = Math.max(0, player.extraVotes - delta);
+        }
+        
+        let newPlayer = {...player};
+        newPlayer.extraVotes = newExtraVotes;
+        newPlayerDetails[newPlayer.playerNumber] = newPlayer;
+        this.setState({
+            playerDetails: newPlayerDetails,
+        });
+    }
+
     handleVoteTargetChange(e, playerString) {
         let player = JSON.parse(playerString);
         let newPlayerDetails = this.state.playerDetails.slice();
@@ -404,6 +424,7 @@ class GameManager extends React.Component {
             let player = {...newPlayerDetails[i]};
             player.availableVotes = player.availableVotes - player.spentVotes;
             player.spentVotes = 0;
+            player.extraVotes = 0;
             player.voteTarget = null;
             newPlayerDetails[i] = player;
         }
@@ -419,6 +440,7 @@ class GameManager extends React.Component {
             let player = {...newPlayerDetails[i]};
             player.availableVotes = 0;
             player.spentVotes = 0;
+            player.extraVotes = 0;
             player.voteTarget = null;
             newPlayerDetails[i] = player;
         }
@@ -827,6 +849,7 @@ class GameManager extends React.Component {
                             onEndAgenda={() => this.handleEndAgenda()}
                             onAvailableVotesClick={(e, playerString, delta) => this.handleAvailableVotesClick(e, playerString, delta)}
                             onSpentVotesClick={(e, playerString, delta) => this.handleSpentVotesClick(e, playerString, delta)}
+                            onExtraVotesClick={(e, playerString, delta) => this.handleExtraVotesClick(e, playerString, delta)}
                             onVoteTargetChange={(e, playerString) => this.handleVoteTargetChange(e, playerString)}
                         />
                     </Col>
